@@ -1,12 +1,12 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import { useState } from "react";
-import { Menu, X } from "lucide-react";
+import {Link} from "react-router-dom";
+import {useState} from "react";
+import {Menu, X} from "lucide-react";
 
 export default function Navbar() {
     const [isOpen, setIsOpen] = useState(false);
     return (
-        <nav className="sticky top-0 left-0 w-full h-[80px] bg-[var(--color-primary)] text-white flex items-center justify-between px-10 z-50">
+        <nav
+            className="sticky top-0 left-0 w-full h-[80px] bg-[var(--color-primary)] text-white flex items-center justify-between px-10 z-50">
             <Link to="/">
                 <div className="flex items-center gap-2 pl-2 md:pl-12">
                     <img src="/assets/logos/Logo.png"

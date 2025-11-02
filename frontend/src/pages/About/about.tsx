@@ -1,9 +1,8 @@
-import React from "react"
-
 export default function AboutUs() {
     return (
         <section className=" bg-white text-[#1D2939]">
-            <div className="md:pl-20 pl-4 sm:pt-[80px] pr-4 mx-auto px-0 grid md:grid-cols-[35%_65%] gap-0 items-center">
+            <div
+                className="md:pl-20 pl-4 sm:pt-[80px] pr-4 mx-auto px-0 grid md:grid-cols-[35%_65%] gap-0 items-center">
                 <div className=" pt-8 sm:pt-0 font-bold text-2xl leading-8 tracking-[0.5%] pb-10">
                     <h2>About our dream.</h2>
                     <h2>Our History.</h2>
@@ -25,7 +24,8 @@ export default function AboutUs() {
                         From the latest blockbusters to timeless classics, our diverse selection of films
                         caters to every taste and preference.<br/>
                         <p>
-                            <br/>As a hub for community entertainment, we take pride in being more than just a cinema.<br/>
+                            <br/>As a hub for community entertainment, we take pride in being more than just a
+                            cinema.<br/>
                             Join us at Cinebh and discover why we're not just your average movie theater —
                             we're your destination for cinematic excellence and entertainment bliss.
                         </p>

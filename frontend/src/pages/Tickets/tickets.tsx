@@ -1,11 +1,9 @@
-import React from "react"
-
-import { TicketsCard, type TicketsCardProps } from "../../components/Cards/TicketsCard";
+import {TicketsCard, type TicketsCardProps} from "../../components/Cards/TicketsCard";
 
 const TICKETS: TicketsCardProps[] = [
     {
         title: "Regular Seats", price: 7, disclaimer: "*per ticket",
-        options: [ "Comfortable seating", "Affordable pricing", "Wide selection", "Accessible locations", "Suitable for everyone" ],
+        options: ["Comfortable seating", "Affordable pricing", "Wide selection", "Accessible locations", "Suitable for everyone"],
         isMainCard: false,
     },
     {
@@ -32,9 +30,9 @@ export default function Tickets() {
                 </div>
             </div>
             <div className="flex md:flex-row flex-col justify-center md:items-stretch items-center gap-4 md:mt-16 mt-6">
-                {TICKETS.map((card ) => (
+                {TICKETS.map((card) => (
                     <TicketsCard title={card.title} price={card.price} disclaimer={card.disclaimer}
-                                 options={card.options} isMainCard={card.isMainCard} />)
+                                 options={card.options} isMainCard={card.isMainCard}/>)
                 )}
             </div>
         </section>
