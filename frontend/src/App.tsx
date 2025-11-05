@@ -1,14 +1,18 @@
-import React from "react"
-
 import MainLayout from "./layout/MainLayout";
 import AppRoutes from "./routes/AppRoutes";
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import {ReactQueryDevtools} from "@tanstack/react-query-devtools";
+
+const queryClient = new QueryClient();
 
 export default function App() {
     return (
-        <MainLayout>
-            <AppRoutes />
-        </MainLayout>
+        <QueryClientProvider client={queryClient}>
+            <MainLayout>
+                <AppRoutes />
+            </MainLayout>
+            <ReactQueryDevtools initialIsOpen={false} />
+        </QueryClientProvider>
     );
 }
-
 

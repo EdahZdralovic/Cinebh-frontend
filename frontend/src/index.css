@@ -1,9 +1,9 @@
+@import "@fontsource/urbanist/700.css";
+@import "@fontsource/urbanist/400.css";
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
-@import "@fontsource/urbanist/400.css";
-@import "@fontsource/urbanist/700.css";
 
 :root {
     font-family: "Urbanist", sans-serif;

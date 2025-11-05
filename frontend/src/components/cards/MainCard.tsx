@@ -4,36 +4,35 @@ export interface MainCardProps {
     coverImageUrl: string;
     title: string;
     duration?: number;
-    genre?: string;
-    address?: string;
-
+    movieGenres?: string[];
+    street?: string;
+    isMovie?: boolean;
 }
 
-export default function MainCard({ coverImageUrl, title, duration, genre, address}: MainCardProps) {
+export default function MainCard({coverImageUrl, title, duration, movieGenres, street, isMovie}: MainCardProps) {
     //kartica je univerzalna i za filmove i za kina (jer isti je dizajn)
     //filmovi imaju genre i duration a kino ima adresu
-    const isMovie = duration != null;
+
+    const genre = movieGenres?.[0]
+
     let detailsContent: React.ReactNode = null;
     if (isMovie) {
         detailsContent = (
-            <>
-                <span className="whitespace-nowrap">{duration} MIN</span>
-                <span className="h-5 w-px bg-[#667085]/100 ml-1 mr-1"/>
-                <span className="truncate">{genre}</span>
-            </>
-        );
-    } else if (address != null) {
-        detailsContent = <span className="truncate max-w-[220px] sm:max-w-[265px]">{address}</span>;
-    } else {
-        detailsContent = null;
+            <div className="">
+                <span className="whitespace-nowrap pr-2">{duration} MIN</span>
+                <span className="h-5 w-px bg-[#667085] mx-2 inline-block align-text-bottom "></span>
+                <span className="px-2">{genre}</span>
+            </div> );   }
+    else if (!isMovie) {
+        detailsContent = (
+            <div> <span className="text-[#667085] text-wrap ">{street}</span> </div>);
     }
-
     return (
         <div
-            className="text-[#1D2939] shadow-lg relative border grid grid-rows-12grid-col-1 items-center  rounded-3xl flex w-[255px] sm:w-[302px]  ">
-            <div className="relative m-4  aspect-[94/100]  ">
+            className="text-[#1D2939]  shadow-lg relative border grid sm:w-[25%] items-center grid-col-1   rounded-3xl flex ">
+            <div className="relative m-4  aspect-[94/100] ">
                 <img src={coverImageUrl} alt={title}
-                     className="relative h-full w-[100%] rounded-2xl max-w-[220px] sm:max-w-[400px] object-cover"/>
+                     className="relative h-full w-[100%] rounded-2xl object-cover"/>
             </div>
             <div className="font-semibold pl-4 text-[20px] pb-2 ">
                 {title}

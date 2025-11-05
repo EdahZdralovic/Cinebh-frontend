@@ -1,15 +1,15 @@
 import axios from "axios";
 
-const API_BASE_URL = "http://localhost:8080/api/movies";
+const API_BASE_URL = "http://localhost:8080/api/";
 
-export const getMovies = async (page: number, size: number) => {
+export const getMovies = async (type: string, page: number, size: number) => {
     try {
-        const response = await axios.get(API_BASE_URL, {
-            params: { page, size },
+        const response = await axios.get(`${API_BASE_URL}${type}`, {
+            params: {type, page, size},
         });
         return response.data;
     } catch (error) {
-        console.error("jbga filmovi", error);
+        console.error("ups", error);
         throw error;
     }
 };
