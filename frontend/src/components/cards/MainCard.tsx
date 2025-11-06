@@ -7,9 +7,10 @@ export interface MainCardProps {
     movieGenres?: string[];
     street?: string;
     isMovie?: boolean;
+    synopsis?: string;
 }
 
-export default function MainCard({coverImageUrl, title, duration, movieGenres, street, isMovie}: MainCardProps) {
+export default function MainCard({coverImageUrl,duration, title, movieGenres, street, isMovie}: MainCardProps) {
     //kartica je univerzalna i za filmove i za kina (jer isti je dizajn)
     //filmovi imaju genre i duration a kino ima adresu
 
@@ -23,7 +24,7 @@ export default function MainCard({coverImageUrl, title, duration, movieGenres, s
                 <span className="h-5 w-px bg-[#667085] mx-2 inline-block align-text-bottom "></span>
                 <span className="px-2">{genre}</span>
             </div> );   }
-    else if (!isMovie) {
+    else {
         detailsContent = (
             <div> <span className="text-[#667085] text-wrap ">{street}</span> </div>);
     }

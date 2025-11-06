@@ -1,5 +1,5 @@
-import {useQuery} from "@tanstack/react-query";
-import {getMovies} from "../services/movieService.ts";
+import { useQuery } from "@tanstack/react-query";
+import { getMovies } from "../services/movieService.ts";
 import type {MainCardProps} from "../components/Cards/MainCard.tsx";
 
 
@@ -11,7 +11,7 @@ interface MainCardResponse {
 }
 
 export function useMainCards(page: number, size: number, type: string) {
-    const {data, isLoading, isError, error,} = useQuery<MainCardResponse>({
+    const {data, isLoading, isError, error} = useQuery<MainCardResponse>({
         queryKey: ["main-cards", type, page, size],
         queryFn: () => getMovies(type, page, size),
         staleTime: 1000 * 60 * 5, //jel oke 5 minuta da traje do iduceg fetcha

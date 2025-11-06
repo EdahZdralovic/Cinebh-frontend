@@ -1,11 +1,12 @@
-import {Link} from "react-router-dom";
-import {useState} from "react";
-import {Menu, X} from "lucide-react";
+import { Link } from "react-router-dom";
+import { useState } from "react";
+import { Menu, X } from "lucide-react";
 
 export default function Navbar() {
     const [isOpen, setIsOpen] = useState(false);
     return (
-        <nav className="sticky top-0 left-0 w-full h-[80px] bg-[var(--color-primary)] text-white flex items-center justify-between px-10 z-50">
+        <nav
+            className="sticky top-0 left-0 w-full h-[80px] bg-[var(--color-primary)] text-white flex items-center justify-between px-10 z-50">
             <Link to="/">
                 <div className="flex items-center gap-2 pl-2 md:pl-12">
                     <img src="/assets/logos/Logo.png"
@@ -17,14 +18,18 @@ export default function Navbar() {
                 <div className="md:hidden w-[28px]"/>
             </Link>
             <div className="flex flex-header items-center">
-                <div className="gap-6 flex absolute left-1/2 transform -translate-x-1/2 justify-items-center text-sm hidden md:flex">
-                    <Link to="/showing" className="hover:font-semibold hover:underline underline-offset-4 hover:-mx-[2px]">
+                <div
+                    className="gap-6 flex absolute left-1/2 transform -translate-x-1/2 justify-items-center text-sm hidden md:flex">
+                    <Link to="/showing"
+                          className="hover:font-semibold hover:underline underline-offset-4 hover:-mx-[2px]">
                         Currently Showing
                     </Link>
-                    <Link to="/upcoming" className=" hover:font-semibold hover:underline underline-offset-4 hover:-mx-[2px]">
+                    <Link to="/upcoming"
+                          className=" hover:font-semibold hover:underline underline-offset-4 hover:-mx-[2px]">
                         Upcoming Movies
                     </Link>
-                    <Link to="/venues" className=" hover:font-semibold hover:underline underline-offset-4 hover:-mx-[1px]">
+                    <Link to="/venues"
+                          className=" hover:font-semibold hover:underline underline-offset-4 hover:-mx-[1px]">
                         Venues
                     </Link>
                 </div>
@@ -37,7 +42,8 @@ export default function Navbar() {
                 </div>
             </div>
             {isOpen && (
-                <div className="absolute left-0 top-full w-full md:hidden shadow-lg bg-[var(--color-primary)] border-t border-white/10">
+                <div
+                    className="absolute left-0 top-full w-full md:hidden shadow-lg bg-[var(--color-primary)] border-t border-white/10">
                     <nav className="mx-auto flex max-w-[1440px] flex-col items-center gap-4 px-6 py-8">
                         <Link to="/showing" onClick={() => setIsOpen(false)} className="text-base">Currently
                             Showing</Link>
