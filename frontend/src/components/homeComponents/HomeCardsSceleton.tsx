@@ -6,7 +6,7 @@ export function HomeCardsSceleton() {
 
     return (
         <section className="flex justify-center px-[4%] items-center text-[var(--color-primary)]">
-            <div className=" relative w-[93%] mt-10 rounded-3xl h-3/3 items-center animate-pulse ">
+            <div className=" relative w-[93%] mt-8 h-3/3 items-center animate-pulse ">
                 <div className="flex justify-between align-middle  ">
                     <h1 className=" sm:text-[34px] text-[22px] font-bold text-gray-400">Loading</h1>
                 </div>

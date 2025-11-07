@@ -1,6 +1,7 @@
 import HomeCardsContainer from "../../components/homeComponents/HomeCardsContainer.tsx";
 import { HomeHeroSection } from "../../components/homeComponents/HomeHeroSection.tsx";
 import VenuesTicker from "../../components/homeComponents/VenuesTicker.tsx";
+import {HomeCardsSceleton} from "../../components/homeComponents/HomeCardsSceleton.tsx";
 
 function Home() {
     const CurrenlyShowingRoute = "movies/currently-showing";
@@ -17,7 +18,7 @@ function Home() {
                 <HomeCardsContainer sectionName={"Upcoming Movies"} type={UpcomingRoute} isMovie={true}
                                     seeAllLink={"/upcoming"}/>
                 <HomeCardsContainer sectionName={"Venues"} type={VenuesRoute} isMovie={false} seeAllLink={"/venues"}/>
-
+                <HomeCardsSceleton />
             </div>
         </section>
     );

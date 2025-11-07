@@ -14,18 +14,11 @@ export interface HomeSectionProps {
     seeAllLink: string;
 }
 
-export default function HomeCardsSection({
-                                             cards,
-                                             isMovie,
-                                             totalElements,
-                                             totalPages,
-                                             pageNumber,
-                                             sectionName,
-                                             onPreviousPage,
-                                             onNextPage,
-                                             seeAllLink
-                                         }: HomeSectionProps) {
-    return (<section className="flex justify-center px-[4%] items-center text-[var(--color-primary)]">
+export default function HomeCardsSection({cards, isMovie, totalElements, totalPages, pageNumber, sectionName,
+                                             onPreviousPage, onNextPage, seeAllLink}: HomeSectionProps)
+{
+    return (
+        <section className="flex justify-center px-[4%] items-center text-[var(--color-primary)]">
             <div className=" relative w-[93%] mt-8 rounded-3xl h-3/3 items-center ">
                 <div className="flex justify-between align-middle  ">
                     <h1 className=" sm:text-[34px] text-[22px] font-bold ">{sectionName}</h1>
@@ -47,6 +40,7 @@ export default function HomeCardsSection({
                     <ArrowButton onClick={onNextPage} disabled={pageNumber === totalPages - 1} directionLeft={false}/>
                 </div>
             </div>
-        </section>);
+        </section>
+    );
 }
 
