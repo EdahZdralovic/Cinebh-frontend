@@ -1,6 +1,6 @@
-import type {MainCardProps} from "./Cards/MainCard.tsx";
+import type {MainCardProps} from "../cards/MainCard.tsx";
 import {useState} from "react";
-import {useMainCards} from "../hooks/useMainCards.ts";
+import {useMainCards} from "../../hooks/useMainCards.ts";
 
 export interface HomeHeroProps {
     movies: MainCardProps[];
@@ -21,16 +21,16 @@ export function HomeHeroSection() {
 
     return (
         <section >
-            <div className=" bg-center flex justify-end flex-col bg-cover aspect-[16/9] "
+            <div className=" bg-center flex justify-end flex-col bg-cover sm:aspect-[16/8] aspect-[9/16] "
                  style={{backgroundImage: `url(${movie.coverImageUrl})`}}>
                 <div
-                    className="relative pl-[6%] pb-[10%] flex flex-col text-white  items-start justify-end font-bold">
+                    className="relative pl-[6%] pb-[10%]  flex flex-col text-white  items-start justify-end font-bold">
                     <button
-                        className="h-[32px] px-4 mb-2 w-auto font-thin text-[12px] text-[var(--color-primary)]  bg-gray-200 rounded-[8px] ">
+                        className="sm:h-[32px] h-6 px-4 mb-2 w-auto font-thin text-[12px] text-[var(--color-primary)]  bg-gray-200 rounded-[8px] ">
                         {genre}
                     </button>
-                    <h1 className="mt-3 text-5xl ">{movie.title}</h1>
-                    <p className="text-xl pt-4 leading-relaxed font-semibold max-w-[80%]"> {movie.synopsis}</p>
+                    <h1 className="mt-3 sm:text-5xl text-xl">{movie.title}</h1>
+                    <p className="sm:text-xl text-sm pt-4 leading-relaxed font-semibold max-w-[80%]"> {movie.synopsis}</p>
                 </div>
 
                 <div className="relative  pb-6 left-1/2-translate-x-1/2 flex justify-center gap-6 ">

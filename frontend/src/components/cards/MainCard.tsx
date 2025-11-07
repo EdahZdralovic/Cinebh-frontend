@@ -30,7 +30,7 @@ export default function MainCard({coverImageUrl,duration, title, movieGenres, st
     }
     return (
         <div
-            className="text-[#1D2939]  shadow-lg relative border grid sm:w-[25%] items-center grid-col-1   rounded-3xl flex ">
+            className="text-[#1D2939]  shadow-lg relative border grid sm:max-w-[24%] items-center grid-col-1   rounded-3xl flex ">
             <div className="relative m-4  aspect-[94/100] ">
                 <img src={coverImageUrl} alt={title}
                      className="relative h-full w-[100%] rounded-2xl object-cover"/>

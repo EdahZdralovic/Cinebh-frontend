@@ -1,5 +1,7 @@
-import HomeCardsContainer from "../../components/HomeCardsContainer.tsx";
-import { HomeHeroSection } from "../../components/HomeHeroSection.tsx";
+import HomeCardsContainer from "../../components/homeComponents/HomeCardsContainer.tsx";
+import { HomeHeroSection } from "../../components/homeComponents/HomeHeroSection.tsx";
+import VenuesTicker from "../../components/homeComponents/VenuesTicker.tsx";
+import {HomeCardsSceleton} from "../../components/homeComponents/HomeCardsSceleton.tsx";
 
 export function Home() {
     const CurrenlyShowingRoute = "movies/currently-showing";
@@ -9,9 +11,10 @@ export function Home() {
         <section>
             <div className="flex justify-center w-full grid grid-row">
                 <HomeHeroSection/>
-                <HomeCardsContainer sectionName={"Currently Showing"} type={CurrenlyShowingRoute} isMovie={true}/>
-                <HomeCardsContainer sectionName={"Upcoming Movies"} type={UpcomingRoute} isMovie={true}/>
-                <HomeCardsContainer sectionName={"Venues"} type={VenuesRoute} isMovie={false}/>
+                <VenuesTicker type={VenuesRoute} size={22}/>
+                <HomeCardsContainer sectionName={"Currently Showing"} type={CurrenlyShowingRoute} isMovie={true} seeAllLink={"/showing"}/>
+                <HomeCardsContainer sectionName={"Upcoming Movies"} type={UpcomingRoute} isMovie={true} seeAllLink={"/upcoming"}/>
+                <HomeCardsContainer sectionName={"Venues"} type={VenuesRoute} isMovie={false}  seeAllLink={"/venues"}/>
             </div>
         </section>
     );

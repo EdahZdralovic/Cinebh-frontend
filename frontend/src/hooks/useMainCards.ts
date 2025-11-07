@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { getMovies } from "../services/movieService.ts";
-import type {MainCardProps} from "../components/Cards/MainCard.tsx";
+import type {MainCardProps} from "../components/cards/MainCard.tsx";
 
 
 interface MainCardResponse {

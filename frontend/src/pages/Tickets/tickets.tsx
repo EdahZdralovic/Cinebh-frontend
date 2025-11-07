@@ -1,4 +1,4 @@
-import {TicketsCard, type TicketsCardProps} from "../../components/Cards/TicketsCard";
+import {TicketsCard, type TicketsCardProps} from "../../components/cards/TicketsCard";
 
 const TICKETS: TicketsCardProps[] = [
     {

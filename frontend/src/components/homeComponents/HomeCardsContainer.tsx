@@ -1,29 +1,32 @@
-import { useMainCards } from "../hooks/useMainCards.ts";
-import type {MainCardProps} from "./Cards/MainCard.tsx";
+import { useMainCards } from "../../hooks/useMainCards.ts";
+import type {MainCardProps} from "../cards/MainCard.tsx";
 import HomeCardsSection from "./HomeCardsSection.tsx";
 import { useState } from "react";
+import {HomeCardsSceleton} from "./HomeCardsSceleton.tsx";
 
 
 interface HomeCardsProps {
     sectionName: string;
     type: string;
     isMovie: boolean;
+    seeAllLink: string;
 }
 
 export function createHomeSelecton(mainCard: MainCardProps[], sectionName: string, page: number, nextPage: () => void,
-                                   previousPage: () => void, totalPages: number, totalElements: number, isMovie: boolean) {
-    return (<section>
+                                   previousPage: () => void, totalPages: number, totalElements: number, isMovie: boolean,seeAllLink: string) {
+    return (
+        <section>
         <HomeCardsSection sectionName={sectionName} cards={mainCard} pageNumber={page} totalPages={totalPages}
                           totalElements={totalElements} isMovie={isMovie} onPreviousPage={previousPage}
-                          onNextPage={nextPage}/>
-    </section>);
+                          onNextPage={nextPage} seeAllLink={seeAllLink}/>
+        </section>);
 }
 
-export default function HomeCardsContainer({sectionName, isMovie, type}: HomeCardsProps) {
+export default function HomeCardsContainer({sectionName,seeAllLink, isMovie, type}: HomeCardsProps) {
     const [page, setPage] = useState(0);
     const size = 4;
     const {mainCard, loading, error, totalPages, totalElements} = useMainCards(page, size, type);
-    if (loading) return <p>Loading...</p>;
+    if (loading) return <HomeCardsSceleton />;
     if (error) return <p>Error</p>;
 
     function nextPage() {
@@ -35,6 +38,6 @@ export default function HomeCardsContainer({sectionName, isMovie, type}: HomeCar
     }
 
     return (
-        createHomeSelecton(mainCard, sectionName, page, nextPage, previousPage, totalPages, totalElements, isMovie)
+        createHomeSelecton(mainCard, sectionName, page, nextPage, previousPage, totalPages, totalElements, isMovie, seeAllLink)
     );
 }
