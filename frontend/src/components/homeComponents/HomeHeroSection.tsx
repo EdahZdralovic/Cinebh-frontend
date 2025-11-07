@@ -1,6 +1,6 @@
-import type {MainCardProps} from "../cards/MainCard.tsx";
-import {useState} from "react";
-import {useMainCards} from "../../hooks/useMainCards.ts";
+import type { MainCardProps } from "../cards/MainCard.tsx";
+import { useState } from "react";
+import { useMainCards } from "../../hooks/useMainCards.ts";
 
 export interface HomeHeroProps {
     movies: MainCardProps[];
@@ -13,20 +13,18 @@ export function HomeHeroSection() {
     const movies = mainCard
 
     if (loading) return <p>Loading...</p>;
-    if (error) return <p>Error</p>;
-    if (!movies || movies.length === 0) return <p>No movies available.</p>; //bez ovoga zna nekada crashat home
+    if (error) return <p></p>;
+    if (!movies || movies.length === 0) return; //bez ovoga zna nekada crashat home
 
     const movie = movies[movieNumber];
     const genre = movie.movieGenres?.[0]
 
     return (
-        <section >
+        <section>
             <div className=" bg-center flex justify-end flex-col bg-cover sm:aspect-[16/8] aspect-[9/16] "
                  style={{backgroundImage: `url(${movie.coverImageUrl})`}}>
-                <div
-                    className="relative pl-[6%] pb-[10%]  flex flex-col text-white  items-start justify-end font-bold">
-                    <button
-                        className="sm:h-[32px] h-6 px-4 mb-2 w-auto font-thin text-[12px] text-[var(--color-primary)]  bg-gray-200 rounded-[8px] ">
+                <div className="relative pl-[6%] pb-[10%]  flex flex-col text-white  items-start justify-end font-bold">
+                    <button className="sm:h-[32px] h-6 px-4 mb-2 w-auto font-thin text-[12px] text-[var(--color-primary)]  bg-gray-200 rounded-[8px] ">
                         {genre}
                     </button>
                     <h1 className="mt-3 sm:text-5xl text-xl">{movie.title}</h1>

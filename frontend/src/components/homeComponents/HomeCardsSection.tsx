@@ -1,4 +1,4 @@
-import MainCard, {type MainCardProps } from "../cards/MainCard.tsx";
+import MainCard, { type MainCardProps } from "../cards/MainCard.tsx";
 import ArrowButton from "../buttons/ArrowButton.tsx";
 import { Link } from "react-router-dom";
 
@@ -14,20 +14,18 @@ export interface HomeSectionProps {
     seeAllLink: string;
 }
 
-export default function HomeCardsSection(
-    {
-        cards,
-        isMovie,
-        totalElements,
-        totalPages,
-        pageNumber,
-        sectionName,
-        onPreviousPage,
-        onNextPage,
-        seeAllLink
-    }: HomeSectionProps) {
-    return (
-        <section className="flex justify-center px-[4%] items-center text-[var(--color-primary)]">
+export default function HomeCardsSection({
+                                             cards,
+                                             isMovie,
+                                             totalElements,
+                                             totalPages,
+                                             pageNumber,
+                                             sectionName,
+                                             onPreviousPage,
+                                             onNextPage,
+                                             seeAllLink
+                                         }: HomeSectionProps) {
+    return (<section className="flex justify-center px-[4%] items-center text-[var(--color-primary)]">
             <div className=" relative w-[93%] mt-10 rounded-3xl h-3/3 items-center ">
                 <div className="flex justify-between align-middle  ">
                     <h1 className=" sm:text-[34px] text-[22px] font-bold ">{sectionName}</h1>
@@ -36,10 +34,8 @@ export default function HomeCardsSection(
                 </div>
                 <div className="flex flex-col  sm:flex-row items-center gap-4 pt-4">
                     {cards.map((card) => (
-                            <MainCard coverImageUrl={card.coverImageUrl} title={card.title} duration={card.duration}
-                                      movieGenres={card.movieGenres} isMovie={isMovie} street={card.street}/>
-                        )
-                    )}
+                        <MainCard coverImageUrl={card.coverImageUrl} title={card.title} duration={card.duration}
+                                  movieGenres={card.movieGenres} isMovie={isMovie} street={card.street}/>))}
                 </div>
                 <div className="flex flex-row justify-end items-center gap-4 pt-6 font-thin mr-0 mb-10 text-[16px]">
                     <div>
@@ -49,10 +45,8 @@ export default function HomeCardsSection(
                     </div>
                     <ArrowButton onClick={onPreviousPage} disabled={pageNumber === 0} directionLeft={true}/>
                     <ArrowButton onClick={onNextPage} disabled={pageNumber === totalPages - 1} directionLeft={false}/>
-
                 </div>
             </div>
-        </section>
-    );
+        </section>);
 }
 
