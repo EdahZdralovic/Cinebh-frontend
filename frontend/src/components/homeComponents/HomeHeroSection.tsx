@@ -8,43 +8,38 @@ export function HomeHeroSection() {
     const {mainCard, loading, error} = useMainCards(0, 3, "movies/currently-showing");
     const [movieNumber, setMovieNumber] = useState(0);
     const movies = mainCard
+
     useEffect(() => {
         const interval = setInterval(() => {
             setMovieNumber((prev) => (prev + 1) % 3);
-        }, 7000);
+        }, 5000);
         return () => clearInterval(interval);
     }, []);
 
     if (loading) return <p>Loading...</p>;
     if (error) return <p></p>;
     if (!movies || movies.length === 0) return; //bez ovoga zna nekada crashat home
-
-
     const movie = movies[movieNumber];
-
     const genre = movie.movieGenres?.[0]
-    const variants = {
-        enter: {opacity: 0, y: -50, scale: 1.02,},
-        center: {opacity: 1, y: 0, scale: 1, transition: {duration: 0.8, ease: [0.45, 0, 0.55, 1],
-            },
-        },
-        exit: {
-            opacity: 0,
-            y: 50, // klizi lagano dole
-            transition: { duration: 0.8, ease: "easeInOut" },
-        },
-    };
 
 
     return (
-        <section>
-            <AnimatePresence mode="wait">
-            <motion.div key={movie.coverImageUrl}
-                 variants={variants} initial="enter" animate="center" exit="exit"
-                 transition={{ duration: 0.8, ease: [0.45, 0, 0.55, 1] }}
-                 className=" bg-center flex justify-end flex-col bg-cover sm:aspect-[16/8] aspect-[9/16] transition-all duration-[1000ms] ease-[cubic-bezier(0.45,0,0.55,1)] "
-                 style={{backgroundImage: `url(${movie.coverImageUrl})`}}>
-                <div className="relative pl-[6%] pb-[10%]  flex flex-col text-white  items-start justify-end font-bold">
+        <section className="bg-black">
+            <AnimatePresence  mode="wait" initial={false}>
+                <motion.div
+                    key={movie.coverImageUrl}
+                    className="hero-bg fade-in bg-center flex justify-end flex-col bg-cover sm:aspect-[16/8] aspect-[9/16] overflow-hidden"
+                    style={{ backgroundImage: `url(${movie.coverImageUrl})` }}
+                    initial={{ x: "100%" }}
+                    animate={{ x: 0 }}
+                    exit={{ x: "0%" }}
+                    transition={{ duration: 0.4, ease: "easeOut" }}
+                >
+                    <img src={movies[(movieNumber + 1) % 3]?.coverImageUrl}
+                         style={{ position: "absolute", width: 0, height: 0, opacity: 0}}
+                     alt={"hero photo"} />
+
+                    <div className="relative pl-[6%] pb-[10%]  flex flex-col text-white  items-start justify-end font-bold">
                     <button className="sm:h-[32px] h-6 px-4 mb-2 w-auto font-thin text-[12px] text-[var(--color-primary)]  bg-gray-200 rounded-[8px] ">
                         {genre}
                     </button>
@@ -57,8 +52,9 @@ export function HomeHeroSection() {
                     <HeroButton isActive={movieNumber === 1} onClick={() => setMovieNumber(1)} />
                     <HeroButton isActive={movieNumber === 2} onClick={() => setMovieNumber(2)} />
                 </div>
-            </motion.div>
-            </AnimatePresence>
+                    </motion.div>
+                </AnimatePresence>
+
         </section>
     );
 }
