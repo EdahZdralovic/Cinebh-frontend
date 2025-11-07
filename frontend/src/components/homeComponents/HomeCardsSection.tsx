@@ -26,10 +26,10 @@ export default function HomeCardsSection({
                                              seeAllLink
                                          }: HomeSectionProps) {
     return (<section className="flex justify-center px-[4%] items-center text-[var(--color-primary)]">
-            <div className=" relative w-[93%] mt-10 rounded-3xl h-3/3 items-center ">
+            <div className=" relative w-[93%] mt-8 rounded-3xl h-3/3 items-center ">
                 <div className="flex justify-between align-middle  ">
                     <h1 className=" sm:text-[34px] text-[22px] font-bold ">{sectionName}</h1>
-                    <h6 className="text-[#B22222] text-[16px] pt-2 font-medium align-text-bottom">
+                    <h6 className="text-[#B22222] text-[16px] pt-4 font-semibold">
                         <Link to={seeAllLink}>See All</Link></h6>
                 </div>
                 <div className="flex flex-col  sm:flex-row items-center gap-4 pt-4">
