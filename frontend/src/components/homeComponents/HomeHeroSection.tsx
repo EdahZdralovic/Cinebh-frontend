@@ -12,7 +12,7 @@ export function HomeHeroSection() {
             setMovieNumber((prev) => (prev + 1) % 3);
         }, 7000);
         return () => clearInterval(interval);
-    }, []);
+    }, [movieNumber]);
 
     if (loading) return <p>Loading...</p>;
     if (error) return <p></p>;
@@ -32,7 +32,7 @@ export function HomeHeroSection() {
             x: 0,
             transition: {
                 duration: 0.3,
-                ease: [0.25, 0.1, 0.25, 1],  // Smooth, elegant easing
+                ease: [0.25, 0.1, 0.25, 1],
             },
         },
         exit: {
@@ -45,7 +45,6 @@ export function HomeHeroSection() {
         },
     };
 
-
     return (
         <section>
             <AnimatePresence mode="wait">
@@ -55,7 +54,7 @@ export function HomeHeroSection() {
                     initial="enter"
                     animate="center"
                     exit="exit"
-                    className="relative overflow-hidden bg-center flex justify-end flex-col bg-cover sm:aspect-[16/8] aspect-[9/16]"
+                    className="relative hero-zoom overflow-hidden bg-center flex justify-end flex-col bg-cover sm:aspect-[16/8] aspect-[9/16]"
                     style={{backgroundImage: `url(${movie.coverImageUrl})`}}
                 >
                     <div className="absolute bottom-0 left-0 right-0 h-[60%]  bg-gradient-to-t from-black/55  to-transparent pointer-events-none" />
