@@ -22,26 +22,15 @@ export function HomeHeroSection() {
     const movie = movies[movieNumber];
 
     const genre = movie.movieGenres?.[0]
-    const variants = {
+    const variants = { //postavke tranzicije
         enter: {
-            opacity: 0.3,
-            x: 200,
+            opacity: 0.3, x: 200,
         },
-        center: {
-            opacity: 1,
-            x: 0,
-            transition: {
-                duration: 0.3,
-                ease: [0.25, 0.1, 0.25, 1],
-            },
+        center: {opacity: 1, x: 0,
+                transition: {duration: 0.3, ease: [0.25, 0.1, 0.25, 1],},
         },
-        exit: {
-            opacity: 0.3,
-            x: -200,
-            transition: {
-                duration: 0.3,
-                ease: [0.25, 0.1, 0.25, 1],
-            },
+        exit: {opacity: 0.3, x: -200,
+                transition: {duration: 0.3, ease: [0.25, 0.1, 0.25, 1],},
         },
     };
 
