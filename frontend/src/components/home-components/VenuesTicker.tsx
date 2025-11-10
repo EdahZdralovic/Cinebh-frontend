@@ -9,7 +9,7 @@ export default function VenuesTicker({type, size}: VenuesTickerProps) {
     const {mainCard, loading, error} = useMainCards(0, size, type);
     if (loading) return <p></p>; //ovo moze biti prazno jelde jer je ovo linija
     if (error) return <p className="flex justify-center text-red-500" >{error.name} <br/> {error.message}</p>;
-    //a za erroe jel ok ove porukice
+
     return (
         <div className="overflow-hidden whitespace-nowrap pt-[42px] ">
             <div className="inline-block text-[24px] gap-10 animate-marquee ">

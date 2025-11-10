@@ -53,7 +53,7 @@ export default function MainCard({
             </div>);
     } else {
         detailsContent = (
-            <div><span className="text-[ var(--color-gray-text] text-wrap ">{street}</span></div>);
+            <div><span className="text-[var(--color-gray-text] text-wrap ">{street}</span></div>);
     }
     return (
         <div
