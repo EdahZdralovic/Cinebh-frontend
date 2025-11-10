@@ -1,10 +1,8 @@
 import MainCard, {type MainCardProps} from "../../components/cards/MainCard.tsx";
-import {useMainCards} from "../../hooks/useMainCards.ts";
-import {useState} from "react";
-import UpcomingFilter from "../../components/filters/UpcomingFilter.tsx";
-import type {HomeSectionProps} from "../../components/homeComponents/HomeCardsSection.tsx";
-import {HomeCardsSceleton} from "../../components/homeComponents/HomeCardsSceleton.tsx";
-import {HomeCardsErrorMessage} from "../../components/homeComponents/HomeCardsErrorMessage.tsx";
+import { useMainCards } from "../../hooks/useMainCards.ts";
+import { useState } from "react";
+import { UpcomingFilter } from "../../components/filter-components/UpcomingFilter.tsx";
+import { HomeCardsErrorMessage } from "../../components/home-components/HomeCardsErrorMessage.tsx";
 
 export interface UpcomingProps {
     movies: MainCardProps[];
@@ -20,7 +18,7 @@ export default function UpcomingMovies(){
     if (error) return <HomeCardsErrorMessage errorMessage={error.message} errorCode={error.name}/>
 
     return (
-            <section className="text-[var(--color-primary)] px-[5%] pt-6">
+            <section className="text-[var(--color-primary)] px-[6%] pt-6">
                 <div>
                     <p className="text-[24px] font-bold">Upcoming Movies ({totalElements})</p>
                     <UpcomingFilter />
@@ -30,7 +28,7 @@ export default function UpcomingMovies(){
                         <MainCard coverImageUrl={card.coverImageUrl} title={card.title} duration={card.duration}
                                   movieGenres={card.movieGenres} isMovie={true} projectionStart={card.projectionStart} redStrip={true} />))}
                 </div>
-                <div className="flex justify-center text-red-500 ">
+                <div className="flex justify-center text-[#B22222] ">
                     <button onClick={() => setPage(page+1)}>Load more</button>
                     </div>
             </section>

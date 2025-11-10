@@ -9,6 +9,7 @@
     font-family: "Urbanist", sans-serif;
     --color-primary: #1D2939;
 }
+
 @keyframes heroZoom {
     from {
         transform: scale(1);
@@ -17,6 +18,7 @@
         transform: scale(1.05);
     }
 }
+
 .hero-zoom {
     animation: heroZoom 7s ease-out forwards;
 }

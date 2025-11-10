@@ -1,7 +1,7 @@
-import HomeCardsContainer from "../../components/homeComponents/HomeCardsContainer.tsx";
-import { HomeHeroSection } from "../../components/homeComponents/HomeHeroSection.tsx";
-import VenuesTicker from "../../components/homeComponents/VenuesTicker.tsx";
-import {HomeCardsSceleton} from "../../components/homeComponents/HomeCardsSceleton.tsx";
+import HomeCardsContainer from "../../components/home-components/HomeCardsContainer.tsx";
+import { HomeHeroSection } from "../../components/home-components/HomeHeroSection.tsx";
+import VenuesTicker from "../../components/home-components/VenuesTicker.tsx";
+import {HomeCardsSceleton} from "../../components/home-components/HomeCardsSceleton.tsx";
 
 function Home() {
     const CurrenlyShowingRoute = "movies/currently-showing";
@@ -9,7 +9,7 @@ function Home() {
     const VenuesRoute = "venues"
     return (
         <section>
-            <div className="flex justify-center w-full grid grid-row">
+            <div className="flex w-full grid grid-row">
 
                 <HomeHeroSection/>
                 <VenuesTicker type={VenuesRoute} size={22}/>
