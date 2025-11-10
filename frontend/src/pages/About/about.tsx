@@ -1,6 +1,6 @@
 export default function AboutUs() {
     return (
-        <section className=" bg-white text-[#1D2939]">
+        <section className=" bg-white text-[var(--color-primary)]">
             <div
                 className="md:pl-20 pl-4 sm:pt-[80px] pr-4 mx-auto px-0 grid md:grid-cols-[35%_65%] gap-0 items-center">
                 <div className=" pt-8 sm:pt-0 font-bold text-2xl leading-8 tracking-[0.5%] pb-10">

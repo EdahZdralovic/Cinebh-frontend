@@ -28,7 +28,7 @@ export default function HomeCardsSection({cards, isMovie, totalElements, totalPa
                 <div className="flex flex-col  sm:flex-row items-center gap-4 pt-4">
                     {cards.map((card) => (
                         <MainCard coverImageUrl={card.coverImageUrl} title={card.title} duration={card.duration}
-                                  movieGenres={card.movieGenres} isMovie={isMovie} street={card.street}/>))}
+                                  movieGenres={card.movieGenres} isMovie={isMovie} street={card.street} redStrip={false} projectionStart={card.projectionStart} />))}
                 </div>
                 <div className="flex flex-row justify-end items-center gap-4 pt-6 font-thin mr-0 mb-10 text-[16px]">
                     <div>
