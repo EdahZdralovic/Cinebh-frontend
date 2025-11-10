@@ -1,16 +1,15 @@
 import axiosInstance from "./axiosInstance";
-
-const API_BASE_URL = "http://localhost:8080/api/";
+import baseURL from "./axiosInstance";
 
 export const getMovies = async (type: string, page: number, size: number) => {
     try {
-
-        const response = await axiosInstance.get(`${API_BASE_URL}${type}`, {
+        const response = await axiosInstance.get(`${baseURL}${type}`, {
             params: {type, page, size},
         });
         return response.data;
-    } catch (error) {
-        console.error("ups", error);
+    }
+    catch (error) {
+        console.error("Something went wrong", error);
         throw error;
     }
 };
