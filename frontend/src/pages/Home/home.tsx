@@ -1,9 +1,9 @@
 import HomeCardsContainer from "../../components/home-components/HomeCardsContainer.tsx";
 import { HomeHeroSection } from "../../components/home-components/HomeHeroSection.tsx";
 import VenuesTicker from "../../components/home-components/VenuesTicker.tsx";
-import {HomeCardsSceleton} from "../../components/home-components/HomeCardsSceleton.tsx";
+import { HomeCardsSceleton } from "../../components/home-components/HomeCardsSceleton.tsx";
 
-function Home() {
+export default function Home() {
     const CurrenlyShowingRoute = "movies/currently-showing";
     const UpcomingRoute = "movies/upcoming";
     const VenuesRoute = "venues"
@@ -24,5 +24,5 @@ function Home() {
     );
 }
 
-export default Home;
+
 
