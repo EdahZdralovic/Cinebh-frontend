@@ -2,7 +2,7 @@ import { useMainCards } from "../../hooks/useMainCards.ts";
 import type { MainCardProps } from "../cards/MainCard.tsx";
 import HomeCardsSection from "./HomeCardsSection.tsx";
 import { useState } from "react";
-import { HomeCardsSceleton } from "./HomeCardsSceleton.tsx";
+import { HomeCardsSkeleton } from "./HomeCardsSkeleton.tsx";
 import { HomeCardsErrorMessage } from "./HomeCardsErrorMessage.tsx";
 
 interface HomeCardsProps {
@@ -26,7 +26,7 @@ export default function HomeCardsContainer({sectionName, seeAllLink, isMovie, ty
     const [page, setPage] = useState(0);
     const size = 4;
     const {mainCard, loading, error, totalPages, totalElements} = useMainCards(page, size, type);
-    if (loading) return <HomeCardsSceleton/>;
+    if (loading) return <HomeCardsSkeleton/>;
     if (error) return <HomeCardsErrorMessage errorMessage={error.message} errorCode={error.name}/>
 
     function nextPage() {

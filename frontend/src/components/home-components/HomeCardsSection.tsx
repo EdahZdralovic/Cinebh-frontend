@@ -15,8 +15,7 @@ export interface HomeSectionProps {
 }
 
 export default function HomeCardsSection({cards, isMovie, totalElements, totalPages, pageNumber, sectionName,
-                                             onPreviousPage, onNextPage, seeAllLink}: HomeSectionProps)
-{
+                                             onPreviousPage, onNextPage, seeAllLink}: HomeSectionProps) {
     return (
         <section className="flex justify-center px-[4%] items-center text-[var(--color-primary)]">
             <div className=" relative w-[93%] mt-8 rounded-3xl h-3/3 items-center ">
@@ -43,4 +42,3 @@ export default function HomeCardsSection({cards, isMovie, totalElements, totalPa
         </section>
     );
 }
-

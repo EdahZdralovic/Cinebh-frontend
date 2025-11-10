@@ -1,5 +1,4 @@
 export function HomeCardsErrorMessage( { errorCode, errorMessage, }: { errorMessage: string, errorCode: string }) {
-
     return (
         <section className="flex  items-center text-[var(--color-primary)]">
             <div className=" relative w-[93%] mt-10 flex flex-col justify-center rounded-3xl pb-10 h-3/3 items-center">

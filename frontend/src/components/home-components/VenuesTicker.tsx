@@ -29,6 +29,4 @@ export default function VenuesTicker({type, size}: VenuesTickerProps) {
             </div>
         </div>
     );
-
-
 }

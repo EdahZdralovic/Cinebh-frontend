@@ -1,4 +1,4 @@
-import {useEffect, useState} from "react";
+import { useEffect, useState } from "react";
 import { useMainCards } from "../../hooks/useMainCards.ts";
 import { HeroButton } from "../buttons/HeroButton.tsx";
 import { motion, AnimatePresence } from "framer-motion";
@@ -16,7 +16,7 @@ export function HomeHeroSection() {
 
     if (loading) return <p>Loading...</p>;
     if (error) return <p></p>;
-    if (!movies || movies.length === 0) return null; //bez ovoga zna nekada crashat home
+    if (!movies || movies.length === 0) return null;
 
 
     const movie = movies[movieNumber];
