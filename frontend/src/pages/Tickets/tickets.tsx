@@ -18,7 +18,7 @@ const TICKETS: TicketsCardProps[] = [
 
 export default function Tickets() {
     return (
-        <section className="realtive pt-10 leading-[24px] tracking-[0.5%] text-[#1D2939] container-md ">
+        <section className="realtive pt-10 leading-[24px] tracking-[0.5%] text-[var(--color-primary)] container-md ">
             <div className="grid grid-cols-1 items-center justify-center">
                 <h4 className=" text-[32px] font-bold text-center tracking-[-0.25%] leading-[40px] ">Pricing</h4>
                 <div className="text-center pr-6 pl-6">

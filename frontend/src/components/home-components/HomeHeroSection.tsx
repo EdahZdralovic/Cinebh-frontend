@@ -22,7 +22,7 @@ export function HomeHeroSection() {
     const movie = movies[movieNumber];
 
     const genre = movie.movieGenres?.[0]
-    const variants = { //postavke tranzicije
+    const variants = {
         enter: {
             opacity: 0.3, x: 200,
         },

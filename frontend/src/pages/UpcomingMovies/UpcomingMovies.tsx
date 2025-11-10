@@ -28,7 +28,7 @@ export default function UpcomingMovies(){
                         <MainCard coverImageUrl={card.coverImageUrl} title={card.title} duration={card.duration}
                                   movieGenres={card.movieGenres} isMovie={true} projectionStart={card.projectionStart} redStrip={true} />))}
                 </div>
-                <div className="flex justify-center text-[#B22222] ">
+                <div className="flex justify-center text-[var(--color-secondary)] ">
                     <button onClick={() => setPage(page+1)}>Load more</button>
                     </div>
             </section>

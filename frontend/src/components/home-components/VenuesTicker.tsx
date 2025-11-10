@@ -22,7 +22,7 @@ export default function VenuesTicker({type, size}: VenuesTickerProps) {
                 }
                 {mainCard.map((venue) => (
                     <button
-                        className=" mx-4 p-3 text-gray-400 font-bold border p-4 border-gray-200 rounded-md hover:bg-gray-300">
+                        className=" mx-4 text-gray-400 font-bold border p-4 border-gray-200 rounded-md hover:bg-gray-300">
                         {venue.title}
                     </button>
                 ))}

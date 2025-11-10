@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 export default function Footer() {
     return (<footer
         className="mt-auto  h-[212px] pt-14 flex flex-col gap-4 left-0 w-full bg-[linear-gradient(to_right,rgba(26,26,26,1),rgba(178,34,34,1))] ">
-        <div className="font-[Urbanist] text-white items-center justify-center text-center">
+        <div className=" text-white items-center justify-center text-center">
             <Link to="/">
                 <div className="flex items-center justify-center">
                     <img src="/assets/logos/Logo-white.png"
@@ -21,7 +21,7 @@ export default function Footer() {
                 </Link>
             </div>
             <div className="pt-4 ">
-                <p className="text-[14px] font-normal font-normal">
+                <p className="text-[14px] font-normal">
                     Copyright @Cinebh. Built with love in Sarajevo. All rights reserved.
                 </p>
             </div>

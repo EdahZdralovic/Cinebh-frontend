@@ -1,12 +1,11 @@
 import axiosInstance from "./axiosInstance";
-import baseURL from "./axiosInstance";
 
 export const getMovies = async (type: string, page: number, size: number) => {
+    const url = `${type}`;
+    const params = { page, size };
     try {
-        const response = await axiosInstance.get(`${baseURL}${type}`, {
-            params: {type, page, size},
-        });
-        return response.data;
+        const { data } = await axiosInstance.get(url, { params });
+        return data;
     }
     catch (error) {
         console.error("Something went wrong", error);
