@@ -16,7 +16,7 @@ export default function Home() {
                                     seeAllLink={"/showing"}/>
                 <HomeCardsContainer sectionName={"Upcoming Movies"} type={UpcomingRoute} isMovie={true}
                                     seeAllLink={"/upcoming"}/>
-                <HomeCardsContainer sectionName={"Venues"} type={VenuesRoute} isMovie={false} seeAllLink={"/venues"}/>
+                <HomeCardsContainer sectionName={"Venues"} type={VenuesRoute} isMovie={false} seeAllLink={"/venues/pageable"}/>
             </div>
         </section>
     );

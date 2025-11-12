@@ -4,7 +4,7 @@ import { HeroButton } from "../buttons/HeroButton.tsx";
 import { motion, AnimatePresence } from "framer-motion";
 
 export function HomeHeroSection() {
-    const {mainCard, loading, error} = useMainCards(0, 3, "movies/currently-showing");
+    const {mainCard, loading, error} = useMainCards(1, 3, "movies/currently-showing");
     const [movieNumber, setMovieNumber] = useState(0);
     const movies = mainCard
     useEffect(() => {
@@ -54,7 +54,7 @@ export function HomeHeroSection() {
                             {genre}
                         </button>
                         <h1 className="mt-3 sm:text-5xl text-xl">{movie.title}</h1>
-                        <p className="sm:text-xl text-sm pt-4 leading-relaxed font-semibold max-w-[80%]"> {movie.synopsis}</p>
+                        <p className="sm:text-xl text-sm pt-4 leading-relaxed font-semibold max-w-[50%]"> {movie.synopsis}</p>
                     </div>
 
                     <div className="relative  pb-6 left-1/2-translate-x-1/2 flex justify-center gap-6 ">

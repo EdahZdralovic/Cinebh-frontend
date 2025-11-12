@@ -24,7 +24,7 @@ export default function HomeCardsSection({cards, isMovie, totalElements, totalPa
                     <h6 className="text-[var(--color-secondary)] text-[16px] pt-4 font-semibold">
                         <Link to={seeAllLink}>See All</Link></h6>
                 </div>
-                <div className="flex flex-col  sm:flex-row items-center gap-4 pt-4">
+                <div className="flex flex-col min-w-[100%]  sm:flex-row items-center gap-4 pt-4">
                     {cards.map((card) => (
                         <MainCard coverImageUrl={card.coverImageUrl} title={card.title} duration={card.duration}
                                   movieGenres={card.movieGenres} isMovie={isMovie} street={card.street} redStrip={false} projectionStart={card.projectionStart} />))}
