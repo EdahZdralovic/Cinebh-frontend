@@ -1,17 +1,17 @@
 import MainCard, { type MainCardProps } from "../cards/MainCard.tsx";
-import ArrowButton, { ArrowDirection } from "../buttons/ArrowButton.tsx";
+import ArrowButton from "../buttons/ArrowButton.tsx";
 import { Link } from "react-router-dom";
 
 export interface HomeSectionProps {
-  cards: MainCardProps[];
-  sectionName: string;
-  pageNumber: number;
-  onPreviousPage: () => void;
-  onNextPage: () => void;
-  totalPages: number;
-  totalElements: number;
-  isMovie: boolean;
-  seeAllLink: string;
+    cards: MainCardProps[];
+    sectionName: string;
+    pageNumber: number;
+    onPreviousPage: () => void;
+    onNextPage: () => void;
+    totalPages: number;
+    totalElements: number;
+    isMovie: boolean;
+    seeAllLink: string;
 }
 
 export default function HomeCardsSection({

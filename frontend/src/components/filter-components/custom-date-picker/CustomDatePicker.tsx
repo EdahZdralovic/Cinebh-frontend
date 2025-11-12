@@ -48,7 +48,7 @@ export function CustomDatePicker() {
             </button>
         <DatePicker
             ref={datePickerRef}
-            className="w-full bg-transparent rounded-lg outline-none border-0 text-[#1D2939] pl-3  h-14  "
+            className="w-full bg-transparent rounded-lg outline-none border-0 text-[#1D2939] pl-3  z-100 h-14  "
             selectsRange
             shouldCloseOnSelect={false}
             startDate={tempStart}

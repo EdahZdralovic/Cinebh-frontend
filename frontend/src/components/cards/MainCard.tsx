@@ -43,28 +43,28 @@ export default function MainCard({
 
   const dateForLabel = openingLabel(projectionStart as string);
 
-  let detailsContent: React.ReactNode = null;
-  if (isMovie) {
-    detailsContent = (
-      <div className="">
-        <span className="whitespace-nowrap pr-2">{duration} MIN</span>
-        <span className="h-5 w-px bg-[var(--color-gray-text)] mx-2 inline-block align-text-bottom "></span>
-        <span className="px-2">{genre}</span>
-      </div>);
-  } else {
-    detailsContent = (
-      <div><span className="text-[var(--color-gray-text] text-wrap ">{street}</span></div>);
-  }
-  return (
-    <div
-      className="text-[var(--color-primary)]  shadow-lg relative border grid sm:max-w-[24%] max-w-[300px] items-center grid-col-1   rounded-3xl">
-      <div className="relative m-4  aspect-[94/100] ">
-        <img src={coverImageUrl} alt={title}
-             className="relative h-full z-30 w-[100%] rounded-2xl object-cover" />
-        {redStrip ? (
-          <>
-            <div
-              className="absolute inline-flex items-center top-[6.0%] sm:top-[5.7%] sm:right-[-2.19%] right-[-2.07%] z-40 h-5 bg-[var(--color-secondary)] rounded-l rounded-se-md py-4 px-2">
+    let detailsContent: React.ReactNode = null;
+    if (isMovie) {
+        detailsContent = (
+            <div className="">
+                <span className="whitespace-nowrap pr-2">{duration} MIN</span>
+                <span className="h-5 w-px bg-[var(--color-gray-text)] mx-2 inline-block align-text-bottom "></span>
+                <span className="px-2">{genre}</span>
+            </div>);
+    } else {
+        detailsContent = (
+            <div><span className="text-[var(--color-gray-text] text-wrap ">{street}</span></div>);
+    }
+    return (
+        <div
+            className="text-[var(--color-primary)]  shadow-lg w-auto relative border grid sm:max-w-[24%] min-w-[300px] items-center grid-col-1   rounded-3xl">
+            <div className="relative m-4  aspect-[94/100] ">
+                <img src={coverImageUrl} alt={title}
+                     className="relative h-full z-10 w-[100%] rounded-2xl object-cover"/>
+                {redStrip ? (
+                    <>
+                        <div
+                            className="absolute inline-flex z-10 items-center top-[6.0%] sm:top-[5.7%] sm:right-[-2.3%] right-[-2.07%]  h-5 bg-[var(--color-secondary)] rounded-l rounded-se-md py-4 px-2">
                             <span
                               className="whitespace-nowrap font-medium text-[14px] p1-2 text-white">{dateForLabel}</span>
             </div>

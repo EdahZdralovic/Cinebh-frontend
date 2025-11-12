@@ -3,7 +3,7 @@ import { AnimatePresence, motion } from "framer-motion";
 
 import { useMainCards } from "../../hooks/useMainCards.ts";
 import { HeroButton } from "../buttons/HeroButton.tsx";
-
+import { motion, AnimatePresence } from "framer-motion";
 
 export function HomeHeroSection() {
   const { mainCards, loading, error } = useMainCards(0, 3, "movies/currently-showing");
