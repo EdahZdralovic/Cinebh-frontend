@@ -1,19 +1,23 @@
 import React, { useState } from "react";
 import useFilterData from "../../../hooks/useFilterData.ts";
 
-
-export interface Location {
+export interface FilterProps {
     id: number;
-    city: string;
+    name: string;
 }
 
-export default function SelectLocationsFilter() {
-    const { elements , loading, error } = useFilterData<Location>("locations");
+export interface FilterType{
+    endpoint: string;
+    placeholder: string;
+}
+
+export default function SelectFilterComponent({ endpoint, placeholder }:FilterType) {
+    const { elements, loading, error } = useFilterData<FilterProps>(endpoint);
     const [open, setOpen] = useState(false);
-    const [selectedLocations, setSelectedLocations] = useState<number[]>([]);
+    const [selectedGenres, setSelectedGenres] = useState<number[]>([]);
 
     const toggleGenre = (id: number) => {
-        setSelectedLocations((prev) =>
+        setSelectedGenres((prev) =>
             prev.includes(id)
                 ? prev.filter((genreId) => genreId !== id)
                 : [...prev, id]
@@ -22,14 +26,15 @@ export default function SelectLocationsFilter() {
 
     if (loading) return <p>Loading...</p>;
     if (error) return <p>Error loading genres</p>;
-    if (!elements ) return null;
+    if (!elements || elements.length === 0) return null;
 
     const handleApply = () => {
-        setOpen(false);
+      setOpen(false);
     };
 
     const handleCancel = () => {
-        setSelectedLocations([])
+        setSelectedGenres([])
+        setOpen(false);
     };
 
     return (
@@ -44,29 +49,29 @@ export default function SelectLocationsFilter() {
                     alt="genres logo"
                 />
                 <span className="pl-4 text-gray-500 text-[16px] col-span-8">
-          {selectedLocations.length > 0
-              ? `Selected ${selectedLocations.length} Cities`
-              : "All Cities"}
+          {selectedGenres.length > 0
+              ? `Selected ${selectedGenres.length} ${placeholder}`
+              : `All ${placeholder}`}
         </span>
             </div>
 
             {open && (
                 <div className="relative mt-1 w-full bg-white border rounded-md shadow-lg max-h-64 overflow-y-auto z-50">
                     <ul>
-                        {elements.map((location : Location) => (
+                        {elements.map((filterProps : FilterProps) => (
                             <li
-                                key={location.id}
+                                key={filterProps.id}
                                 onClick={(e) => {
                                     e.stopPropagation();
-                                    toggleGenre(location.id);
+                                    toggleGenre(filterProps.id);
                                 }}
                                 className={`px-3 py-2 text-sm cursor-pointer  flex items-center ${
-                                    selectedLocations.includes(location.id)
+                                    selectedGenres.includes(filterProps.id)
                                         ? " bg-[var(--color-secondary)] text-white font-bold rounded-md"
                                         : ""
                                 }`}
                             >
-                                {location.city}
+                                {filterProps.name}
                             </li>
                         ))}
                     </ul>

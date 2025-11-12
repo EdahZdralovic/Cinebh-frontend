@@ -1,8 +1,7 @@
 import 'react-datepicker/dist/react-datepicker.css';
 import {CustomDatePicker} from "./custom-date-picker/CustomDatePicker.tsx";
-import SelectFilterComponent from "./genres-filter/SelectFilterComponent.tsx";
-import SelectVenuesFilter from "./venues-filter/SelectVenuesFilter.tsx";
-import SelectLocationsFilter from "./locations-filter/SelectLocationsFilter.tsx";
+import SelectFilterComponent from "./generic-select-filter/SelectFilterComponent.tsx";
+
 
 
 
