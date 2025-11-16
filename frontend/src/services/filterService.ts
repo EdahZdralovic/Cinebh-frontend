@@ -1,6 +1,6 @@
 import axiosInstance from "./axiosInstance.tsx";
 
-export async function getFilterData(type: string) {
+export async function getFilterData(type: string, params?: object) {
     try {
         const endpoint = (() => {
             switch (type) {
@@ -15,7 +15,7 @@ export async function getFilterData(type: string) {
             }
         })();
 
-        const { data } = await axiosInstance.get(endpoint);
+        const { data } = await axiosInstance.get(endpoint, { params });
         return data;
     } catch (error) {
         console.error("Something went wrong", error);

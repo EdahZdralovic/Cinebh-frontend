@@ -7,6 +7,6 @@ const axiosInstance = axios.create({
         "Content-Type": "application/json",
     },
     timeout: 10000,
-    paramsSerializer: params => qs.stringify(params, { arrayFormat: "repeat" }),
+    paramsSerializer: params => qs.stringify(params, { arrayFormat: "repeat", skipNulls: true,}),
 });
 export default axiosInstance;

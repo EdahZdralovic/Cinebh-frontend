@@ -1,73 +1,110 @@
-import React, { useState } from "react";
+import React, { type ReactNode, useEffect, useState } from "react";
 import useFilterData from "../../../hooks/useFilterData.ts";
+import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
 
 export interface FilterProps {
     id: number;
     name: string;
 }
 
-export interface FilterType{
+export interface FilterType {
     endpoint: string;
+    params?: object;
     placeholder: string;
+    value: number[];
+    onApply: (ids: number[]) => void;
+    labelKey?: string;
+    icon: ReactNode;
+
 }
 
-export default function SelectFilterComponent({ endpoint, placeholder }:FilterType) {
-    const { elements, loading, error } = useFilterData<FilterProps>(endpoint);
+export default function SelectFilterComponent({
+                                                  endpoint,
+                                                  params,
+                                                  placeholder,
+                                                  value,
+                                                  onApply,
+                                                  icon,
+                                              }: FilterType) {
+    const { elements, loading, error } = useFilterData<FilterProps>(endpoint, params);
     const [open, setOpen] = useState(false);
-    const [selectedGenres, setSelectedGenres] = useState<number[]>([]);
+    const [selectedElements, setSelectedElements] = useState<number[]>([]);
+    const [localSel, setLocalSel] = useState<number[]>(value);
+
+    useEffect(() => setLocalSel(value), [value]);
 
     const toggleGenre = (id: number) => {
-        setSelectedGenres((prev) =>
+        setSelectedElements(prev =>
             prev.includes(id)
-                ? prev.filter((genreId) => genreId !== id)
+                ? prev.filter(genreId => genreId !== id)
+                : [...prev, id]
+        );
+
+        setLocalSel(prev =>
+            prev.includes(id)
+                ? prev.filter(genreId => genreId !== id)
                 : [...prev, id]
         );
     };
-
     if (loading) return <p>Loading...</p>;
     if (error) return <p>Error loading genres</p>;
     if (!elements || elements.length === 0) return null;
 
     const handleApply = () => {
-      setOpen(false);
+        setOpen(false);
+        onApply(localSel);
+        setSelectedElements(localSel);
+
     };
 
     const handleCancel = () => {
-        setSelectedGenres([])
         setOpen(false);
+        onApply([]);
     };
 
     return (
         <section>
+            <div className={`relative rounded-lg  ${open ? "border-[2px] border-red-200" : ""}`}>
             <div
                 onClick={() => setOpen((prev) => !prev)}
-                className="relative bg-white h-12 rounded-md grid border-1 shadow-lg border-gray-300 grid-cols-12 justify-self-start items-center mb-0"
+                className={ "flex justify-between bg-white items-center h-12 border rounded-md shadow-lg " + (open ? " border-[var(--color-secondary)]" : "border-gray-300")}
             >
-                <img
-                    src="/assets/logos/genres_filter_icon.png"
-                    className="relative col-span-1 h-[16px] w-[18px]  ml-2 z-30 object-cover"
-                    alt="genres logo"
-                />
-                <span className="pl-4 text-gray-500 text-[16px] col-span-8">
-          {selectedGenres.length > 0
-              ? `Selected ${selectedGenres.length} ${placeholder}`
-              : `All ${placeholder}`}
-        </span>
-            </div>
+                <div className={"flex justify-start items-center" }>
+                <div
+                    className={" ml-3 " + (open ? "  text-[var(--color-secondary)] " : "text-[var(--color-primary)] ")}
+                >
+                    {icon}
+                </div>
+                <span className="pl-2  text-gray-500 text-[16px] col-span-9">
+                     {localSel.length > 0
+                         ? `Selected ${localSel.length} ${placeholder}`
+                         : `All ${placeholder}`}
+                </span>
+                </div>
+                <div
+                    className={ " col-span-2 mr-2 font-extralight " + ( open
+                        ? " text-[var(--color-secondary)] "
+                        : " text-[var(--color-primary)] ")
+                    }
+                >
+                    {open ? <IoIosArrowUp size={20} fontWeight={100} /> : <IoIosArrowDown size={20} />}
+                </div>
 
+            </div>
+            </div>
             {open && (
                 <div className="relative mt-1 w-full bg-white border rounded-md shadow-lg max-h-64 overflow-y-auto z-50">
                     <ul>
-                        {elements.map((filterProps : FilterProps) => (
+                        {elements.map((filterProps: FilterProps) => (
                             <li
                                 key={filterProps.id}
                                 onClick={(e) => {
                                     e.stopPropagation();
                                     toggleGenre(filterProps.id);
                                 }}
-                                className={`px-3 py-2 text-sm cursor-pointer  flex items-center ${
-                                    selectedGenres.includes(filterProps.id)
-                                        ? " bg-[var(--color-secondary)] text-white font-bold rounded-md"
+                                className={`px-3 py-2 text-sm cursor-pointer flex items-center ${
+                                    selectedElements.includes(filterProps.id)
+                                        ? "bg-[#FDE3E3]  font-bold rounded-md"
                                         : ""
                                 }`}
                             >
@@ -75,8 +112,8 @@ export default function SelectFilterComponent({ endpoint, placeholder }:FilterTy
                             </li>
                         ))}
                     </ul>
-                    <div className="flex justify-end py-2 px-2 gap-3">
 
+                    <div className="flex justify-end py-2 px-2 gap-3">
                         <button
                             type="button"
                             onClick={handleCancel}
@@ -86,8 +123,8 @@ export default function SelectFilterComponent({ endpoint, placeholder }:FilterTy
                         </button>
                         <button
                             type="button"
+                            className="px-4 py-2 bg-[var(--color-secondary)] text-white font-medium rounded-xl text-sm"
                             onClick={handleApply}
-                            className="px-4 py-2 bg-[#B22222] text-white rounded-xl text-sm"
                         >
                             Apply
                         </button>
@@ -95,7 +132,6 @@ export default function SelectFilterComponent({ endpoint, placeholder }:FilterTy
                 </div>
 
             )}
-
         </section>
     );
 }

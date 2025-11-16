@@ -1,0 +1,116 @@
+import 'react-datepicker/dist/react-datepicker.css';
+import {CustomDatePicker} from "../filter-components/custom-date-picker/CustomDatePicker.tsx";
+import SelectFilterComponent from "../filter-components/generic-select-filter/SelectFilterComponent.tsx";
+import {HiOutlineOfficeBuilding} from "react-icons/hi";
+import {BiCameraMovie} from "react-icons/bi";
+import SearchInput from "../filter-components/search-filter/SearchInput.tsx";
+import {SlLocationPin} from "react-icons/sl";
+import {useState} from "react";
+import {CiFilter} from "react-icons/ci";
+
+type Filters = {
+    cityId: number | null;
+    venueId: number | null;
+    genreIds: number[];
+    fromDate: string | null;
+    toDate: string | null;
+    q: string;
+};
+
+type UpcomingFilterProps = {
+    filters: Filters;
+    onChange: (patch: Partial<Filters>) => void;
+};
+
+const LocationIcon = <SlLocationPin/>;
+const VenueIcon = <HiOutlineOfficeBuilding/>;
+const GenreIcon = <BiCameraMovie/>;
+
+function UpcomingFilter({filters, onChange}: UpcomingFilterProps) {
+    const [isOpen, setIsOpen] = useState(false);
+
+    return (
+        <section className="mt-4 text-[var(--color-primary)]  ">
+            <SearchInput
+                value={filters.q}
+                onSearch={(q) => onChange({q})}
+            />
+            <div className=" sm:grid-cols-4 grid-cols-1 mt-4 hidden lg:grid gap-4 h-10 justify-evenly ">
+                <SelectFilterComponent
+                    endpoint="locations"
+                    placeholder="Cities"
+                    value={filters.cityId ? [filters.cityId] : []}
+                    onApply={(ids) => onChange({cityId: ids[0] ?? null})}
+                    icon={LocationIcon}
+
+                />
+                <SelectFilterComponent
+                    endpoint="venues"
+                    placeholder="Cinemas"
+                    value={filters.venueId ? [filters.venueId] : []}
+                    onApply={(ids) => onChange({venueId: ids[0] ?? null})}
+                    icon={VenueIcon}
+                    params={{ cityId: filters.cityId }}
+                />
+                <SelectFilterComponent
+                    endpoint="genres"
+                    placeholder="Genres"
+                    value={filters.genreIds}
+                    onApply={(ids) => onChange({genreIds: ids})}
+                    icon={GenreIcon}
+                />
+                <div className="">
+                    <CustomDatePicker
+                        value={{fromDate: filters.fromDate, toDate: filters.toDate}}
+                        onApply={({fromDate, toDate}) => onChange({fromDate, toDate})}
+                    /></div>
+            </div>
+
+            <div className={"lg:hidden grid  items-center text-[var(--color-primary)]"}>
+                <button className={"bg-white flex  justify-start border items-center  rounded-md w-full h-12 "
+                    + (isOpen ? " text-[var(--color-secondary)] " : "  text-[var(--color-primary)]")}
+                        onClick={() => setIsOpen(!isOpen)}>
+                    <CiFilter className={"ml-3 mr-3 "}/> Filters
+                </button>
+                {isOpen && (
+                    <div className={"grid grid-cols-1"}>
+                        <SelectFilterComponent
+                            endpoint="locations"
+                            placeholder="Cities"
+                            value={filters.cityId ? [filters.cityId] : []}
+                            onApply={(ids) => onChange({cityId: ids[0] ?? null})}
+                            icon={LocationIcon}
+
+                        />
+                        <SelectFilterComponent
+                            endpoint="venues"
+                            placeholder="Cinemas"
+                            value={filters.venueId ? [filters.venueId] : []}
+                            onApply={(ids) => onChange({venueId: ids[0] ?? null})}
+                            icon={VenueIcon}
+                            params={{cityId: filters.cityId}}
+                        />
+
+                        <SelectFilterComponent
+                            endpoint="genres"
+                            placeholder="Genres"
+                            value={filters.genreIds}
+                            onApply={(ids) => onChange({genreIds: ids})}
+                            icon={GenreIcon}
+
+                        />
+                        <CustomDatePicker
+                            value={{fromDate: filters.fromDate, toDate: filters.toDate}}
+                            onApply={({fromDate, toDate}) => onChange({fromDate, toDate})}
+                        />
+                    </div>
+                )}
+            </div>
+
+        </section>
+
+    );
+
+}
+
+export default UpcomingFilter;

@@ -24,6 +24,7 @@ export const getUpcomingMovies = async (type: string, filters: any, page: number
 
     try{
         const { data } = await axiosInstance.get(url, { params });
+        console.log(params);
         return data;
     }
     catch (error) {
