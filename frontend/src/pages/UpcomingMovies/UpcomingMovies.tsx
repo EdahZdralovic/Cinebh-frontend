@@ -16,8 +16,8 @@ export interface UpcomingProps {
 export default function UpcomingMovies(type: string) {
 
     const [filters, setFilters] = useState({
-        cityId: null,
-        venueId: null,
+        cityId:  [] as number[],
+        venueId:  [] as number[],
         genreIds: [] as number[],
         fromDate: null as string | null,
         toDate: null as string | null,

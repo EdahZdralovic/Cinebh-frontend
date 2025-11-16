@@ -18,28 +18,15 @@ export interface FilterType {
 
 }
 
-export default function SelectFilterComponent({
-                                                  endpoint,
-                                                  params,
-                                                  placeholder,
-                                                  value,
-                                                  onApply,
-                                                  icon,
-                                              }: FilterType) {
+export default function SelectFilterComponent({ endpoint, params, placeholder, value, onApply, icon }: FilterType) {
+
     const { elements, loading, error } = useFilterData<FilterProps>(endpoint, params);
     const [open, setOpen] = useState(false);
-    const [selectedElements, setSelectedElements] = useState<number[]>([]);
     const [localSel, setLocalSel] = useState<number[]>(value);
 
     useEffect(() => setLocalSel(value), [value]);
 
     const toggleGenre = (id: number) => {
-        setSelectedElements(prev =>
-            prev.includes(id)
-                ? prev.filter(genreId => genreId !== id)
-                : [...prev, id]
-        );
-
         setLocalSel(prev =>
             prev.includes(id)
                 ? prev.filter(genreId => genreId !== id)
@@ -53,14 +40,14 @@ export default function SelectFilterComponent({
     const handleApply = () => {
         setOpen(false);
         onApply(localSel);
-        setSelectedElements(localSel);
-
     };
-
     const handleCancel = () => {
         setOpen(false);
         onApply([]);
     };
+    const selectedNames = elements
+        .filter(el => localSel.includes(el.id))
+        .map(el => el.name);
 
     return (
         <section>
@@ -75,10 +62,10 @@ export default function SelectFilterComponent({
                 >
                     {icon}
                 </div>
-                <span className="pl-2  text-gray-500 text-[16px] col-span-9">
-                     {localSel.length > 0
-                         ? `Selected ${localSel.length} ${placeholder}`
-                         : `All ${placeholder}`}
+                <span className="pl-2 text-gray-500 text-[16px] col-span-9 max-w-[250px] max-h-12 truncate">
+                         {selectedNames.length === 0
+                             ? `All ${placeholder}`
+                             : selectedNames.join(", ")}
                 </span>
                 </div>
                 <div
@@ -103,7 +90,7 @@ export default function SelectFilterComponent({
                                     toggleGenre(filterProps.id);
                                 }}
                                 className={`px-3 py-2 text-sm cursor-pointer flex items-center ${
-                                    selectedElements.includes(filterProps.id)
+                                    localSel.includes(filterProps.id)
                                         ? "bg-[#FDE3E3]  font-bold rounded-md"
                                         : ""
                                 }`}

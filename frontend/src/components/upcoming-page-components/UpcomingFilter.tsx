@@ -9,8 +9,8 @@ import {useState} from "react";
 import {CiFilter} from "react-icons/ci";
 
 type Filters = {
-    cityId: number | null;
-    venueId: number | null;
+    cityId: number [];
+    venueId: number [];
     genreIds: number[];
     fromDate: string | null;
     toDate: string | null;
@@ -39,16 +39,17 @@ function UpcomingFilter({filters, onChange}: UpcomingFilterProps) {
                 <SelectFilterComponent
                     endpoint="locations"
                     placeholder="Cities"
-                    value={filters.cityId ? [filters.cityId] : []}
-                    onApply={(ids) => onChange({cityId: ids[0] ?? null})}
+                    value={filters.cityId }
+                    onApply={(ids) => onChange({cityId: ids})}
                     icon={LocationIcon}
+                    params={{ venueId: filters.venueId }}
 
                 />
                 <SelectFilterComponent
                     endpoint="venues"
                     placeholder="Cinemas"
-                    value={filters.venueId ? [filters.venueId] : []}
-                    onApply={(ids) => onChange({venueId: ids[0] ?? null})}
+                    value={filters.venueId}
+                    onApply={(ids) => onChange({venueId: ids})}
                     icon={VenueIcon}
                     params={{ cityId: filters.cityId }}
                 />
@@ -77,16 +78,16 @@ function UpcomingFilter({filters, onChange}: UpcomingFilterProps) {
                         <SelectFilterComponent
                             endpoint="locations"
                             placeholder="Cities"
-                            value={filters.cityId ? [filters.cityId] : []}
-                            onApply={(ids) => onChange({cityId: ids[0] ?? null})}
+                            value={ filters.cityId }
+                            onApply={(ids) => onChange({ cityId: ids })}
                             icon={LocationIcon}
 
                         />
                         <SelectFilterComponent
                             endpoint="venues"
                             placeholder="Cinemas"
-                            value={filters.venueId ? [filters.venueId] : []}
-                            onApply={(ids) => onChange({venueId: ids[0] ?? null})}
+                            value={filters.venueId}
+                            onApply={(ids) => onChange({venueId: ids})}
                             icon={VenueIcon}
                             params={{cityId: filters.cityId}}
                         />
