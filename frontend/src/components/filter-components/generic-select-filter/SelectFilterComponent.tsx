@@ -3,6 +3,8 @@ import useFilterData from "../../../hooks/useFilterData.ts";
 import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
 
 export interface FilterProps {
+    location: any;
+    cityId: any;
     id: number;
     name: string;
 }
@@ -12,7 +14,7 @@ export interface FilterType {
     params?: object;
     placeholder: string;
     value: number[];
-    onApply: (ids: number[]) => void;
+    onApply: (ids: number[], allElements?: FilterProps[]) => void;
     labelKey?: string;
     icon: ReactNode;
 
@@ -26,7 +28,7 @@ export default function SelectFilterComponent({ endpoint, params, placeholder, v
 
     useEffect(() => setLocalSel(value), [value]);
 
-    const toggleGenre = (id: number) => {
+    const toggleElements = (id: number) => {
         setLocalSel(prev =>
             prev.includes(id)
                 ? prev.filter(genreId => genreId !== id)
@@ -39,7 +41,7 @@ export default function SelectFilterComponent({ endpoint, params, placeholder, v
 
     const handleApply = () => {
         setOpen(false);
-        onApply(localSel);
+        onApply(localSel, elements);
     };
     const handleCancel = () => {
         setOpen(false);
@@ -87,7 +89,7 @@ export default function SelectFilterComponent({ endpoint, params, placeholder, v
                                 key={filterProps.id}
                                 onClick={(e) => {
                                     e.stopPropagation();
-                                    toggleGenre(filterProps.id);
+                                    toggleElements(filterProps.id);
                                 }}
                                 className={`px-3 py-2 text-sm cursor-pointer flex items-center ${
                                     localSel.includes(filterProps.id)

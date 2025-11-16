@@ -1,9 +1,9 @@
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes } from 'react-router-dom';
 
-import Home from "../pages/Home/home";
-import About from "../pages/About/about";
-import Tickets from "../pages/Tickets/tickets";
-import UpcomingMovies from "../pages/UpcomingMovies/UpcomingMovies.tsx";
+import Home from '../pages/Home/home';
+import About from '../pages/About/about';
+import Tickets from '../pages/Tickets/tickets';
+import UpcomingMovies from '../pages/UpcomingMovies/UpcomingMovies.tsx';
 
 export default function AppRoutes() {
   return (
