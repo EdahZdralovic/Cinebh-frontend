@@ -42,7 +42,7 @@ export default function UpcomingFilter({
           value={filters.cityId}
           onApply={(ids) => onChange({ cityId: ids })}
           icon={LocationIcon}
-          params={{ venueId: filters.venueId }}
+          params={{ venueIds: filters.venueId }}
         />
         <SelectFilterComponent
           endpoint="venues"
@@ -64,6 +64,7 @@ export default function UpcomingFilter({
           endpoint="genres"
           placeholder="Genres"
           value={filters.genreIds}
+          params={{ venueIds: filters.venueId }}
           onApply={(ids) => onChange({ genreIds: ids })}
           icon={GenreIcon}
         />
@@ -109,13 +110,14 @@ export default function UpcomingFilter({
                   .filter((v) => selectedVenueIds.includes(v.id))
                   .map((v) => v.location.id);
                 onChange({
-                  venueId: selectedVenueIds,
+                  venueIds: selectedVenueIds,
                   cityId: [...new Set(matchedCities)],
                 });
               }}
             />
             <SelectFilterComponent
               endpoint="genres"
+              params={{ venueIds: filters.venueId }}
               placeholder="Genres"
               value={filters.genreIds}
               onApply={(ids) => onChange({ genreIds: ids })}

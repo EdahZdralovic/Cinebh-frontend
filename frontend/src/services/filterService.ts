@@ -5,7 +5,7 @@ export async function getFilterData(type: string, params?: object) {
     const endpoint = (() => {
       switch (type) {
         case 'genres':
-          return '/genres';
+          return `/genres/by-venues?venueIds=${params?.venueIds.join(',')}`;
         case 'locations':
           return '/locations';
         case 'venues':
