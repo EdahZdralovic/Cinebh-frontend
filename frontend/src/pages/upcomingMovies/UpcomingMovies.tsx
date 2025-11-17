@@ -40,6 +40,7 @@ export default function UpcomingMovies() {
     size
   );
 
+  //skeleton za upcoming nije jos gotov
   if (loading) return <UpcomingMoviesSkeleton />;
   if (error)
     return (

@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
+import GenreButton from '../buttons/GenreButton.tsx';
 
 import { useMainCards } from '../../hooks/useMainCards.ts';
 import { HeroButton } from '../buttons/HeroButton.tsx';
@@ -64,9 +65,7 @@ function HomeHeroSection() {
         >
           <div className="absolute bottom-0 left-0 right-0 h-[60%]  bg-gradient-to-t from-black/55  to-transparent pointer-events-none" />
           <div className="relative pl-[6%] pb-[10%] flex flex-col text-white  items-start justify-end font-bold">
-            <button className="sm:h-[32px] h-6 px-4 mb-2 w-auto font-thin text-[12px] text-[var(--color-primary)]  bg-gray-200 rounded-[8px] ">
-              {genre}
-            </button>
+            <GenreButton name={genre} />
             <h1 className="mt-3 sm:text-5xl text-xl">{movie.title}</h1>
             <p className="sm:text-xl text-sm pt-4 leading-relaxed font-semibold max-w-[80%]">
               {' '}
