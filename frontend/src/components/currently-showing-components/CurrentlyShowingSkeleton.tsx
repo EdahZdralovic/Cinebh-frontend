@@ -12,6 +12,27 @@ export function CurrentlyShowingSkeleton() {
           language={'...'}
           duration={0}
         />
+        <CurrentlyShowingCard
+          coverImageUrl={'/assets/images/gray_photo_loading.avif'}
+          title={'Loading...'}
+          PGRating={'...'}
+          language={'...'}
+          duration={0}
+        />
+        <CurrentlyShowingCard
+          coverImageUrl={'/assets/images/gray_photo_loading.avif'}
+          title={'Loading...'}
+          PGRating={'...'}
+          language={'...'}
+          duration={0}
+        />
+        <CurrentlyShowingCard
+          coverImageUrl={'/assets/images/gray_photo_loading.avif'}
+          title={'Loading...'}
+          PGRating={'...'}
+          language={'...'}
+          duration={0}
+        />
       </div>
     </section>
   );
