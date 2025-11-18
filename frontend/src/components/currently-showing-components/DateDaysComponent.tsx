@@ -20,7 +20,7 @@ export default function DateDaysComponent() {
 
   return (
     <section>
-      <div className="flex gap-5 pt-8 overflow-x-auto py-3">
+      <div className="flex justify-between pt-8 overflow-x-auto py-3">
         {days.map((day, index) => (
           <DayDateButton
             key={index}

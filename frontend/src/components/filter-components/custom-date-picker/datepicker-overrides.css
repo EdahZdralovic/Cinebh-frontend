@@ -184,7 +184,7 @@
     color: #fff !important;
     font-weight: lighter;
     position: relative;
-    z-index: 1; /* Povećaj z-index */
+    z-index: 1;
     border-top-right-radius: 100% !important;
     border-bottom-right-radius: 100% !important;
 }

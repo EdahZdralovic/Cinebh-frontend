@@ -32,3 +32,21 @@ export const getUpcomingMovies = async (
     throw error;
   }
 };
+export const getCurrentlyShowingMovies = async (
+  type: string,
+  filters: any,
+  page: number,
+  size: number
+) => {
+  const url = `${type}`;
+  const params = buildMovieParams(filters, page, size);
+
+  try {
+    const { data } = await axiosInstance.get(url, { params });
+    console.log(params);
+    return data;
+  } catch (error) {
+    console.error('Something went wrong', error);
+    throw error;
+  }
+};
