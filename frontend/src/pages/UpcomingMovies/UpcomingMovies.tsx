@@ -8,6 +8,7 @@ import { HomeCardsErrorMessage } from '../../components/home-components/HomeCard
 import { useUpcomingMovies } from '../../hooks/useUpcomingMovies.ts';
 import { LoadMoreButton } from '../../components/buttons/LoadMoreButton.tsx';
 import NoMoviesToPreview from '../../components/upcoming-page-components/NoMoviesToPreview.tsx';
+import UpcomingMoviesSkeleton from '../../components/upcoming-page-components/UpcomingMoviesSkeleton.tsx';
 
 export interface UpcomingProps {
   movies: MainCardProps[];
@@ -36,17 +37,7 @@ export default function UpcomingMovies(type: string) {
   );
 
   //skeleton za upcoming nije jos gotov
-  if (loading)
-    return (
-      <MainCard
-        coverImageUrl={'/assets/images/gray_photo_loading.avif'}
-        title="Loading"
-        isMovie={false}
-        street={'Loading'}
-        redStrip={false}
-        projectionStart={'22-12-2012'}
-      />
-    );
+  if (loading) return <UpcomingMoviesSkeleton />;
   if (error)
     return (
       <HomeCardsErrorMessage
