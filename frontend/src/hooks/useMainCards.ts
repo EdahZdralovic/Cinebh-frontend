@@ -16,7 +16,7 @@ export function useMainCards(page: number, size: number, type: string) {
     staleTime: 1000 * 60 * 5,
   });
   return {
-    mainCard: data?.content ?? [],
+    mainCards: data?.content ?? [],
     loading: isLoading,
     error: isError ? error : null,
     totalPages: data?.totalPages ?? 0,
