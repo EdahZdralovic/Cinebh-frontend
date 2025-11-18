@@ -18,7 +18,7 @@ export const getUpcomingMovies = async (
   type: string,
   filters: any,
   page: number,
-  size: number
+  size: number,
 ) => {
   const url = `${type}`;
   const params = buildMovieParams(filters, page, size);
