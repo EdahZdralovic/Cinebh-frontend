@@ -1,8 +1,8 @@
-import MainCard, { type MainCardProps } from "../../components/cards/MainCard.tsx";
-import { useMainCards } from "../../hooks/useMainCards.ts";
-import { useState } from "react";
-import { UpcomingFilter } from "../../components/filter-components/UpcomingFilter.tsx";
-import { HomeCardsErrorMessage } from "../../components/home-components/HomeCardsErrorMessage.tsx";
+import MainCard, { type MainCardProps } from '../../components/cards/MainCard.tsx';
+import { useMainCards } from '../../hooks/useMainCards.ts';
+import { useState } from 'react';
+import { UpcomingFilter } from '../../components/filter-components/UpcomingFilter.tsx';
+import { HomeCardsErrorMessage } from '../../components/home-components/HomeCardsErrorMessage.tsx';
 
 export interface UpcomingProps {
   movies: MainCardProps[];
@@ -10,7 +10,7 @@ export interface UpcomingProps {
 }
 
 export default function UpcomingMovies() {
-  const { mainCards, totalElements, loading, error } = useMainCards(0, 15, "movies/upcoming");
+  const { mainCards, totalElements, loading, error } = useMainCards(0, 15, 'movies/upcoming');
 
   const [page, setPage] = useState(0);
   if (loading) return <p>Loading</p>;
@@ -23,10 +23,17 @@ export default function UpcomingMovies() {
         <UpcomingFilter />
       </div>
       <div className="flex flex-col  sm:flex-row items-center gap-4 pt-4">
-        {mainCards.map((card) => (
-          <MainCard coverImageUrl={card.coverImageUrl} title={card.title} duration={card.duration}
-                    movieGenres={card.movieGenres} isMovie={true} projectionStart={card.projectionStart}
-                    redStrip={true} />))}
+        {mainCards.map(card => (
+          <MainCard
+            coverImageUrl={card.coverImageUrl}
+            title={card.title}
+            duration={card.duration}
+            movieGenres={card.movieGenres}
+            isMovie={true}
+            projectionStart={card.projectionStart}
+            redStrip={true}
+          />
+        ))}
       </div>
       <div className="flex justify-center text-[var(--color-secondary)] ">
         <button onClick={() => setPage(page + 1)}>Load more</button>
