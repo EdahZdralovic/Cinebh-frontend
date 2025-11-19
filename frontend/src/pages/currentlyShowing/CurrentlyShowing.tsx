@@ -9,6 +9,8 @@ import UpcomingMoviesSkeleton from '../../components/upcoming-page-components/Up
 import { HomeCardsErrorMessage } from '../../components/home-components/HomeCardsErrorMessage.tsx';
 import MainCard from '../../components/cards/MainCard.tsx';
 import NoMoviesToPreview from '../../components/upcoming-page-components/NoMoviesToPreview.tsx';
+import { formatDate } from '../../utils/formatDate.ts';
+import { LoadMoreButton } from '../../components/buttons/LoadMoreButton.tsx';
 
 export default function CurrentlyShowing() {
   const [filters, setFilters] = useState({
@@ -17,6 +19,7 @@ export default function CurrentlyShowing() {
     genreIds: [] as number[],
     fromDate: null as string | null,
     toDate: null as string | null,
+    selectedDate: null as string | null,
     q: '',
   });
   const patchFilters = (patch: Partial<typeof filters>) =>
@@ -43,35 +46,28 @@ export default function CurrentlyShowing() {
     <section className={'items-center text-[var(--color-primary)]  pt-12'}>
       <div className={'relative px-[6%]'}>
         <CurrentlyShowingFilter filters={filters} onChange={patchFilters} />
-        <DateDaysComponent />
+        <DateDaysComponent filters={filters} onChange={patchFilters} />
         {totalElements > 0 ? (
           currentlyCards.map((card) => (
             <CurrentlyShowingCard
               coverImageUrl={card.coverImageUrl}
               title={card.title}
+              PGRating={card.pgRating}
+              language={card.language}
               duration={card.duration}
               movieGenres={card.movieGenres}
+              projectionEnd={formatDate(card.projectionEnd)}
             />
           ))
         ) : (
           <NoMoviesToPreview />
         )}{' '}
-        <CurrentlyShowingCard
-          title={'Hateful Eight'}
-          language={'English'}
-          coverImageUrl={'/assets/images/avatar.webp'}
-          PGRating={'PR13'}
-          duration={118}
-          movieGenres={[
-            'Action',
-            'Western',
-            'Western',
-            'Adventure',
-            'Western',
-            'Western',
-            'Western',
-          ]}
-          projectionEnd={'22.12.2025'}
+
+      </div>
+      <div className={"my-8 flex justify-center "}>
+        <LoadMoreButton
+          disabled={size >= totalElements}
+          onClick={() => setSize(size + 4)}
         />
       </div>
     </section>

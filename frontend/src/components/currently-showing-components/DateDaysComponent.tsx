@@ -1,20 +1,23 @@
 import { useState } from 'react';
 import DayDateButton from '../buttons/DayDateButton.tsx';
+import type { Filters } from '../../utils/buildMovieParams.ts';
 
 function generateNext10Days() {
   const days = [];
   const today = new Date();
-
   for (let i = 0; i < 10; i++) {
     const d = new Date();
     d.setDate(today.getDate() + i);
     days.push(d);
   }
-
   return days;
 }
+interface DateDaysProps{
+  filters: Filters;
+  onChange: (patch: Partial<Filters>) => void;
+}
 
-export default function DateDaysComponent() {
+export default function DateDaysComponent({filters, onChange}:DateDaysProps) {
   const [active, setActive] = useState(0);
   const days = generateNext10Days();
 
@@ -26,7 +29,12 @@ export default function DateDaysComponent() {
             key={index}
             date={day}
             isActive={index === active}
-            onClick={() => setActive(index)}
+            onClick={() => {
+              setActive(index);
+              onChange({
+                selectedDate: day.toISOString().split("T")[0]  // yyyy-mm-dd format
+              });
+            }}
           />
         ))}
       </div>

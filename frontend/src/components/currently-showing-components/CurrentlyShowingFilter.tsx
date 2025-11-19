@@ -11,8 +11,8 @@ type Filters = {
   cityId: number[];
   venueId: number[];
   genreIds: number[];
-  fromDate: string | null;
-  toDate: string | null;
+  selectedDate: string | null;
+  projectionTimes: string[] | null;
   q: string;
 };
 
