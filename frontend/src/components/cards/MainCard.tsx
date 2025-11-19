@@ -1,35 +1,6 @@
 import React from 'react';
-import {
-  differenceInCalendarDays,
-  format,
-  parseISO,
-  startOfToday,
-} from 'date-fns';
-
-export interface MainCardProps {
-  coverImageUrl: string;
-  title: string;
-  duration?: number;
-  movieGenres?: string[];
-  street?: string;
-  isMovie?: boolean;
-  synopsis?: string;
-  redStrip?: boolean;
-  projectionStart?: string;
-}
-
-export function openingLabel(projectionStart: string) {
-  const target = parseISO(projectionStart);
-  if (isNaN(target.getTime())) return '';
-  const today = startOfToday();
-
-  const diff = differenceInCalendarDays(target, today);
-  if (diff >= 0 && diff <= 7) {
-    return `Opens ${format(target, 'EEEE')}`;
-  }
-
-  return format(target, 'EEE, MMM d, yyyy');
-}
+import { openingLabel } from './OpeningLabel.tsx';
+import type { MainCardProps } from '../../types/Cards.ts';
 
 export default function MainCard({
   coverImageUrl,
@@ -42,7 +13,6 @@ export default function MainCard({
   projectionStart = '',
 }: MainCardProps) {
   const genre = movieGenres?.[0];
-
   const dateForLabel = openingLabel(projectionStart as string);
 
   let detailsContent: React.ReactNode = null;

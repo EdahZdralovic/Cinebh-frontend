@@ -1,8 +1,8 @@
-import { ArrowLeft, ArrowRight } from "lucide-react";
+import { ArrowLeft, ArrowRight } from 'lucide-react';
 
 export enum ArrowDirection {
   Left,
-  Right
+  Right,
 }
 
 interface ArrowButtonProps {
@@ -11,13 +11,27 @@ interface ArrowButtonProps {
   direction: ArrowDirection;
 }
 
-export default function ArrowButton({ onClick, disabled = false, direction }: ArrowButtonProps) {
-  const Direction = (direction == ArrowDirection.Left) ? ArrowLeft : ArrowRight;
+export default function ArrowButton({
+  onClick,
+  disabled = false,
+  direction,
+}: ArrowButtonProps) {
+  const Direction = direction === ArrowDirection.Left ? ArrowLeft : ArrowRight;
   return (
-    <button onClick={onClick} disabled={disabled}
-            className="text-[var(--color-primary)] font- p-3 border border-gray-200 rounded-[8px] ">
-      < Direction size={20} strokeWidth={2}
-                  className={disabled ? "text-[var(--color-disabled)]" : "text-[var(--color-primary)]"} />
+    <button
+      onClick={onClick}
+      disabled={disabled}
+      className="text-[var(--color-primary)]  p-3 border border-gray-200 rounded-[8px] "
+    >
+      <Direction
+        size={20}
+        strokeWidth={2}
+        className={
+          disabled
+            ? 'text-[var(--color-disabled)]'
+            : 'text-[var(--color-primary)]'
+        }
+      />
     </button>
   );
 }

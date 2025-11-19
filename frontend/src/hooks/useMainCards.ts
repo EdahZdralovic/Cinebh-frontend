@@ -1,13 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import { getCards } from '../services/movieService.ts';
-import type { MainCardProps } from '../components/cards/MainCard.tsx';
-
-export interface MainCardResponse {
-  content: MainCardProps[];
-  totalPages: number;
-  totalElements: number;
-  pageNumber: number;
-}
+import type { MainCardResponse } from '../types/Cards.ts';
 
 export function useMainCards(page: number, size: number, type: string) {
   const { data, isLoading, isError, error } = useQuery<MainCardResponse>({
