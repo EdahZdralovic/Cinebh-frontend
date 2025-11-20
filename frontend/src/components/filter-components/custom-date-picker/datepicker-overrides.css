@@ -88,6 +88,7 @@
     border: 1px solid #fde3e3;
     overflow: hidden;
     width: 328px !important;
+    transform: scale(1.0);
 }
 
 .react-datepicker__header {

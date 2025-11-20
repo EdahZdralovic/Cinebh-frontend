@@ -13,7 +13,6 @@ export function CustomDatePicker({ value, onApply }: DatePickerProps) {
   const [tempEnd, setTempEnd] = useState<Date | null>(null);
   const datePickerRef = useRef<any>(null);
   const [isOpen, setIsOpen] = useState(false);
-  const [locked, setLocked] = useState(false);
 
   const handleApply = () => {
     const dateRange = { fromDate: toISO(tempStart), toDate: toISO(tempEnd) };
@@ -25,13 +24,28 @@ export function CustomDatePicker({ value, onApply }: DatePickerProps) {
     setTempEnd(null);
     setIsOpen(false);
   };
+  const CustomInput = ({ value, onClick }) => (
+    <div
+      onClick={onClick}
+      className="w-full flex items-center gap-2 bg-white  rounded-lg px-3 h-12 cursor-pointer"
+    >
+      <FiCalendar
+        className={
+          ' ml-0 flex justify-center ' +
+          (isOpen
+            ? '  text-[var(--color-secondary)] '
+            : 'text-[var(--color-primary)]  ')
+        }
+      />
+      <span
+        className={isOpen ? ' text-[var(--color-primary)] ' : 'text-gray-500 '}
+      >
+        {'Pick Range'}
+      </span>
+    </div>
+  );
   const toggle = () => {
-    if (locked) return;
-    setLocked(true);
-    datePickerRef.current?.setOpen(!isOpen);
-    setTimeout(() => {
-      setLocked(false);
-    }, 800);
+    setIsOpen((prev) => !prev);
   };
   const placeHolder =
     tempStart != null && tempEnd != null
@@ -47,29 +61,14 @@ export function CustomDatePicker({ value, onApply }: DatePickerProps) {
         className={`relative items-center  rounded-md shadow-sm flex w-full
     ${isOpen ? 'border-[1px] border-[#B22222]' : 'border border-gray-200'}`}
       >
-        <button
-          onClick={toggle}
-          style={{ pointerEvents: locked ? 'none' : 'auto' }}
-          className="ml-2 flex justify-between bg-white"
-        >
-          <FiCalendar
-            className={
-              ' ml-2 ' +
-              (isOpen
-                ? '  text-[var(--color-secondary)] flex justify-center'
-                : 'text-[var(--color-primary)]  flex justify-center')
-            }
-          />
-        </button>
         <DatePicker
           ref={datePickerRef}
           className="w-full bg-transparent rounded-lg outline-none text-[#1D2939] z-30 h-14 placeholder:text-gray-500 "
           selectsRange
-          onClickOutside={() => {
-            setIsOpen(false);
-            handleApply();
-          }}
+          open={isOpen}
+          onClickOutside={() => setIsOpen(false)}
           startDate={tempStart}
+          customInput={<CustomInput />}
           popperPlacement="bottom"
           endDate={tempEnd}
           shouldCloseOnSelect={false}
@@ -155,14 +154,7 @@ export function CustomDatePicker({ value, onApply }: DatePickerProps) {
             </button>
           </div>
         </DatePicker>
-        <div
-          className={'mr-3'}
-          onClick={() => {
-            datePickerRef.current?.setOpen(!isOpen);
-            setIsOpen(!isOpen);
-            handleApply();
-          }}
-        >
+        <div className={'mr-3'} onClick={toggle}>
           {isOpen ? (
             <IoIosArrowUp size={20} color={'#B22222'} fontWeight={100} />
           ) : (

@@ -48,7 +48,7 @@ export default function HomeCardsSection({
             />
           ))}
         </div>
-        <div className="flex flex-row justify-end items-center gap-4 pt-6 font-thin mr-0 mb-10 text-md ">
+        <div className="flex flex-row justify-end items-center gap-4 pt-6 font-thin mb-10 text-md ">
           <div>
             <span> Showing </span>
             <span className="font-semibold">

@@ -9,13 +9,16 @@ import { useUpcomingMovies } from '../../hooks/useUpcomingMovies.ts';
 import { LoadMoreButton } from '../../components/buttons/LoadMoreButton.tsx';
 import NoMoviesToPreview from '../../components/upcoming-page-components/NoMoviesToPreview.tsx';
 import UpcomingMoviesSkeleton from '../../components/upcoming-page-components/UpcomingMoviesSkeleton.tsx';
+import { useScrollToTop } from '../../hooks/useScrollToTop.ts';
 
 export interface UpcomingProps {
   movies: MainCardProps[];
   totalMovies: number;
 }
 
-export default function UpcomingMovies(type: string) {
+export default function UpcomingMovies() {
+  useScrollToTop();
+
   const [filters, setFilters] = useState({
     cityId: [] as number[],
     venueId: [] as number[],
@@ -36,7 +39,6 @@ export default function UpcomingMovies(type: string) {
     size
   );
 
-  //skeleton za upcoming nije jos gotov
   if (loading) return <UpcomingMoviesSkeleton />;
   if (error)
     return (

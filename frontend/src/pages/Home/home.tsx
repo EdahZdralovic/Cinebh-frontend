@@ -1,9 +1,11 @@
 import HomeCardsContainer from '../../components/home-components/HomeCardsContainer.tsx';
 import HomeHeroSection from '../../components/home-components/HomeHeroSection.tsx';
 import VenuesTicker from '../../components/home-components/VenuesTicker.tsx';
+import { useScrollToTop } from '../../hooks/useScrollToTop.ts';
 import { ROUTES } from '../../utils/Constants.ts';
 
 export default function Home() {
+  useScrollToTop();
   const TICKER_SIZE = 20;
   return (
     <section>

@@ -30,6 +30,7 @@ export default function MainCard({
         <span className="text-[var(--color-gray-text] text-wrap ">
           {street}
         </span>
+        <span className="h-5 w-px bg-white mx-2 inline-block align-text-bottom "></span>
       </div>
     );
   }

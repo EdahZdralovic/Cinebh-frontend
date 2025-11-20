@@ -7,7 +7,7 @@ interface VenuesTickerProps {
 
 export default function VenuesTicker({ type, size }: VenuesTickerProps) {
   const { mainCards, loading, error } = useMainCards(0, size, type);
-  if (loading) return <div className={'w-full h-[90px] '}></div>;
+  if (loading) return <div className={'w-full h-[92px] '}></div>;
   if (error)
     return (
       <p className="flex justify-center text-red-500">
