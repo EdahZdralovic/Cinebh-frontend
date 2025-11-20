@@ -1,11 +1,16 @@
 import axiosInstance from './axiosInstance.tsx';
 
-export async function getFilterData(type: string, params?: object) {
+type FilterParams = {
+  venueIds?: number[];
+  cityId?: number[];
+};
+
+export async function getFilterData(type: string, params?: FilterParams) {
   try {
     const endpoint = (() => {
       switch (type) {
         case 'genres':
-          return `/genres/by-venues?venueIds=${params?.venueIds.join(',')}`;
+          return '/genres/by-venues/upcoming';
         case 'locations':
           return '/locations';
         case 'venues':

@@ -1,6 +1,9 @@
 import { useEffect } from 'react';
 
-export function useClickOutside(isOpen: boolean, onClose: () => void) {
+export function useClickOutside(
+  isOpen: boolean | undefined,
+  onClose: () => void
+) {
   useEffect(() => {
     if (!isOpen) return;
 

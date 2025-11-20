@@ -4,19 +4,7 @@ import useFilterData from '../../../hooks/useFilterData.ts';
 import SelectFilterSkeleton from './SelectFilterSkeleton.tsx';
 import { useToggleElements } from '../../../hooks/useToggleElements.ts';
 import { useClickOutside } from '../../../hooks/useClickOutside.ts';
-import type { FilterProps } from '../../../types/Filters.ts';
-
-export interface FilterTypeProps {
-  endpoint: string;
-  params?: object;
-  placeholder: string;
-  value: number[];
-  onApply: (ids: number[], allElements?: FilterProps[]) => void;
-  labelKey?: string;
-  icon: ReactNode;
-  isOpen?: boolean;
-  onToggle?: () => void;
-}
+import type { FilterProps, FilterTypeProps } from '../../../types/Filters.ts';
 
 export default function SelectFilterComponent({
   endpoint,
@@ -35,7 +23,10 @@ export default function SelectFilterComponent({
 
   const { selected, toggle, setSelected } = useToggleElements(value);
 
-  useClickOutside(isOpen, () => onToggle?.());
+  useClickOutside(isOpen, () => {
+    onToggle?.();
+    handleApply();
+  });
 
   if (loading) return <SelectFilterSkeleton />;
   if (error) return <p>Error loading...</p>;

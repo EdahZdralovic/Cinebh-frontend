@@ -7,20 +7,7 @@ import SearchInput from '../filter-components/search-filter/SearchInput.tsx';
 import { SlLocationPin } from 'react-icons/sl';
 import { useEffect, useState } from 'react';
 import { CiFilter } from 'react-icons/ci';
-
-type Filters = {
-  cityId: number[];
-  venueId: number[];
-  genreIds: number[];
-  fromDate: string | null;
-  toDate: string | null;
-  q: string;
-};
-
-type UpcomingFilterProps = {
-  filters: Filters;
-  onChange: (patch: Partial<Filters>) => void;
-};
+import type { Filters, UpcomingFilterProps } from '../../types/Filters.ts';
 
 const LocationIcon = <SlLocationPin />;
 const VenueIcon = <HiOutlineOfficeBuilding />;
@@ -65,6 +52,7 @@ export default function UpcomingFilter({
             isOpen={openFilter === 'venue'}
             onToggle={() => toggleFilter('venue')}
             onApply={(selectedVenueIds, venuesList) => {
+              console.log(selectedVenueIds);
               const matchedCities = venuesList
                 .filter((v) => selectedVenueIds.includes(v.id))
                 .map((v) => v.location.id);
@@ -84,7 +72,11 @@ export default function UpcomingFilter({
             isOpen={openFilter === 'genre'}
             onToggle={() => toggleFilter('genre')}
             value={filters.genreIds}
-            params={{ venueIds: filters.venueId }}
+            params={
+              filters.venueId.length > 0
+                ? { venueIds: filters.venueId }
+                : undefined
+            }
             onApply={(ids) => onChange({ genreIds: ids })}
             icon={GenreIcon}
           />
@@ -134,6 +126,7 @@ export default function UpcomingFilter({
                 isOpen={openFilter === 'venue'}
                 onToggle={() => toggleFilter('venue')}
                 onApply={(selectedVenueIds, venuesList) => {
+                  console.log(selectedVenueIds);
                   const matchedCities = venuesList
                     .filter((v) => selectedVenueIds.includes(v.id))
                     .map((v) => v.location.id);
@@ -143,7 +136,11 @@ export default function UpcomingFilter({
                   });
                 }}
                 icon={VenueIcon}
-                params={{ cityId: filters.cityId }}
+                params={{
+                  cityId: filters.cityId,
+                  genreIds:
+                    filters.genreIds.length > 0 ? filters.genreIds : undefined,
+                }}
               />
             </div>
             <div data-filter="genre" className="relative">
