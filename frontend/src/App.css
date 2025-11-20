@@ -36,9 +36,8 @@
 }
 
 .rdp-root {
-    --rdp-accent-color: indigo; /* Change the accent color to indigo. */
-    --rdp-accent-background-color: 0; /* Change the accent background color. */
-
+    --rdp-accent-color: indigo;
+    --rdp-accent-background-color: 0;
 }
 
 .card {

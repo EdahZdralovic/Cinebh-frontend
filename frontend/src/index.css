@@ -14,27 +14,13 @@
     --color-light-red: #FDE3E3;
 }
 
-@keyframes heroZoom {
-    from {
-        transform: scale(1);
-    }
-    to {
-        transform: scale(1.05);
-    }
-}
 
-.hero-zoom {
-    animation: heroZoom 7s ease-out forwards;
-}
+
 
 .hero-bg {
     background-size: 100%;
     background-position: center;
     transition: background-position 8s ease-in-out;
-    background-position: top;
-}
-
-.hero-bg:hover {
     background-position: top;
 }
 
@@ -49,4 +35,18 @@
         transform: scale(1);
     }
 }
+@keyframes scrollX {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(-50%);
+    }
+}
 
+.animate-scroll-x {
+    animation: scrollX 20s linear infinite;
+}
+.animate-scroll-x:hover {
+    animation-play-state: paused;
+}

@@ -19,6 +19,52 @@
     outline: none;
 }
 
+@media (max-width: 1024px) {
+    .react-datepicker-popper {
+        transform: translateY(50px) !important;
+    }
+
+    .react-datepicker-popper[data-placement^="top"] {
+        top: 100% !important;
+        bottom: auto !important;
+        transform: translateY(10px) !important;
+    }
+    .react-datepicker {
+        width: 100px !important;
+        transform: scale(0.7);
+        transform-origin: top left;
+    }
+
+
+    .react-datepicker__month-container,
+    .react-datepicker__week,
+    .react-datepicker__month {
+        width: 280px !important;
+    }
+
+    .react-datepicker__day {
+        width: 44px !important;
+        height: 44px !important;
+        line-height: 36px !important;
+        font-size: 14px !important;
+    }
+
+    .react-datepicker__day-name {
+        padding-left: 6px;
+        width: 23px !important;
+        font-size: 12px !important;
+    }
+    .react-datepicker__month-container {
+        border-radius: 0 0 16px 16px;
+        width: 258px !important;
+    }
+
+
+
+
+}
+
+
 .react-datepicker__triangle,
 .react-datepicker-popper[data-placement^="bottom"] .react-datepicker__triangle,
 .react-datepicker-popper[data-placement^="top"] .react-datepicker__triangle {
@@ -30,11 +76,14 @@
 .react-datepicker-popper {
     padding-top: 0px !important;
     margin-top: 0px;
+
 }
+
 
 .react-datepicker {
     font-family: inherit;
     border-radius: 16px;
+    margin-right: 50px;
     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
     border: 1px solid #fde3e3;
     overflow: hidden;
@@ -67,7 +116,7 @@
 
 .react-datepicker__month-container {
     border-radius: 0 0 16px 16px;
-    width: 328px !important;
+    width: 318px !important;
 }
 
 .react-datepicker__month {

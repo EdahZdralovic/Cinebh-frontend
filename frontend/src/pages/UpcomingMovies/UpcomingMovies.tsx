@@ -54,7 +54,7 @@ export default function UpcomingMovies(type: string) {
         </p>
         <UpcomingFilter filters={filters} onChange={patchFilters} />
       </div>
-      <div className="grid lg:grid-cols-4 md:grid-cols-2 justify-center items-center gap-4 pt-4">
+      <div className="grid lg:grid-cols-4 md:grid-cols-2 justify-center items-center gap-4 pt-8">
         {totalElements > 0 ? (
           upcomingCards.map((card) => (
             <MainCard

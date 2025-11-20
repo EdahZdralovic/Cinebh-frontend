@@ -34,7 +34,7 @@ export default function HomeCardsSection({
             <Link to={seeAllLink}>See All</Link>
           </h6>
         </div>
-        <div className="flex flex-col sm:flex-row items-center gap-4 pt-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 items-center gap-4 pt-4">
           {cards.map((card) => (
             <MainCard
               coverImageUrl={card.coverImageUrl}

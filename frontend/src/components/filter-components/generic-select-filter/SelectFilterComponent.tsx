@@ -1,15 +1,12 @@
-import React, { type ReactNode, useEffect, useState } from 'react';
-import useFilterData from '../../../hooks/useFilterData.ts';
 import { IoIosArrowDown, IoIosArrowUp } from 'react-icons/io';
+import { type ReactNode } from 'react';
+import useFilterData from '../../../hooks/useFilterData.ts';
+import SelectFilterSkeleton from './SelectFilterSkeleton.tsx';
+import { useToggleElements } from '../../../hooks/useToggleElements.ts';
+import { useClickOutside } from '../../../hooks/useClickOutside.ts';
+import type { FilterProps } from '../../../types/Filters.ts';
 
-export interface FilterProps {
-  location?: { id: number };
-  cityId?: { id: number };
-  id: number;
-  name: string;
-}
-
-export interface FilterType {
+export interface FilterTypeProps {
   endpoint: string;
   params?: object;
   placeholder: string;
@@ -17,6 +14,8 @@ export interface FilterType {
   onApply: (ids: number[], allElements?: FilterProps[]) => void;
   labelKey?: string;
   icon: ReactNode;
+  isOpen?: boolean;
+  onToggle?: () => void;
 }
 
 export default function SelectFilterComponent({
@@ -26,117 +25,114 @@ export default function SelectFilterComponent({
   value,
   onApply,
   icon,
-}: FilterType) {
+  isOpen,
+  onToggle,
+}: FilterTypeProps) {
   const { elements, loading, error } = useFilterData<FilterProps>(
     endpoint,
     params
   );
-  const [open, setOpen] = useState(false);
-  const [localSel, setLocalSel] = useState<number[]>(value);
 
-  useEffect(() => setLocalSel(value), [value]);
+  const { selected, toggle, setSelected } = useToggleElements(value);
 
-  const toggleElements = (id: number) => {
-    setLocalSel((prev) =>
-      prev.includes(id)
-        ? prev.filter((genreId) => genreId !== id)
-        : [...prev, id]
-    );
-  };
-  if (loading) return <p>Loading...</p>;
-  if (error) return <p>Error loading genres</p>;
-  if (!elements || elements.length === 0) return null;
+  useClickOutside(isOpen, () => onToggle?.());
+
+  if (loading) return <SelectFilterSkeleton />;
+  if (error) return <p>Error loading...</p>;
 
   const handleApply = () => {
-    setOpen(false);
-    onApply(localSel, elements);
+    onToggle?.();
+    onApply(selected, elements);
   };
+
   const handleCancel = () => {
-    setOpen(false);
+    onToggle?.();
+    setSelected([]);
     onApply([]);
   };
+
   const selectedNames = elements
-    .filter((el) => localSel.includes(el.id))
+    .filter((el) => selected.includes(el.id))
     .map((el) => el.name);
 
   return (
     <section>
       <div
-        className={`relative rounded-lg  ${open ? 'border-[2px] border-red-200' : ''}`}
+        className={`relative rounded-lg ${isOpen ? 'border-2 border-red-200' : ''}`}
       >
         <div
-          onClick={() => setOpen((prev) => !prev)}
+          onClick={() => onToggle?.()}
           className={
-            'flex justify-between bg-white items-center h-12 border rounded-md shadow-lg ' +
-            (open ? ' border-[var(--color-secondary)]' : 'border-gray-300')
+            'flex justify-between bg-white items-center h-12 border rounded-md shadow-md ' +
+            (isOpen ? 'border-[var(--color-secondary)]' : 'border-gray-200')
           }
         >
-          <div className={'flex justify-start items-center'}>
-            <div
+          <div className="flex items-center">
+            <span
               className={
-                ' ml-3 ' +
-                (open
-                  ? '  text-[var(--color-secondary)] '
-                  : 'text-[var(--color-primary)] ')
+                'ml-3 ' +
+                (isOpen
+                  ? 'text-[var(--color-secondary)]'
+                  : 'text-[var(--color-primary)]')
               }
             >
               {icon}
-            </div>
-            <span className="pl-2 text-gray-500 text-[16px] col-span-9 max-w-[250px] max-h-12 truncate">
+            </span>
+
+            <span className="pl-2 text-gray-500 truncate overlay text-wrap max-h-12">
               {selectedNames.length === 0
                 ? `All ${placeholder}`
                 : selectedNames.join(', ')}
             </span>
           </div>
-          <div
+
+          <span
+            onClick={(e) => {
+              e.stopPropagation();
+              onToggle?.();
+            }}
             className={
-              ' col-span-2 mr-2 font-extralight ' +
-              (open
-                ? ' text-[var(--color-secondary)] '
-                : ' text-[var(--color-primary)] ')
+              'mr-2 ' +
+              (isOpen ? 'text-[var(--color-secondary)]' : 'text-gray-500')
             }
           >
-            {open ? (
-              <IoIosArrowUp size={20} fontWeight={100} />
-            ) : (
-              <IoIosArrowDown size={20} />
-            )}
-          </div>
+            {isOpen ? <IoIosArrowUp size={20} /> : <IoIosArrowDown size={20} />}
+          </span>
         </div>
       </div>
-      {open && (
+
+      {isOpen && (
         <div className="relative mt-1 w-full bg-white border rounded-md shadow-lg max-h-64 overflow-y-auto z-50">
           <ul>
-            {elements.map((filterProps: FilterProps) => (
+            {elements.map((el) => (
               <li
-                key={filterProps.id}
+                key={el.id}
                 onClick={(e) => {
                   e.stopPropagation();
-                  toggleElements(filterProps.id);
+                  toggle(el.id);
                 }}
-                className={`px-3 py-2 text-sm cursor-pointer flex items-center ${
-                  localSel.includes(filterProps.id)
-                    ? 'bg-[#FDE3E3]  font-bold rounded-md'
-                    : ''
-                }`}
+                className={
+                  'px-3 py-2 text-sm cursor-pointer flex items-center truncate  ' +
+                  (selected.includes(el.id)
+                    ? 'bg-[#FDE3E3] font-bold rounded-md'
+                    : '')
+                }
               >
-                {filterProps.name}
+                {el.name}
               </li>
             ))}
           </ul>
 
-          <div className="flex justify-end py-2 px-2 gap-3">
+          <div className="flex justify-end p-2 gap-3">
             <button
-              type="button"
               onClick={handleCancel}
-              className="px-4 py-2 text-[#B22222] border border-[#B22222] font-medium rounded-xl hover:bg-gray-100 text-sm"
+              className="px-4 py-2 text-[#B22222] border border-[#B22222] rounded-xl"
             >
               Cancel
             </button>
             <button
-              type="button"
-              className="px-4 py-2 bg-[var(--color-secondary)] text-white font-medium rounded-xl text-sm"
               onClick={handleApply}
+              className="px-4 py-2 bg-[var(--color-secondary)] text-white rounded-xl"
             >
               Apply
             </button>

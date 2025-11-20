@@ -3,8 +3,10 @@ import { AnimatePresence, motion } from 'framer-motion';
 
 import { useMainCards } from '../../hooks/useMainCards.ts';
 import { HeroButton } from '../buttons/HeroButton.tsx';
+import { HomeCardsErrorMessage } from './HomeCardsErrorMessage.tsx';
+import { HomeHeroSkeleton } from './HomeHeroSkeleton.tsx';
 
-export function HomeHeroSection() {
+function HomeHeroSection() {
   const { mainCards, loading, error } = useMainCards(
     2,
     3,
@@ -19,12 +21,17 @@ export function HomeHeroSection() {
     return () => clearInterval(interval);
   }, [movieNumber]);
 
-  if (loading) return <p>Loading...</p>;
-  if (error) return <p></p>;
-  if (!movies || movies.length === 0) return null;
+  if (loading) return <HomeHeroSkeleton />;
+  if (error)
+    return (
+      <HomeCardsErrorMessage
+        errorMessage={error.message}
+        errorCode={error.name}
+      />
+    );
+  if (!movies || movies.length === 0) return <HomeHeroSkeleton />;
 
   const movie = movies[movieNumber];
-
   const genre = movie.movieGenres?.[0];
   const variants = {
     enter: {
@@ -86,3 +93,5 @@ export function HomeHeroSection() {
     </section>
   );
 }
+
+export default HomeHeroSection;

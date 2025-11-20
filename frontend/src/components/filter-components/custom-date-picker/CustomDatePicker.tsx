@@ -1,31 +1,20 @@
-import React, { useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import './datepicker-overrides.css';
 import { FiCalendar } from 'react-icons/fi';
 import { IoIosArrowDown, IoIosArrowUp } from 'react-icons/io';
-
-export type DatePickerProps = {
-  value: { fromDate: string | null; toDate: string | null };
-  onApply: (patch: { fromDate: string | null; toDate: string | null }) => void;
-};
+import type { DatePickerProps } from '../../../types/Filters.ts';
+import { formatDate, fromISO, toISO } from '../../../utils/dateUtils.ts';
+import { MdArrowBackIos, MdArrowForwardIos } from 'react-icons/md';
 
 export function CustomDatePicker({ value, onApply }: DatePickerProps) {
-  const [tempStart, setTempStart] = useState(null);
-  const [tempEnd, setTempEnd] = useState(null);
+  const [tempStart, setTempStart] = useState<Date | null>(null);
+  const [tempEnd, setTempEnd] = useState<Date | null>(null);
   const datePickerRef = useRef<any>(null);
   const [isOpen, setIsOpen] = useState(false);
-  const toISO = (date: Date | null) =>
-    date
-      ? `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(
-          date.getDate()
-        ).padStart(2, '0')}`
-      : null;
-  const fromISO = (s: string | null) => {
-    if (!s) return null;
-    const [y, m, d] = s.split('-').map(Number);
-    return new Date(y, (m ?? 1) - 1, d ?? 1);
-  };
+  const [locked, setLocked] = useState(false);
+
   const handleApply = () => {
     const dateRange = { fromDate: toISO(tempStart), toDate: toISO(tempEnd) };
     onApply(dateRange);
@@ -36,28 +25,36 @@ export function CustomDatePicker({ value, onApply }: DatePickerProps) {
     setTempEnd(null);
     setIsOpen(false);
   };
-
-  const formatDate = (date) => {
-    if (!date) return null;
-    return `${date.getFullYear()}/${String(date.getMonth() + 1).padStart(2, '0')}/${String(date.getDate()).padStart(2, '0')}`;
+  const toggle = () => {
+    if (locked) return;
+    setLocked(true);
+    datePickerRef.current?.setOpen(!isOpen);
+    setTimeout(() => {
+      setLocked(false);
+    }, 800);
   };
   const placeHolder =
     tempStart != null && tempEnd != null
       ? { tempStart } + ' - ' + { tempEnd }
       : 'Pick Range';
+
   return (
     <div
       className={`relative bg-white rounded-lg shadow-lg flex w-full
     ${isOpen ? 'border-[2px] border-red-200' : ''}`}
     >
       <div
-        className={`relative items-center  rounded-md shadow-2xl flex w-full
-    ${isOpen ? 'border-[1px] border-[#B22222]' : 'border border-gray-300'}`}
+        className={`relative items-center  rounded-md shadow-sm flex w-full
+    ${isOpen ? 'border-[1px] border-[#B22222]' : 'border border-gray-200'}`}
       >
-        <button className="ml-2 flex justify-between bg-white">
+        <button
+          onClick={toggle}
+          style={{ pointerEvents: locked ? 'none' : 'auto' }}
+          className="ml-2 flex justify-between bg-white"
+        >
           <FiCalendar
             className={
-              ' ml-3 ' +
+              ' ml-2 ' +
               (isOpen
                 ? '  text-[var(--color-secondary)] flex justify-center'
                 : 'text-[var(--color-primary)]  flex justify-center')
@@ -66,9 +63,14 @@ export function CustomDatePicker({ value, onApply }: DatePickerProps) {
         </button>
         <DatePicker
           ref={datePickerRef}
-          className="w-full bg-transparent rounded-lg outline-none border-0 text-[#1D2939] pl-3 z-10 h-14  "
+          className="w-full bg-transparent rounded-lg outline-none text-[#1D2939] z-30 h-14 placeholder:text-gray-500 "
           selectsRange
+          onClickOutside={() => {
+            setIsOpen(false);
+            handleApply();
+          }}
           startDate={tempStart}
+          popperPlacement="bottom"
           endDate={tempEnd}
           shouldCloseOnSelect={false}
           placeholderText={placeHolder}
@@ -115,22 +117,9 @@ export function CustomDatePicker({ value, onApply }: DatePickerProps) {
                 <button
                   onClick={decreaseMonth}
                   disabled={prevMonthButtonDisabled}
-                  className="p-1 hover:bg-gray-100 rounded disabled:opacity-50"
+                  className="p-1 text-[var(--color-primary)]  rounded disabled:opacity-50"
                 >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    strokeWidth={1.5}
-                    stroke="currentColor"
-                    className="w-6 h-6"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      d="M15.75 19.5 8.25 12l7.5-7.5"
-                    />
-                  </svg>
+                  <MdArrowBackIos />
                 </button>
                 <span className="font-normal text-gray-800">
                   {date.toLocaleDateString('en-US', {
@@ -141,22 +130,9 @@ export function CustomDatePicker({ value, onApply }: DatePickerProps) {
                 <button
                   onClick={increaseMonth}
                   disabled={nextMonthButtonDisabled}
-                  className="p-1 hover:bg-gray-100 rounded disabled:opacity-50"
+                  className="p-1 text-[var(--color-primary)]  rounded disabled:opacity-50"
                 >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    strokeWidth={1.5}
-                    stroke="currentColor"
-                    className="w-6 h-6"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      d="m8.25 4.5 7.5 7.5-7.5 7.5"
-                    />
-                  </svg>
+                  <MdArrowForwardIos />
                 </button>
               </div>
             </div>
@@ -179,11 +155,18 @@ export function CustomDatePicker({ value, onApply }: DatePickerProps) {
             </button>
           </div>
         </DatePicker>
-        <div className={'mr-3'}>
+        <div
+          className={'mr-3'}
+          onClick={() => {
+            datePickerRef.current?.setOpen(!isOpen);
+            setIsOpen(!isOpen);
+            handleApply();
+          }}
+        >
           {isOpen ? (
             <IoIosArrowUp size={20} color={'#B22222'} fontWeight={100} />
           ) : (
-            <IoIosArrowDown size={20} fontWeight={100} />
+            <IoIosArrowDown size={20} color={'#6B7280'} fontWeight={100} />
           )}
         </div>
       </div>

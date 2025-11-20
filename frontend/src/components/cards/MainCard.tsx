@@ -34,28 +34,34 @@ export default function MainCard({
     );
   }
   return (
-    <div className="text-[var(--color-primary)]  shadow-lg w-auto relative border grid sm:max-w-[24%] min-w-[300px] items-center grid-col-1   rounded-3xl">
-      <div className="relative m-4  aspect-[94/100] ">
-        <img
-          src={coverImageUrl}
-          alt={title}
-          className="relative h-full z-10 w-[100%] rounded-2xl object-cover"
-        />
-        {redStrip ? (
-          <>
-            <div className="absolute inline-flex z-10 items-center top-[6.0%] sm:top-[5.7%] sm:right-[-2.3%] right-[-2.07%]  h-5 bg-[var(--color-secondary)] rounded-l rounded-se-md py-4 px-2">
-              <span className="whitespace-nowrap font-medium text-[14px] p1-2 text-white">
-                {dateForLabel}
-              </span>
+    <section>
+      <div className="justify-center z-0 shadow-lg  w-auto relative  grid  items-center grid-col-1 rounded-3xl">
+        <div className="relative m-4  aspect-[94/100] ">
+          <img
+            src={coverImageUrl}
+            alt={title}
+            className="relative h-full z-10 w-full rounded-2xl object-cover"
+          />
+          {redStrip ? (
+            <div
+              className={
+                'absolute top-[6%] right-[-2%] flex flex-col items-end'
+              }
+            >
+              <div className="inline-flex  z-10 items-center  right-[-2.07%]  h-5 bg-[var(--color-secondary)] rounded-l rounded-se-md py-4 px-2">
+                <span className="whitespace-nowrap  font-medium text-[14px] pl-2 text-white">
+                  {dateForLabel}
+                </span>
+              </div>
+              <div className="z-0 right-[100%] top-[17.3%]  sm:top-[16.3%] border-x-[14px] border-x-transparent border-t-[22px] border-t-[var(--color-secondary)]"></div>
             </div>
-            <div className="absolute z-90 right-[-2.1%] top-[17.3%]  sm:top-[16.3%] border-x-[14px] border-x-transparent border-t-[22px] border-t-[var(--color-secondary)]"></div>
-          </>
-        ) : null}
+          ) : null}
+        </div>
+        <div className="font-semibold pl-4 truncate text-xl pb-2 ">{title}</div>
+        <div className="pl-4 text-md text-[var(--color-gray-text)] tracking-[1.25%] pb-5 font-thin inline-flex items-center gap-2">
+          {detailsContent}
+        </div>
       </div>
-      <div className="font-semibold pl-4 truncate text-xl pb-2 ">{title}</div>
-      <div className="pl-4 text-md text-[var(--color-gray-text)] tracking-[1.25%] pb-5 font-thin inline-flex items-center gap-2">
-        {detailsContent}
-      </div>
-    </div>
+    </section>
   );
 }
