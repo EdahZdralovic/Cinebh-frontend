@@ -17,8 +17,8 @@ type Filters = {
 };
 
 type UpcomingFilterProps = {
-  filters: Filters;
-  onChange: (patch: Partial<Filters>) => void;
+  filters?: Filters;
+  onChange?: (patch: Partial<Filters>) => void;
 };
 
 const LocationIcon = <SlLocationPin />;

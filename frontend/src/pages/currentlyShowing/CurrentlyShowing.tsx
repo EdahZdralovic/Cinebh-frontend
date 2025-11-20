@@ -11,6 +11,7 @@ import MainCard from '../../components/cards/MainCard.tsx';
 import NoMoviesToPreview from '../../components/upcoming-page-components/NoMoviesToPreview.tsx';
 import { formatDate } from '../../utils/formatDate.ts';
 import { LoadMoreButton } from '../../components/buttons/LoadMoreButton.tsx';
+import { CurrentlyShowingSkeleton } from '../../components/currently-showing-components/CurrentlyShowingSkeleton.tsx';
 
 export default function CurrentlyShowing() {
   const [filters, setFilters] = useState({
@@ -25,15 +26,12 @@ export default function CurrentlyShowing() {
   const patchFilters = (patch: Partial<typeof filters>) =>
     setFilters((f) => ({ ...f, ...patch }));
 
+  const CurrentlyShowingUrl = 'movies/currently-showing';
   const [size, setSize] = useState(9);
-  const { currentlyCards, totalElements, loading, error } = useCurrentlyShowingMovies(
-    filters,
-    'movies/currently-showing/filter',
-    0,
-    size
-  );
-  //skeleton za upcoming nije jos gotov
-  if (loading) return <UpcomingMoviesSkeleton />;
+  const { currentlyCards, totalElements, loading, error } =
+    useCurrentlyShowingMovies(filters, CurrentlyShowingUrl, 0, size);
+
+  if (loading) return <CurrentlyShowingSkeleton />;
   if (error)
     return (
       <HomeCardsErrorMessage
@@ -45,6 +43,9 @@ export default function CurrentlyShowing() {
   return (
     <section className={'items-center text-[var(--color-primary)]  pt-12'}>
       <div className={'relative px-[6%]'}>
+        <p className="text-[32px]  font-semibold">
+          Currently Showing ({totalElements})
+        </p>
         <CurrentlyShowingFilter filters={filters} onChange={patchFilters} />
         <DateDaysComponent filters={filters} onChange={patchFilters} />
         {totalElements > 0 ? (
@@ -62,9 +63,8 @@ export default function CurrentlyShowing() {
         ) : (
           <NoMoviesToPreview />
         )}{' '}
-
       </div>
-      <div className={"my-8 flex justify-center "}>
+      <div className={'my-8 flex justify-center '}>
         <LoadMoreButton
           disabled={size >= totalElements}
           onClick={() => setSize(size + 4)}
