@@ -41,7 +41,7 @@ export default function MainCard({
           <img
             src={coverImageUrl}
             alt={title}
-            className="relative h-full z-10 w-full rounded-2xl object-cover"
+            className="relative h-full z-10 min-w-[95%]  w-full rounded-2xl object-cover"
           />
           {redStrip ? (
             <div

@@ -5,9 +5,9 @@ import { HiOutlineOfficeBuilding } from 'react-icons/hi';
 import { BiCameraMovie } from 'react-icons/bi';
 import SearchInput from '../filter-components/search-filter/SearchInput.tsx';
 import { SlLocationPin } from 'react-icons/sl';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { CiFilter } from 'react-icons/ci';
-import type { Filters, UpcomingFilterProps } from '../../types/Filters.ts';
+import type { UpcomingFilterProps } from '../../types/Filters.ts';
 
 const LocationIcon = <SlLocationPin />;
 const VenueIcon = <HiOutlineOfficeBuilding />;
@@ -41,7 +41,7 @@ export default function UpcomingFilter({
             value={filters.cityId}
             onApply={(ids) => onChange({ cityId: ids })}
             icon={LocationIcon}
-            params={{ venueIds: filters.venueId }}
+            params={{ cityId: filters.cityId }}
           />
         </div>
         <div data-filter="venue" className="relative">
@@ -51,14 +51,9 @@ export default function UpcomingFilter({
             value={filters.venueId}
             isOpen={openFilter === 'venue'}
             onToggle={() => toggleFilter('venue')}
-            onApply={(selectedVenueIds, venuesList) => {
-              console.log(selectedVenueIds);
-              const matchedCities = venuesList
-                .filter((v) => selectedVenueIds.includes(v.id))
-                .map((v) => v.location.id);
+            onApply={(selectedVenueIds) => {
               onChange({
                 venueId: selectedVenueIds,
-                cityId: [...new Set(matchedCities)],
               });
             }}
             icon={VenueIcon}
@@ -115,7 +110,7 @@ export default function UpcomingFilter({
                 value={filters.cityId}
                 onApply={(ids) => onChange({ cityId: ids })}
                 icon={LocationIcon}
-                params={{ venueIds: filters.venueId }}
+                params={{ cityId: filters.cityId }}
               />
             </div>
             <div data-filter="venue" className="relative">
@@ -136,11 +131,7 @@ export default function UpcomingFilter({
                   });
                 }}
                 icon={VenueIcon}
-                params={{
-                  cityId: filters.cityId,
-                  genreIds:
-                    filters.genreIds.length > 0 ? filters.genreIds : undefined,
-                }}
+                params={{ cityId: filters.cityId }}
               />
             </div>
             <div data-filter="genre" className="relative">

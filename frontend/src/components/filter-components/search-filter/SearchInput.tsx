@@ -26,16 +26,18 @@ export default function SearchInput({ value, onSearch }: SearchInputProps) {
         (isOpen ? 'border-[var(--color-secondary)]  ' : 'border-gray-200')
       }
     >
-      <IoSearchOutline className={'ml-4 text-xl text-[var(--color-primary)]'} />
+      <IoSearchOutline
+        className={'ml-4   text-xl text-[var(--color-primary)]'}
+      />
       <input
         type="text"
-        placeholder="  Search Movies"
+        placeholder="Search Movies"
         value={localValue}
         onClick={() => {
           setIsOpen(true);
         }}
         onChange={(e) => setLocalValue(e.target.value)}
-        className="w-full border-none focus:outline-none border-gray-300 placeholder:text-gray-500 placeholder:font-extralight "
+        className="w-full border-none focus:outline-none pl-2 border-gray-300 placeholder:text-gray-500 placeholder:font-extralight "
       />
     </div>
   );
