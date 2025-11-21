@@ -1,5 +1,6 @@
 import React from 'react';
 import GenreButton from '../buttons/GenreButton.tsx';
+import { ProjectionTimeButton } from '../buttons/ProjectionTimeButton.tsx';
 
 export interface CurrentlyShowingCardProps {
   coverImageUrl: string;
@@ -10,7 +11,7 @@ export interface CurrentlyShowingCardProps {
   movieGenres?: string[];
   projectionEnd?: string;
 
-  showTimes?: string[];
+  projections?: string[];
 }
 
 export default function CurrentlyShowingCard({
@@ -19,24 +20,26 @@ export default function CurrentlyShowingCard({
   title,
   movieGenres,
   projectionEnd = '',
-  showTimes,
+  projections,
   language,
   PGRating,
 }: CurrentlyShowingCardProps) {
   return (
-    <section className={'relative'}>
+    <section className={''}>
       <div
         className={
-          'h-3/3 w-full text-[var(--color-primary)] my-10 border border-gray-200 rounded-3xl flex sm:flex-row flex-col'
+          ' w-full text-[var(--color-primary)] shadow-lg aspect-[4/1] max-h-fit mt-6 mb-0 border border-gray-200 rounded-3xl grid grid-cols-9'
         }
       >
         <img
           src={coverImageUrl}
           alt={title}
-          className="relative gap-4 m-4 h-3/3  max-w-[270px] aspect-[9/10] rounded-2xl object-cover"
+          className="relative gap-4 m-4 col-span-2 w-full aspect-square  rounded-2xl object-cover"
         />
 
-        <div className={'col-span-3  mt-4 ml-6 flex flex-col justify-between '}>
+        <div
+          className={'col-span-3  mt-4 ml-10 flex flex-col justify-between '}
+        >
           <div className={''}>
             <h2 className={'text-[32px]  font-semibold'}>{title}</h2>
             <div className={'  my-4 '}>
@@ -57,7 +60,7 @@ export default function CurrentlyShowingCard({
             <p>Playing in cinema until {projectionEnd}</p>
           </div>
         </div>
-        <div className={'ml-4'}>
+        <div className={' grid-cols-4 ml-4'}>
           <h2
             className={
               'text-[var(--color-secondary)] mt-6 font-semibold text-xl'
@@ -65,6 +68,11 @@ export default function CurrentlyShowingCard({
           >
             Showtimes
           </h2>
+          <div className={'flex flex-row gap-4 pt-3 '}>
+            {projections?.map((projection) => (
+              <ProjectionTimeButton time={projection} />
+            ))}
+          </div>
         </div>
       </div>
     </section>

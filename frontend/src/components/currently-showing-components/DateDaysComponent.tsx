@@ -12,13 +12,15 @@ function generateNext10Days() {
   }
   return days;
 }
-interface DateDaysProps{
+interface DateDaysProps {
   filters: Filters;
   onChange: (patch: Partial<Filters>) => void;
 }
 
-export default function DateDaysComponent({filters, onChange}:DateDaysProps) {
-  const [active, setActive] = useState(0);
+export default function DateDaysComponent({
+  filters,
+  onChange,
+}: DateDaysProps) {
   const days = generateNext10Days();
 
   return (
@@ -28,11 +30,10 @@ export default function DateDaysComponent({filters, onChange}:DateDaysProps) {
           <DayDateButton
             key={index}
             date={day}
-            isActive={index === active}
+            isActive={day.toISOString().split('T')[0] === filters.selectedDate}
             onClick={() => {
-              setActive(index);
               onChange({
-                selectedDate: day.toISOString().split("T")[0]  // yyyy-mm-dd format
+                selectedDate: day.toISOString().split('T')[0], // yyyy-mm-dd format
               });
             }}
           />

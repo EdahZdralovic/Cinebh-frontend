@@ -14,6 +14,7 @@ export type Filters = {
   fromDate: string | null;
   toDate: string | null;
   q: string;
+  selectedDate: string | null;
 };
 
 export type DatePickerProps = {

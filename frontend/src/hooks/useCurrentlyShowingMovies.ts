@@ -7,10 +7,12 @@ import type { MainCardResponse } from './useMainCards.ts';
 
 export function useCurrentlyShowingMovies(
   filters: {
-    cityId: null;
-    venueId: null;
+    cityId: number[];
+    venueId: number[];
     genreIds: number[];
-    projectionTimes: string[] | null;
+    fromDate: string | null;
+    toDate: string | null;
+    selectedDate: string | null;
     q: string;
   },
   type: string,

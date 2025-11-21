@@ -20,7 +20,7 @@ export default function CurrentlyShowing() {
     genreIds: [] as number[],
     fromDate: null as string | null,
     toDate: null as string | null,
-    selectedDate: null as string | null,
+    selectedDate: new Date().toISOString().split('T')[0],
     q: '',
   });
   const patchFilters = (patch: Partial<typeof filters>) =>
@@ -58,6 +58,7 @@ export default function CurrentlyShowing() {
               duration={card.duration}
               movieGenres={card.movieGenres}
               projectionEnd={formatDate(card.projectionEnd)}
+              projections={card.projectionTimes}
             />
           ))
         ) : (
