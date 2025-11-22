@@ -32,12 +32,6 @@ export default function Navbar() {
           >
             Upcoming Movies
           </Link>
-          <Link
-            to="/venues"
-            className=" hover:font-semibold hover:underline underline-offset-4 hover:-mx-[1px]"
-          >
-            Venues
-          </Link>
         </div>
         <div className="md:hidden">
           {isOpen ? (
@@ -63,13 +57,6 @@ export default function Navbar() {
               className="text-base"
             >
               Upcoming Movies
-            </Link>
-            <Link
-              to="/venues"
-              onClick={() => setIsOpen(false)}
-              className="text-base"
-            >
-              Venues
             </Link>
           </nav>
         </div>
