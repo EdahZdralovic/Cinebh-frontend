@@ -7,12 +7,12 @@ export default function UpcomingMoviesSkeleton() {
     <section className={'px-[6%] pt-6 animate-pulse'}>
       <div>
         <p className="text-3xl h-[50px] text-gray-500 font-semibold">
-          Upcoming Movies
+          Upcoming Movies ...
         </p>
       </div>
       <div
         className={
-          'flex w-full h-12 text-gray-500 pl-3 mt-[14px] shadow-md border rounded-md bg-white items-center drop-shadow-md justify-start mb-4'
+          'flex w-full h-12 text-gray-500 pl-3 mt-[2px] shadow-md border rounded-md bg-white items-center  justify-start mb-4'
         }
       >
         <RiLoader2Fill className={'pr-2 size-7'} /> Loading...

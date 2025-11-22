@@ -52,7 +52,7 @@ export default function UpcomingMovies() {
   return (
     <section className="text-[var(--color-primary)] px-[6%] pt-6">
       <div>
-        <p className="text-[32px]  font-semibold">
+        <p className="text-3xl  font-semibold">
           Upcoming Movies ({totalElements})
         </p>
         <UpcomingFilter filters={filters} onChange={patchFilters} />
