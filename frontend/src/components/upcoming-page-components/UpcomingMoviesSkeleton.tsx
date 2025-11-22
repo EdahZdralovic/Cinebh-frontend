@@ -6,7 +6,7 @@ export default function UpcomingMoviesSkeleton() {
   return (
     <section className={'px-[6%] pt-6 animate-pulse'}>
       <div>
-        <p className="text-[32px] h-[50px] text-gray-500 font-semibold">
+        <p className="text-3xl h-[50px] text-gray-500 font-semibold">
           Upcoming Movies
         </p>
       </div>

@@ -10,6 +10,7 @@ import { LoadMoreButton } from '../../components/buttons/LoadMoreButton.tsx';
 import NoMoviesToPreview from '../../components/upcoming-page-components/NoMoviesToPreview.tsx';
 import UpcomingMoviesSkeleton from '../../components/upcoming-page-components/UpcomingMoviesSkeleton.tsx';
 import { useScrollToTop } from '../../hooks/useScrollToTop.ts';
+import { ROUTES } from '../../utils/Constants.ts';
 
 export interface UpcomingProps {
   movies: MainCardProps[];
@@ -34,7 +35,7 @@ export default function UpcomingMovies() {
   const [size, setSize] = useState(12);
   const { upcomingCards, totalElements, loading, error } = useUpcomingMovies(
     filters,
-    'movies/upcoming/filter',
+    ROUTES.UPCOMING_FILTER,
     0,
     size
   );
