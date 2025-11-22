@@ -41,9 +41,11 @@ export default function CurrentlyShowing() {
     );
 
   return (
-    <section className={'items-center text-[var(--color-primary)]  pt-12'}>
-      <div className={'relative px-[6%]'}>
-        <p className="text-[32px]  font-semibold">
+    <section
+      className={'items-center text-[var(--color-primary)]  pt-6 lg:pt-12'}
+    >
+      <div className={'relative sm:px-[6%] px-[4%]'}>
+        <p className="sm:text-3xl text-2xl font-semibold">
           Currently Showing ({totalElements})
         </p>
         <CurrentlyShowingFilter filters={filters} onChange={patchFilters} />

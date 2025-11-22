@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import DayDateButton from '../buttons/DayDateButton.tsx';
 import type { Filters } from '../../utils/buildMovieParams.ts';
 
@@ -25,7 +24,7 @@ export default function DateDaysComponent({
 
   return (
     <section>
-      <div className="flex justify-between pt-8 overflow-x-auto py-3">
+      <div className="lg:flex lg:justify-between sm:grid sm:grid-cols-5 grid grid-cols-4 gap-2 sm:pt-8 pt-4 min-w-[70px] overflow-x-auto py-3">
         {days.map((day, index) => (
           <DayDateButton
             key={index}
@@ -39,7 +38,7 @@ export default function DateDaysComponent({
           />
         ))}
       </div>
-      <p className={'text-gray-500 text-[14px] '}>
+      <p className={'text-gray-500 text-sm'}>
         Quick reminder that our cinema schedule is on a ten-day update cycle.
       </p>
     </section>

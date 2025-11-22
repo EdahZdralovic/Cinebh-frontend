@@ -6,6 +6,7 @@ import SearchInput from '../filter-components/search-filter/SearchInput.tsx';
 import { SlLocationPin } from 'react-icons/sl';
 import { useState } from 'react';
 import { CiFilter } from 'react-icons/ci';
+import { MdOutlineAccessTime } from 'react-icons/md';
 
 type Filters = {
   cityId: number[];
@@ -24,6 +25,7 @@ type UpcomingFilterProps = {
 const LocationIcon = <SlLocationPin />;
 const VenueIcon = <HiOutlineOfficeBuilding />;
 const GenreIcon = <BiCameraMovie />;
+const ProjectionIcon = <MdOutlineAccessTime />;
 
 export default function CurrentlyShowingFilter({
   filters,
@@ -67,6 +69,21 @@ export default function CurrentlyShowingFilter({
           onApply={(ids) => onChange({ genreIds: ids })}
           icon={GenreIcon}
         />
+        <SelectFilterComponent
+          endpoint="projections"
+          placeholder="Projection Times"
+          value={filters.projectionTimes ?? []}
+          params={{
+            cityId: filters.cityId,
+            venueId: filters.venueId,
+            genreIds: filters.genreIds,
+            selectedDate: filters.selectedDate,
+          }}
+          valueKey="name"
+          labelKey="name"
+          onApply={(times) => onChange({ projectionTimes: times })}
+          icon={ProjectionIcon}
+        />
       </div>
 
       <div
@@ -109,12 +126,17 @@ export default function CurrentlyShowingFilter({
               }}
             />
             <SelectFilterComponent
-              endpoint="genres"
-              params={{ venueIds: filters.venueId }}
-              placeholder="Genres"
-              value={filters.genreIds}
-              onApply={(ids) => onChange({ genreIds: ids })}
-              icon={GenreIcon}
+              endpoint="projections"
+              placeholder="Projection Times"
+              value={filters.projectionTimes ?? []}
+              params={{
+                cityId: filters.cityId,
+                venueId: filters.venueId,
+                genreIds: filters.genreIds,
+                selectedDate: filters.selectedDate,
+              }}
+              onApply={(times) => onChange({ projectionTimes: times })}
+              icon={ProjectionIcon}
             />
           </div>
         )}

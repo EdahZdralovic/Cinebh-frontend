@@ -15,6 +15,8 @@ export async function getFilterData(type: string, params?: FilterParams) {
           return '/locations';
         case 'venues':
           return '/venues/all';
+        case 'projections':
+          return '/projections/times';
         default:
           throw new Error(`Unknown filter type: ${type}`);
       }

@@ -22,7 +22,11 @@ export type DatePickerProps = {
   onApply: (patch: { fromDate: string | null; toDate: string | null }) => void;
 };
 
-export interface FilterTypeProps {
+export type UpcomingFilterProps = {
+  filters: Filters;
+  onChange: (patch: Partial<Filters>) => void;
+};
+export interface FilterType {
   endpoint: string;
   params?: object;
   placeholder: string;
@@ -30,10 +34,8 @@ export interface FilterTypeProps {
   onApply: (ids: number[], allElements?: FilterProps[]) => void;
   labelKey?: string;
   icon: ReactNode;
-  isOpen?: boolean;
-  onToggle?: () => void;
+  valueKey?: string;
+  labelKey?: string;
+  customClassNameHeader?: string;
+  customClassNameToggle?: string;
 }
-export type UpcomingFilterProps = {
-  filters: Filters;
-  onChange: (patch: Partial<Filters>) => void;
-};

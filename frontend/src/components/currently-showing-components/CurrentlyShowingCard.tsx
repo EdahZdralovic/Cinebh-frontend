@@ -28,28 +28,34 @@ export default function CurrentlyShowingCard({
     <section className={''}>
       <div
         className={
-          ' w-full text-[var(--color-primary)] shadow-lg aspect-[4/1] max-h-fit mt-6 mb-0 border border-gray-200 rounded-3xl grid grid-cols-9'
+          ' w-full text-[var(--color-primary)] shadow-lg lg:aspect-[4/1] aspect-auto max-h-fit h-full mt-6 border border-gray-200 rounded-3xl lg:grid lg:grid-cols-9 grid-cols-3'
         }
       >
         <img
           src={coverImageUrl}
           alt={title}
-          className="relative gap-4 m-4 col-span-2 w-full aspect-square  rounded-2xl object-cover"
+          className="relative lg:self-center m-[4%] lg:m-[4%] w-[92%] lg:w-full lg:col-span-2 col-span-3 aspect-[27/28]  rounded-2xl object-cover"
         />
 
         <div
-          className={'col-span-3  mt-4 ml-10 flex flex-col justify-between '}
+          className={
+            'lg:col-span-3  mt-4 lg:ml-10 ml-[4%] flex flex-col justify-between '
+          }
         >
           <div className={''}>
-            <h2 className={'text-[32px]  font-semibold'}>{title}</h2>
-            <div className={'  my-4 '}>
+            <h2 className={'2xl:text-3xl text-lg font-semibold'}>{title}</h2>
+            <div className={'  xl:my-4 my-1 '}>
               <span>{PGRating}</span>
               <span className="h-5 w-px bg-[var(--color-secondary)] mx-2 inline-block align-text-bottom "></span>
               <span>{language}</span>
               <span className="h-5 w-px bg-[var(--color-secondary)] mx-2 inline-block align-text-bottom "></span>
               <span>{duration} Min</span>
             </div>
-            <div className={'flex flex-wrap gap-x-4 gap-y-2 w-4/6'}>
+            <div
+              className={
+                'flex flex-wrap xl:gap-x-4 xl:gap-y-2 gap-x-2 gap-y-1 w-4/6'
+              }
+            >
               {movieGenres?.map((genre) => (
                 <GenreButton name={genre} />
               ))}
@@ -60,15 +66,15 @@ export default function CurrentlyShowingCard({
             <p>Playing in cinema until {projectionEnd}</p>
           </div>
         </div>
-        <div className={' grid-cols-4 ml-4'}>
+        <div className={' lg:grid-cols-4  ml-4'}>
           <h2
             className={
-              'text-[var(--color-secondary)] mt-6 font-semibold text-xl'
+              'text-[var(--color-secondary)] lg:mt-6 mt-2 font-semibold text-xl'
             }
           >
             Showtimes
           </h2>
-          <div className={'flex flex-row gap-4 pt-3 '}>
+          <div className={'flex flex-row gap-4 pt-3 lg:pb-0 pb-4'}>
             {projections?.map((projection) => (
               <ProjectionTimeButton time={projection} />
             ))}

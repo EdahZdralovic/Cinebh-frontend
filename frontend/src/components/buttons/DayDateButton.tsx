@@ -19,7 +19,7 @@ export default function DayDateButton({
     <button
       onClick={onClick}
       className={
-        ' border shadow-md w-[110px] h-[84px] rounded-lg   text-[16px] ' +
+        ' border shadow-md w-full aspect-[110/84] rounded-lg   text-[16px] ' +
         (isActive
           ? ' bg-[var(--color-secondary)] border-[var(--color-secondary)] text-white '
           : ' bg-white border-gray-200')
@@ -28,7 +28,7 @@ export default function DayDateButton({
       <span
         className={
           ' font-semibold ' +
-          (isActive ? ' text-lg' : ' text-[var(--color-primary)] ')
+          (isActive ? ' sm:text-lg' : ' text-[var(--color-primary)] ')
         }
       >
         {monthName} {dayNumber}

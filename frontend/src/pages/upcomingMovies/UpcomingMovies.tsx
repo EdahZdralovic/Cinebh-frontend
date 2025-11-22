@@ -3,7 +3,7 @@ import MainCard, {
 } from '../../components/cards/MainCard.tsx';
 
 import { useState } from 'react';
-import UpcomingFilter from '../../components/upcoming-page-components/UpcomingFilter.tsx';
+import UpcomingFilter from '../../components/filter-components/UpcomingFilter.tsx';
 import { HomeCardsErrorMessage } from '../../components/home-components/HomeCardsErrorMessage.tsx';
 import { useUpcomingMovies } from '../../hooks/useUpcomingMovies.ts';
 import { LoadMoreButton } from '../../components/buttons/LoadMoreButton.tsx';

@@ -18,6 +18,8 @@ export function buildMovieParams(filters: any, page = 0, size = 12) {
   if (filters.toDate) params.toDate = filters.toDate;
   if (filters.q && filters.q.trim()) params.q = filters.q.trim();
   if (filters.selectedDate) params.selectedDate = filters.selectedDate;
-
+  if (filters.projectionTimes?.length) {
+    params.projectionTimes = filters.projectionTimes;
+  }
   return params;
 }
