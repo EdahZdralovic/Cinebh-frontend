@@ -2,7 +2,7 @@ import axios from 'axios';
 import qs from 'qs';
 
 const axiosInstance = axios.create({
-  baseURL: "https://cinebh-backend-production.up.railway.app/api",
+  baseURL: import.meta.env.VITE_BACKEND_URL,
   headers: {
     'Content-Type': 'application/json',
   },
