@@ -7,15 +7,12 @@ export const getCards = async (type: string, page: number, size: number) => {
 
   try {
     const { data } = await axiosInstance.get(url, { params });
-    await delay(1000);
     return data;
   } catch (error) {
     console.error('Something went wrong', error);
     throw error;
   }
 };
-export const delay = (ms: number) =>
-  new Promise((resolve) => setTimeout(resolve, ms));
 
 export const getUpcomingMovies = async (
   type: string,
@@ -28,8 +25,6 @@ export const getUpcomingMovies = async (
 
   try {
     const { data } = await axiosInstance.get(url, { params });
-    await delay(1000);
-    console.log(params);
     return data;
   } catch (error) {
     console.error('Something went wrong', error);
@@ -47,8 +42,6 @@ export const getCurrentlyShowingMovies = async (
 
   try {
     const { data } = await axiosInstance.get(url, { params });
-    await delay(1000);
-    console.log(params);
     return data;
   } catch (error) {
     console.error('Something went wrong', error);
