@@ -10,8 +10,8 @@ export interface CurrentlyShowingCardProps {
   language: string;
   movieGenres?: string[];
   projectionEnd?: string;
-
   projections?: string[];
+  isSkeleton?: boolean;
 }
 
 export default function CurrentlyShowingCard({
@@ -23,6 +23,7 @@ export default function CurrentlyShowingCard({
   projections,
   language,
   PGRating,
+  isSkeleton = false,
 }: CurrentlyShowingCardProps) {
   return (
     <section className={''}>
@@ -42,34 +43,59 @@ export default function CurrentlyShowingCard({
             'lg:col-span-3  mt-4 lg:ml-10 ml-[4%] flex flex-col justify-between '
           }
         >
-          <div className={''}>
-            <h2 className={'2xl:text-3xl text-lg font-semibold'}>{title}</h2>
-            <div className={'  xl:my-4 my-1 '}>
-              <span>{PGRating}</span>
-              <span className="h-5 w-px bg-[var(--color-secondary)] mx-2 inline-block align-text-bottom "></span>
-              <span>{language}</span>
-              <span className="h-5 w-px bg-[var(--color-secondary)] mx-2 inline-block align-text-bottom "></span>
-              <span>{duration} Min</span>
+          {isSkeleton ? (
+            <div className={''}>
+              <h2
+                className={'2xl:text-3xl text-lg text-gray-500 font-semibold'}
+              >
+                Loading
+              </h2>
+              <div className={'  xl:my-4 my-1 '}>
+                <span></span>
+              </div>
+              <div
+                className={
+                  'flex flex-wrap xl:gap-x-4 xl:gap-y-2 gap-x-2 gap-y-1 w-4/6'
+                }
+              >
+                <GenreButton name={'Loading...'} />
+              </div>
             </div>
-            <div
-              className={
-                'flex flex-wrap xl:gap-x-4 xl:gap-y-2 gap-x-2 gap-y-1 w-4/6'
-              }
-            >
-              {movieGenres?.map((genre) => (
-                <GenreButton name={genre} />
-              ))}
+          ) : (
+            <div className={''}>
+              <h2 className={'2xl:text-3xl text-lg font-semibold'}>{title}</h2>
+              <div className={'  xl:my-4 my-1 '}>
+                <span>{PGRating}</span>
+                <span className="h-5 w-px bg-[var(--color-secondary)] mx-2 inline-block align-text-bottom "></span>
+                <span>{language}</span>
+                <span className="h-5 w-px bg-[var(--color-secondary)] mx-2 inline-block align-text-bottom "></span>
+                <span>{duration} Min</span>
+              </div>
+              <div
+                className={
+                  'flex flex-wrap xl:gap-x-4 xl:gap-y-2 gap-x-2 gap-y-1 w-4/6'
+                }
+              >
+                {movieGenres?.map((genre) => (
+                  <GenreButton name={genre} />
+                ))}
+              </div>
             </div>
-          </div>
+          )}
 
           <div className={'text-gray-500 mb-4 text-[14px] '}>
-            <p>Playing in cinema until {projectionEnd}</p>
+            <p>
+              {isSkeleton
+                ? 'Loading...'
+                : ' Playing in cinema until ' + projectionEnd}
+            </p>
           </div>
         </div>
         <div className={' lg:grid-cols-4  ml-4'}>
           <h2
             className={
-              'text-[var(--color-secondary)] lg:mt-6 mt-2 font-semibold text-xl'
+              'text-[var(--color-secondary)] lg:mt-6 mt-2 font-semibold text-xl ' +
+              (isSkeleton ? ' text-gray-400 ' : ' ')
             }
           >
             Showtimes

@@ -32,58 +32,77 @@ export default function CurrentlyShowingFilter({
   onChange,
 }: UpcomingFilterProps) {
   const [isOpen, setIsOpen] = useState(false);
-
+  const [openFilter, setOpenFilter] = useState<string | null>(null);
+  function toggleFilter(name: string) {
+    setOpenFilter((prev) => (prev === name ? null : name));
+  }
   return (
     <section className="mt-4 text-[var(--color-primary)]  ">
       <SearchInput value={filters.q} onSearch={(q) => onChange({ q })} />
       <div className=" sm:grid-cols-4 grid-cols-1 mt-4 hidden lg:grid gap-4 h-10 justify-evenly ">
-        <SelectFilterComponent
-          endpoint="locations"
-          placeholder="Cities"
-          value={filters.cityId}
-          onApply={(ids) => onChange({ cityId: ids })}
-          icon={LocationIcon}
-          params={{ venueIds: filters.venueId }}
-        />
-        <SelectFilterComponent
-          endpoint="venues"
-          placeholder="Cinemas"
-          value={filters.venueId}
-          onApply={(selectedVenueIds, venuesList) => {
-            const matchedCities = venuesList
-              .filter((v) => selectedVenueIds.includes(v.id))
-              .map((v) => v.location.id);
-            onChange({
-              venueId: selectedVenueIds,
-              cityId: [...new Set(matchedCities)],
-            });
-          }}
-          icon={VenueIcon}
-          params={{ cityId: filters.cityId }}
-        />
-        <SelectFilterComponent
-          endpoint="genres"
-          placeholder="Genres"
-          value={filters.genreIds}
-          params={{ venueIds: filters.venueId }}
-          onApply={(ids) => onChange({ genreIds: ids })}
-          icon={GenreIcon}
-        />
-        <SelectFilterComponent
-          endpoint="projections"
-          placeholder="Projection Times"
-          value={filters.projectionTimes ?? []}
-          params={{
-            cityId: filters.cityId,
-            venueId: filters.venueId,
-            genreIds: filters.genreIds,
-            selectedDate: filters.selectedDate,
-          }}
-          valueKey="name"
-          labelKey="name"
-          onApply={(times) => onChange({ projectionTimes: times })}
-          icon={ProjectionIcon}
-        />
+        <div data-filter="city" className="relative">
+          <SelectFilterComponent
+            endpoint="locations"
+            placeholder="Cities"
+            isOpen={openFilter === 'city'}
+            onToggle={() => toggleFilter('city')}
+            value={filters.cityId}
+            onApply={(ids) => onChange({ cityId: ids })}
+            icon={LocationIcon}
+            params={{ cityId: filters.cityId }}
+          />
+        </div>
+        <div data-filter="venue" className="relative">
+          <SelectFilterComponent
+            endpoint="venues"
+            placeholder="Cinemas"
+            value={filters.venueId}
+            isOpen={openFilter === 'venue'}
+            onToggle={() => toggleFilter('venue')}
+            onApply={(selectedVenueIds) => {
+              onChange({
+                venueId: selectedVenueIds,
+              });
+            }}
+            icon={VenueIcon}
+            params={{ cityId: filters.cityId }}
+          />
+        </div>
+        <div data-filter="genre" className="relative">
+          <SelectFilterComponent
+            endpoint="genres"
+            placeholder="Genres"
+            isOpen={openFilter === 'genre'}
+            onToggle={() => toggleFilter('genre')}
+            value={filters.genreIds}
+            params={
+              filters.venueId.length > 0
+                ? { venueIds: filters.venueId }
+                : undefined
+            }
+            onApply={(ids) => onChange({ genreIds: ids })}
+            icon={GenreIcon}
+          />
+        </div>
+        <div data-filter="time" className="relative">
+          <SelectFilterComponent
+            endpoint="projections"
+            placeholder="Projection Times"
+            isOpen={openFilter === 'time'}
+            onToggle={() => toggleFilter('time')}
+            value={filters.projectionTimes ?? []}
+            params={{
+              cityId: filters.cityId,
+              venueId: filters.venueId,
+              genreIds: filters.genreIds,
+              selectedDate: filters.selectedDate,
+            }}
+            valueKey="name"
+            labelKey="name"
+            onApply={(times) => onChange({ projectionTimes: times })}
+            icon={ProjectionIcon}
+          />
+        </div>
       </div>
 
       <div

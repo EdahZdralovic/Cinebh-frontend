@@ -54,7 +54,7 @@ export default function SelectFilterComponent({
         <div
           onClick={() => onToggle?.()}
           className={
-            'flex justify-between bg-white items-center h-12 border rounded-md shadow-md ' +
+            'flex justify-between bg-white items-center h-12 border rounded-md shadow-sm ' +
             (isOpen ? 'border-[var(--color-secondary)]' : 'border-gray-200')
           }
         >

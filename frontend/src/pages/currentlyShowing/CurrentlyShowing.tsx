@@ -12,8 +12,10 @@ import NoMoviesToPreview from '../../components/upcoming-page-components/NoMovie
 import { formatDate } from '../../utils/formatDate.ts';
 import { LoadMoreButton } from '../../components/buttons/LoadMoreButton.tsx';
 import { CurrentlyShowingSkeleton } from '../../components/currently-showing-components/CurrentlyShowingSkeleton.tsx';
+import { useScrollToTop } from '../../hooks/useScrollToTop.ts';
 
 export default function CurrentlyShowing() {
+  useScrollToTop();
   const [filters, setFilters] = useState({
     cityId: [] as number[],
     venueId: [] as number[],
