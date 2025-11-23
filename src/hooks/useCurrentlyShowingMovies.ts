@@ -1,8 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
-import {
-  getCurrentlyShowingMovies,
-  getUpcomingMovies,
-} from '../services/movieService.ts';
+import { getCurrentlyShowingMovies } from '../services/movieService.ts';
 import type { MainCardResponse } from './useMainCards.ts';
 
 export function useCurrentlyShowingMovies(
@@ -12,7 +9,7 @@ export function useCurrentlyShowingMovies(
     genreIds: number[];
     fromDate: string | null;
     toDate: string | null;
-    selectedDate: string | null;
+    selectedDate: string;
     q: string;
   },
   type: string,

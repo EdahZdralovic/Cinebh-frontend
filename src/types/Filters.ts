@@ -1,41 +1,45 @@
 import type { ReactNode } from 'react';
 
 export interface FilterProps {
-  location?: { id: number };
-  cityId?: { id: number };
+  location: { id: number };
+  cityId: { id: number };
   id: number;
   name: string;
 }
-
 export type Filters = {
   cityId: number[];
   venueId: number[];
   genreIds: number[];
   fromDate: string | null;
   toDate: string | null;
+  selectedDate: string;
+  projectionTimes: (string | number)[];
   q: string;
-  selectedDate: string | null;
 };
 
 export type DatePickerProps = {
   value: { fromDate: string | null; toDate: string | null };
   onApply: (patch: { fromDate: string | null; toDate: string | null }) => void;
+  onToggle?: () => void;
 };
 
 export type UpcomingFilterProps = {
   filters: Filters;
   onChange: (patch: Partial<Filters>) => void;
 };
-export interface FilterType {
+
+export interface FilterTypeProps {
   endpoint: string;
-  params?: object;
+  params?: Record<string, any>;
   placeholder: string;
-  value: number[];
-  onApply: (ids: number[], allElements?: FilterProps[]) => void;
-  labelKey?: string;
+  value: (string | number)[];
+  valueType?: 'number' | 'string';
+  onApply: (ids: any[], allElements?: FilterProps[]) => void;
   icon: ReactNode;
-  valueKey?: string;
   labelKey?: string;
+  valueKey?: string;
   customClassNameHeader?: string;
   customClassNameToggle?: string;
+  isOpen?: boolean;
+  onToggle?: () => void;
 }

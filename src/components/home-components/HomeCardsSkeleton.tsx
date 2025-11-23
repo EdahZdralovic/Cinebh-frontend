@@ -1,6 +1,5 @@
 import MainCard from '../cards/MainCard.tsx';
 import ArrowButton, { ArrowDirection } from '../buttons/ArrowButton.tsx';
-import { Link } from 'react-router-dom';
 
 export function HomeCardsSkeleton() {
   return (

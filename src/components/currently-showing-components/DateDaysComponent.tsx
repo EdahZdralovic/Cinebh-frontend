@@ -1,5 +1,5 @@
 import DayDateButton from '../buttons/DayDateButton.tsx';
-import type { Filters } from '../../utils/buildMovieParams.ts';
+import type { Filters } from '../../types/Filters.ts';
 
 function generateNext10Days() {
   const days = [];

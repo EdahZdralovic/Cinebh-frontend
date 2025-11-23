@@ -16,3 +16,14 @@ export interface MainCardProps {
   redStrip?: boolean;
   projectionStart?: string;
 }
+export interface CurrentlyShowingCardProps {
+    coverImageUrl: string;
+    title?: string;
+    duration?: number;
+    PGRating?: string;
+    language?: string;
+    movieGenres?: string[];
+    projectionEnd?: string;
+    projections?: string[];
+    isSkeleton?: boolean;
+}

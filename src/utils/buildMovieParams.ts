@@ -1,13 +1,3 @@
-export type Filters = {
-  selectedDate: string;
-  cityId: number | null;
-  venueId: number | null;
-  genreIds: number[];
-  fromDate: string | null;
-  toDate: string | null;
-  q: string;
-};
-
 export function buildMovieParams(filters: any, page = 0, size = 12) {
   const params: Record<string, any> = { page, size };
   if (filters.cityId) params.cityId = filters.cityId;

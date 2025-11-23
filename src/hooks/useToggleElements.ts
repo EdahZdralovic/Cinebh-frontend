@@ -1,16 +1,17 @@
 import { useEffect, useState } from 'react';
 
-export function useToggleElements(defaultValues: number[] = []) {
-  const [selected, setSelected] = useState<number[]>(defaultValues);
-  useEffect(() => {
-    setSelected(defaultValues);
-  }, [defaultValues]);
+export function useToggleElements<T extends string | number>(defaultValues: T[] = []) {
+    const [selected, setSelected] = useState<T[]>(defaultValues);
 
-  function toggle(id: number) {
-    setSelected((prev) =>
-      prev.includes(id) ? prev.filter((v) => v !== id) : [...prev, id]
-    );
-  }
+    useEffect(() => {
+        setSelected(defaultValues);
+    }, [defaultValues]);
 
-  return { selected, setSelected, toggle };
+    function toggle(id: T) {
+        setSelected(prev =>
+            prev.includes(id) ? prev.filter(v => v !== id) : [...prev, id]
+        );
+    }
+
+    return { selected, setSelected, toggle };
 }

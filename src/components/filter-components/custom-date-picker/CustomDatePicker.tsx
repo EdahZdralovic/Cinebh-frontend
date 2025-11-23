@@ -24,7 +24,7 @@ export function CustomDatePicker({ value, onApply }: DatePickerProps) {
     setTempEnd(null);
     setIsOpen(false);
   };
-  const CustomInput = ({ value, onClick }) => (
+  const CustomInput = ({ onClick }: { onClick: () => void }) => (
     <div
       onClick={onClick}
       className="w-full flex items-center gap-2 bg-white  rounded-lg px-3 h-12 cursor-pointer"
@@ -68,7 +68,7 @@ export function CustomDatePicker({ value, onApply }: DatePickerProps) {
           open={isOpen}
           onClickOutside={() => setIsOpen(false)}
           startDate={tempStart}
-          customInput={<CustomInput />}
+          customInput={<CustomInput onClick={() => setIsOpen(true)} />}
           popperPlacement="bottom"
           endDate={tempEnd}
           shouldCloseOnSelect={false}

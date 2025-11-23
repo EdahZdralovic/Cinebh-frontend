@@ -1,6 +1,7 @@
-import MainCard, { type MainCardProps } from '../cards/MainCard.tsx';
+import MainCard from '../cards/MainCard.tsx';
 import ArrowButton, { ArrowDirection } from '../buttons/ArrowButton.tsx';
 import { Link } from 'react-router-dom';
+import type {MainCardProps} from "../../types/Cards.ts";
 
 export interface HomeSectionProps {
   cards: MainCardProps[];

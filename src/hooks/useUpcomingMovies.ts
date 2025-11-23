@@ -4,8 +4,8 @@ import type { MainCardResponse } from './useMainCards.ts';
 
 export function useUpcomingMovies(
   filters: {
-    cityId: null;
-    venueId: null;
+    cityId: number[];
+    venueId: number[];
     genreIds: number[];
     fromDate: string | null;
     toDate: string | null;

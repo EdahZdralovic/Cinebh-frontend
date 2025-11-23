@@ -1,5 +1,5 @@
 import { IoIosArrowDown, IoIosArrowUp } from 'react-icons/io';
-import { type ReactNode } from 'react';
+
 import useFilterData from '../../../hooks/useFilterData.ts';
 import SelectFilterSkeleton from './SelectFilterSkeleton.tsx';
 import { useToggleElements } from '../../../hooks/useToggleElements.ts';

@@ -1,7 +1,3 @@
-import MainCard, {
-  type MainCardProps,
-} from '../../components/cards/MainCard.tsx';
-
 import { useState } from 'react';
 import UpcomingFilter from '../../components/upcoming-page-components/UpcomingFilter.tsx';
 import { HomeCardsErrorMessage } from '../../components/home-components/HomeCardsErrorMessage.tsx';
@@ -9,20 +5,20 @@ import { useUpcomingMovies } from '../../hooks/useUpcomingMovies.ts';
 import { LoadMoreButton } from '../../components/buttons/LoadMoreButton.tsx';
 import NoMoviesToPreview from '../../components/upcoming-page-components/NoMoviesToPreview.tsx';
 import UpcomingMoviesSkeleton from '../../components/upcoming-page-components/UpcomingMoviesSkeleton.tsx';
+import type { MainCardProps } from '../../types/Cards.ts';
+import MainCard from '../../components/cards/MainCard.tsx';
+import type { Filters } from '../../types/Filters.ts';
 
-export interface UpcomingProps {
-  movies: MainCardProps[];
-  totalMovies: number;
-}
-
-export default function UpcomingMovies(type: string) {
-  const [filters, setFilters] = useState({
-    cityId: [] as number[],
-    venueId: [] as number[],
-    genreIds: [] as number[],
-    fromDate: null as string | null,
-    toDate: null as string | null,
+export default function UpcomingMovies() {
+  const [filters, setFilters] = useState<Filters>({
+    cityId: [],
+    venueId: [],
+    genreIds: [],
+    fromDate: null,
+    toDate: null,
     q: '',
+    selectedDate: '',
+    projectionTimes: [] as (string | number)[],
   });
 
   const patchFilters = (patch: Partial<typeof filters>) =>
@@ -36,7 +32,6 @@ export default function UpcomingMovies(type: string) {
     size
   );
 
-  //skeleton za upcoming nije jos gotov
   if (loading) return <UpcomingMoviesSkeleton />;
   if (error)
     return (
@@ -56,7 +51,7 @@ export default function UpcomingMovies(type: string) {
       </div>
       <div className="grid lg:grid-cols-4 md:grid-cols-2 justify-center items-center gap-4 pt-8">
         {totalElements > 0 ? (
-          upcomingCards.map((card) => (
+          upcomingCards.map((card: MainCardProps) => (
             <MainCard
               coverImageUrl={card.coverImageUrl}
               title={card.title}

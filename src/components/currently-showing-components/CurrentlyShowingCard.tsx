@@ -1,18 +1,6 @@
-import React from 'react';
 import GenreButton from '../buttons/GenreButton.tsx';
 import { ProjectionTimeButton } from '../buttons/ProjectionTimeButton.tsx';
-
-export interface CurrentlyShowingCardProps {
-  coverImageUrl: string;
-  title: string;
-  duration?: number;
-  PGRating: string;
-  language: string;
-  movieGenres?: string[];
-  projectionEnd?: string;
-  projections?: string[];
-  isSkeleton?: boolean;
-}
+import type {CurrentlyShowingCardProps} from "../../types/Cards.ts";
 
 export default function CurrentlyShowingCard({
   coverImageUrl,
