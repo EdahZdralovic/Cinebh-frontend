@@ -54,7 +54,7 @@ export function CustomDatePicker({ value, onApply }: DatePickerProps) {
 
   return (
     <div
-      className={`relative bg-white rounded-lg shadow-lg flex w-full
+      className={`relative bg-white rounded-lg  flex w-full
     ${isOpen ? 'border-[2px] border-red-200' : ''}`}
     >
       <div
@@ -76,7 +76,7 @@ export function CustomDatePicker({ value, onApply }: DatePickerProps) {
           onChange={(dates) => {
             const [start, end] = dates;
             setTempStart(start);
-            console.log(tempStart);
+
             setTempEnd(end);
           }}
           onCalendarOpen={() => {

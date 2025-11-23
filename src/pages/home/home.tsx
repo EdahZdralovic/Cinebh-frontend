@@ -17,18 +17,21 @@ export default function Home() {
           type={ROUTES.CURRENTLY_SHOWING}
           isMovie={true}
           seeAllLink={'/showing'}
+          isVenueContainer={false}
         />
         <HomeCardsContainer
           sectionName={'Upcoming Movies'}
           type={ROUTES.UPCOMING}
           isMovie={true}
           seeAllLink={'/upcoming'}
+          isVenueContainer={false}
         />
         <HomeCardsContainer
           sectionName={'Venues'}
           type={ROUTES.VENUES}
           isMovie={false}
           seeAllLink={'/venues'}
+          isVenueContainer={true}
         />
       </div>
     </section>

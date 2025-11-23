@@ -10,9 +10,10 @@ interface HomeCardsProps {
   type: string;
   isMovie: boolean;
   seeAllLink: string;
+  isVenueContainer: boolean;
 }
 
-export default function HomeCardsContainer({ sectionName, seeAllLink, isMovie, type }: HomeCardsProps) {
+export default function HomeCardsContainer({ sectionName, seeAllLink, isMovie, type, isVenueContainer=false }: HomeCardsProps) {
   const [page, setPage] = useState(0);
   const size = 4;
   const { mainCards, loading, error, totalPages, totalElements } = useMainCards(page, size, type);
@@ -30,6 +31,6 @@ export default function HomeCardsContainer({ sectionName, seeAllLink, isMovie, t
     <section>
       <HomeCardsSection sectionName={sectionName} cards={mainCards} pageNumber={page} totalPages={totalPages}
                         totalElements={totalElements} isMovie={isMovie} onPreviousPage={previousPage}
-                        onNextPage={nextPage} seeAllLink={seeAllLink} />
+                        onNextPage={nextPage} seeAllLink={seeAllLink} sectionForVenues={isVenueContainer} />
     </section>);
 }

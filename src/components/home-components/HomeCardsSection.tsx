@@ -1,7 +1,7 @@
 import MainCard from '../cards/MainCard.tsx';
 import ArrowButton, { ArrowDirection } from '../buttons/ArrowButton.tsx';
 import { Link } from 'react-router-dom';
-import type {MainCardProps} from "../../types/Cards.ts";
+import type { MainCardProps } from '../../types/Cards.ts';
 
 export interface HomeSectionProps {
   cards: MainCardProps[];
@@ -13,6 +13,7 @@ export interface HomeSectionProps {
   totalElements: number;
   isMovie: boolean;
   seeAllLink: string;
+  sectionForVenues: boolean;
 }
 
 export default function HomeCardsSection({
@@ -25,13 +26,14 @@ export default function HomeCardsSection({
   onPreviousPage,
   onNextPage,
   seeAllLink,
+  sectionForVenues = false,
 }: HomeSectionProps) {
   return (
     <section className="flex justify-center px-[4%] items-center text-[var(--color-primary)]">
       <div className=" relative w-full lg:mx-10 mt-8 rounded-3xl h-full items-center ">
         <div className="flex justify-between align-middle  ">
           <h1 className=" sm:text-3xl text-xl font-bold ">{sectionName}</h1>
-          <h6 className="text-[var(--color-secondary)] text-md pt-4 font-semibold">
+          <h6 className={"text-[var(--color-secondary)] text-md pt-4 font-semibold" + (sectionForVenues ? " hidden " : " ")}>
             <Link to={seeAllLink}>See All</Link>
           </h6>
         </div>
