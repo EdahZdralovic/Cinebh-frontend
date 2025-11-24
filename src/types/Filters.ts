@@ -13,7 +13,7 @@ export type Filters = {
   fromDate: string | null;
   toDate: string | null;
   selectedDate: string;
-  projectionTimes: (string | number)[];
+  projectionTimes: string[];
   q: string;
 };
 

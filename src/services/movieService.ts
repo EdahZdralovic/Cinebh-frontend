@@ -41,6 +41,7 @@ export const getCurrentlyShowingMovies = async (
   const params = buildMovieParams(filters, page, size);
 
   try {
+      console.log("projectionTimes koje saljem", filters.projectionTimes);
     const { data } = await axiosInstance.get(url, { params });
     return data;
   } catch (error) {

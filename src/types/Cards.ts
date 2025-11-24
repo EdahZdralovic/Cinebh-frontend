@@ -17,6 +17,7 @@ export interface MainCardProps {
   projectionStart?: string;
 }
 export interface CurrentlyShowingCardProps {
+    id?: number
     coverImageUrl: string;
     title?: string;
     duration?: number;

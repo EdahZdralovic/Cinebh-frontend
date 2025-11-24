@@ -2,7 +2,7 @@ import axios from 'axios';
 import qs from 'qs';
 
 const axiosInstance = axios.create({
-  baseURL: import.meta.env.VITE_BACKEND_URL,
+  baseURL: "http://localhost:8080/api",
   headers: {
     'Content-Type': 'application/json',
   },

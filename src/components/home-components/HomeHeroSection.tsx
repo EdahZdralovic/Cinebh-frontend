@@ -73,7 +73,7 @@ function HomeHeroSection() {
           <div className="relative pl-[6%] pb-[10%] flex flex-col text-white  items-start justify-end font-bold">
             <GenreButton name={genre} />
             <h1 className="mt-3 sm:text-5xl text-xl">{movie.title}</h1>
-            <p className="sm:text-xl text-sm pt-4 leading-relaxed font-semibold max-w-[80%]">
+            <p className="sm:text-xl text-sm pt-4 leading-relaxed font-semibold max-w-[50%]">
               {' '}
               {movie.synopsis}
             </p>

@@ -11,6 +11,8 @@ export async function getFilterData(type: string, params?: FilterParams) {
       switch (type) {
         case 'genres':
           return '/genres/by-venues/upcoming';
+        case 'genres-currently':
+          return '/genres/by-day';
         case 'locations':
           return '/locations';
         case 'venues':

@@ -52,18 +52,18 @@ export default function CurrentlyShowingFilter({
             isOpen={openFilter === 'venue'}
             onToggle={() => toggleFilter('venue')}
             onApply={(selectedVenueIds, venuesList?: FilterProps[]) => {
-                if (!venuesList) {
-                    return onChange({ venueId: selectedVenueIds });
-                }
+              if (!venuesList) {
+                return onChange({ venueId: selectedVenueIds });
+              }
 
-                const matchedCities = venuesList
-                    .filter((v) => selectedVenueIds.includes(v.id))
-                    .map((v) => v.location.id);
+              const matchedCities = venuesList
+                .filter((v) => selectedVenueIds.includes(v.id))
+                .map((v) => v.location.id);
 
-                onChange({
-                    venueId: selectedVenueIds,
-                    cityId: [...new Set(matchedCities)],
-                });
+              onChange({
+                venueId: selectedVenueIds,
+                cityId: [...new Set(matchedCities)],
+              });
             }}
             icon={VenueIcon}
             params={{ cityId: filters.cityId }}
@@ -98,9 +98,17 @@ export default function CurrentlyShowingFilter({
               genreIds: filters.genreIds,
               selectedDate: filters.selectedDate,
             }}
-            valueKey="name"
+            valueKey="time"
             labelKey="name"
-            onApply={(times: number[]) => onChange({ projectionTimes: times })}
+            valueType="string"
+            onApply={(selectedIds: number[], allItems?: FilterProps[]) => {
+              if (!allItems) return;
+              const times: string[] = allItems
+                .filter((item) => selectedIds.includes(item.id))
+                .map((item) => item.name);
+
+              onChange({ projectionTimes: times });
+            }}
             icon={ProjectionIcon}
           />
         </div>
@@ -138,38 +146,38 @@ export default function CurrentlyShowingFilter({
               isOpen={openFilter === 'venue'}
               onToggle={() => toggleFilter('venue')}
               onApply={(selectedVenueIds, venuesList?: FilterProps[]) => {
-                  if (!venuesList) {
-                      return onChange({ venueId: selectedVenueIds });
-                  }
+                if (!venuesList) {
+                  return onChange({ venueId: selectedVenueIds });
+                }
 
-                  const matchedCities = venuesList
-                      .filter((v) => selectedVenueIds.includes(v.id))
-                      .map((v) => v.location.id);
+                const matchedCities = venuesList
+                  .filter((v) => selectedVenueIds.includes(v.id))
+                  .map((v) => v.location.id);
 
-                  onChange({
-                      venueId: selectedVenueIds,
-                      cityId: [...new Set(matchedCities)],
-                  });
+                onChange({
+                  venueId: selectedVenueIds,
+                  cityId: [...new Set(matchedCities)],
+                });
               }}
               icon={VenueIcon}
               params={{ cityId: filters.cityId }}
             />
-              <div data-filter="genre" className="relative">
-                  <SelectFilterComponent
-                      endpoint="genres"
-                      placeholder="Genres"
-                      isOpen={openFilter === 'genre'}
-                      onToggle={() => toggleFilter('genre')}
-                      value={filters.genreIds}
-                      params={
-                          filters.venueId.length > 0
-                              ? { venueIds: filters.venueId }
-                              : undefined
-                      }
-                      onApply={(ids: number[]) => onChange({ genreIds: ids })}
-                      icon={GenreIcon}
-                  />
-              </div>
+            <div data-filter="genre" className="relative">
+              <SelectFilterComponent
+                endpoint="genres-currently"
+                placeholder="Genres"
+                isOpen={openFilter === 'genre'}
+                onToggle={() => toggleFilter('genre')}
+                value={filters.genreIds}
+                params={
+                  filters.venueId.length > 0
+                    ? { venueIds: filters.venueId }
+                    : undefined
+                }
+                onApply={(ids: number[]) => onChange({ genreIds: ids })}
+                icon={GenreIcon}
+              />
+            </div>
             <SelectFilterComponent
               endpoint="projections"
               placeholder="Projection Times"
@@ -184,9 +192,14 @@ export default function CurrentlyShowingFilter({
               }}
               valueKey="name"
               labelKey="name"
-              onApply={(times: number[]) =>
-                onChange({ projectionTimes: times })
-              }
+              onApply={(selectedIds: number[], allItems?: FilterProps[]) => {
+                if (!allItems) return;
+                const times: string[] = allItems
+                  .filter((item) => selectedIds.includes(item.id))
+                  .map((item) => item.name);
+
+                onChange({ projectionTimes: times });
+              }}
               icon={ProjectionIcon}
             />
           </div>

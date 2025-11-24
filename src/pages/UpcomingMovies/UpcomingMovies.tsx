@@ -21,7 +21,7 @@ export default function UpcomingMovies() {
     toDate: null,
     q: '',
     selectedDate: '',
-    projectionTimes: [] as (string | number)[],
+    projectionTimes: [],
   });
 
   const patchFilters = (patch: Partial<typeof filters>) =>

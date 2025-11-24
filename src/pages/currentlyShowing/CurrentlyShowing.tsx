@@ -4,9 +4,7 @@ import CurrentlyShowingFilter from '../../components/currently-showing-component
 import DateDaysComponent from '../../components/currently-showing-components/DateDaysComponent.tsx';
 
 import { useCurrentlyShowingMovies } from '../../hooks/useCurrentlyShowingMovies.ts';
-
 import { HomeCardsErrorMessage } from '../../components/home-components/HomeCardsErrorMessage.tsx';
-
 import NoMoviesToPreview from '../../components/upcoming-page-components/NoMoviesToPreview.tsx';
 import { formatDate } from '../../utils/formatDate.ts';
 import { LoadMoreButton } from '../../components/buttons/LoadMoreButton.tsx';
@@ -29,11 +27,12 @@ export function CurrentlyShowing() {
     projectionTimes: [],
     q: '',
   });
-  const patchFilters = (patch: Partial<Filters>) =>
+  const patchFilters = (patch: Partial<Filters>) => {
     setFilters((f) => ({ ...f, ...patch }));
+  };
 
   const CurrentlyShowingUrl = 'movies/currently-showing';
-  const [size, setSize] = useState(9);
+  const [size, setSize] = useState(6);
   const { currentlyCards, totalElements, loading, error } =
     useCurrentlyShowingMovies(filters, CurrentlyShowingUrl, 0, size);
 
@@ -59,6 +58,7 @@ export function CurrentlyShowing() {
         {totalElements > 0 ? (
           currentlyCards.map((card: CurrentlyShowingCardProps) => (
             <CurrentlyShowingCard
+                key = {card.id}
               coverImageUrl={card.coverImageUrl}
               title={card.title}
               pgRating={card.pgRating}
@@ -78,7 +78,7 @@ export function CurrentlyShowing() {
       <div className={'my-8 flex justify-center '}>
         <LoadMoreButton
           disabled={size >= totalElements}
-          onClick={() => setSize(size + 4)}
+          onClick={() => setSize(size + 3)}
         />
       </div>
     </section>
