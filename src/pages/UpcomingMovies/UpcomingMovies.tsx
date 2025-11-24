@@ -8,9 +8,12 @@ import UpcomingMoviesSkeleton from '../../components/upcoming-page-components/Up
 import type { MainCardProps } from '../../types/Cards.ts';
 import MainCard from '../../components/cards/MainCard.tsx';
 import type { Filters } from '../../types/Filters.ts';
+import {useScrollToTop} from "../../hooks/useScrollToTop.ts";
 
 export default function UpcomingMovies() {
-  const [filters, setFilters] = useState<Filters>({
+    useScrollToTop();
+
+    const [filters, setFilters] = useState<Filters>({
     cityId: [],
     venueId: [],
     genreIds: [],

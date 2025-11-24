@@ -17,13 +17,21 @@ export function CustomDatePicker({ value, onApply }: DatePickerProps) {
   const handleApply = () => {
     const dateRange = { fromDate: toISO(tempStart), toDate: toISO(tempEnd) };
     onApply(dateRange);
-
   };
   const handleCancel = () => {
     setTempStart(null);
     setTempEnd(null);
-
   };
+  const displayLabel = (() => {
+    const start = tempStart || fromISO(value.fromDate);
+    const end = tempEnd || fromISO(value.toDate);
+
+    if (start && end) return `${formatDate(start)} - ${formatDate(end)}`;
+    if (start) return `${formatDate(start)} - ...`;
+
+    return 'Pick Range';
+  })();
+
   const CustomInput = ({ onClick }: { onClick: () => void }) => (
     <div
       onClick={onClick}
@@ -40,7 +48,7 @@ export function CustomDatePicker({ value, onApply }: DatePickerProps) {
       <span
         className={isOpen ? ' text-[var(--color-primary)] ' : 'text-gray-500 '}
       >
-        {'Pick Range'}
+        {displayLabel}
       </span>
     </div>
   );
