@@ -7,7 +7,7 @@ export default function Navbar() {
   return (
     <nav className="sticky top-0 left-0 w-full h-[80px] bg-[var(--color-primary)] text-white flex items-center justify-between px-10 z-50">
       <Link to="/">
-        <div className="flex items-center gap-2 pl-2 md:pl-12">
+        <div className="flex items-center gap-2 pl-2 md:pl-12 z-100">
           <img
             src="/assets/logos/Logo.png"
             alt="CineBH Logo"

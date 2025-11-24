@@ -24,8 +24,9 @@ export default function SelectFilterComponent({
   const { selected, toggle, setSelected } = useToggleElements(value);
 
   useClickOutside(isOpen, () => {
-    onToggle?.();
     handleApply();
+      onApply(selected, elements);
+    onToggle?.();
   });
 
   if (loading) return <SelectFilterSkeleton />;
@@ -34,6 +35,7 @@ export default function SelectFilterComponent({
   const handleApply = () => {
     onToggle?.();
     onApply(selected, elements);
+
   };
 
   const handleCancel = () => {

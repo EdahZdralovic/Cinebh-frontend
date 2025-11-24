@@ -50,6 +50,7 @@ export default function UpcomingFilter({
             placeholder="Cinemas"
             value={filters.venueId}
             isOpen={openFilter === 'venue'}
+            onToggle={() => toggleFilter('venue')}
             onApply={(selectedVenueIds, venuesList?: FilterProps[]) => {
               if (!venuesList) {
                 return onChange({ venueId: selectedVenueIds });
