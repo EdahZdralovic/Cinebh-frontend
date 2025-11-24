@@ -1,17 +1,10 @@
 import { useQuery } from '@tanstack/react-query';
 import { getCurrentlyShowingMovies } from '../services/movieService.ts';
 import type { MainCardResponse } from './useMainCards.ts';
+import type { Filters } from '../types/Filters.ts';
 
 export function useCurrentlyShowingMovies(
-  filters: {
-    cityId: number[];
-    venueId: number[];
-    genreIds: number[];
-    fromDate: string | null;
-    toDate: string | null;
-    selectedDate: string;
-    q: string;
-  },
+  filters: Filters,
   type: string,
   page: number,
   size: number

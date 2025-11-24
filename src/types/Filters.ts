@@ -43,3 +43,4 @@ export interface FilterTypeProps {
   isOpen?: boolean;
   onToggle?: () => void;
 }
+

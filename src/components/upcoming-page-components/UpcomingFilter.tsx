@@ -7,7 +7,7 @@ import SearchInput from '../filter-components/search-filter/SearchInput.tsx';
 import { SlLocationPin } from 'react-icons/sl';
 import { useState } from 'react';
 import { CiFilter } from 'react-icons/ci';
-import type { UpcomingFilterProps } from '../../types/Filters.ts';
+import type { FilterProps, UpcomingFilterProps } from '../../types/Filters.ts';
 
 const LocationIcon = <SlLocationPin />;
 const VenueIcon = <HiOutlineOfficeBuilding />;
@@ -50,10 +50,16 @@ export default function UpcomingFilter({
             placeholder="Cinemas"
             value={filters.venueId}
             isOpen={openFilter === 'venue'}
-            onToggle={() => toggleFilter('venue')}
-            onApply={(selectedVenueIds: number[]) => {
+            onApply={(selectedVenueIds, venuesList?: FilterProps[]) => {
+              if (!venuesList) {
+                return onChange({ venueId: selectedVenueIds });
+              }
+              const matchedCities = venuesList
+                .filter((v) => selectedVenueIds.includes(v.id))
+                .map((v) => v.location.id);
               onChange({
                 venueId: selectedVenueIds,
+                cityId: [...new Set(matchedCities)],
               });
             }}
             icon={VenueIcon}
@@ -114,20 +120,27 @@ export default function UpcomingFilter({
               />
             </div>
             <div data-filter="venue" className="relative">
-                <SelectFilterComponent
-                    endpoint="venues"
-                    placeholder="Cinemas"
-                    value={filters.venueId}
-                    isOpen={openFilter === 'venue'}
-                    onToggle={() => toggleFilter('venue')}
-                    onApply={(selectedVenueIds: number[]) => {
-                        onChange({
-                            venueId: selectedVenueIds,
-                        });
-                    }}
-                    icon={VenueIcon}
-                    params={{ cityId: filters.cityId }}
-                />
+              <SelectFilterComponent
+                endpoint="venues"
+                placeholder="Cinemas"
+                value={filters.venueId}
+                isOpen={openFilter === 'venue'}
+                onToggle={() => toggleFilter('venue')}
+                onApply={(selectedVenueIds, venuesList?: FilterProps[]) => {
+                  if (!venuesList) {
+                    return onChange({ venueId: selectedVenueIds });
+                  }
+                  const matchedCities = venuesList
+                    .filter((v) => selectedVenueIds.includes(v.id))
+                    .map((v) => v.location.id);
+                  onChange({
+                    venueId: selectedVenueIds,
+                    cityId: [...new Set(matchedCities)],
+                  });
+                }}
+                icon={VenueIcon}
+                params={{ cityId: filters.cityId }}
+              />
             </div>
             <div data-filter="genre" className="relative">
               <SelectFilterComponent

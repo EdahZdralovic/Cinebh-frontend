@@ -17,12 +17,12 @@ export function CustomDatePicker({ value, onApply }: DatePickerProps) {
   const handleApply = () => {
     const dateRange = { fromDate: toISO(tempStart), toDate: toISO(tempEnd) };
     onApply(dateRange);
-    setIsOpen(false);
+
   };
   const handleCancel = () => {
     setTempStart(null);
     setTempEnd(null);
-    setIsOpen(false);
+
   };
   const CustomInput = ({ onClick }: { onClick: () => void }) => (
     <div
@@ -44,9 +44,7 @@ export function CustomDatePicker({ value, onApply }: DatePickerProps) {
       </span>
     </div>
   );
-  const toggle = () => {
-    setIsOpen((prev) => !prev);
-  };
+  const toggle = () => setIsOpen((prev) => !prev);
   const placeHolder =
     tempStart != null && tempEnd != null
       ? { tempStart } + ' - ' + { tempEnd }
@@ -68,7 +66,7 @@ export function CustomDatePicker({ value, onApply }: DatePickerProps) {
           open={isOpen}
           onClickOutside={() => setIsOpen(false)}
           startDate={tempStart}
-          customInput={<CustomInput onClick={() => setIsOpen(true)} />}
+          customInput={<CustomInput onClick={toggle} />}
           popperPlacement="bottom"
           endDate={tempEnd}
           shouldCloseOnSelect={false}

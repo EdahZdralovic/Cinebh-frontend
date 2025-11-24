@@ -20,10 +20,10 @@ export interface CurrentlyShowingCardProps {
     coverImageUrl: string;
     title?: string;
     duration?: number;
-    PGRating?: string;
+    pgRating?: string;
     language?: string;
     movieGenres?: string[];
     projectionEnd?: string;
-    projections?: string[];
+    projectionTimes?: string[];
     isSkeleton?: boolean;
 }

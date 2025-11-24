@@ -8,9 +8,9 @@ export default function CurrentlyShowingCard({
   title,
   movieGenres,
   projectionEnd = '',
-  projections,
+  projectionTimes,
   language,
-  PGRating,
+  pgRating,
   isSkeleton = false,
 }: CurrentlyShowingCardProps) {
   return (
@@ -53,7 +53,7 @@ export default function CurrentlyShowingCard({
             <div className={''}>
               <h2 className={'2xl:text-3xl text-lg font-semibold'}>{title}</h2>
               <div className={'  xl:my-4 my-1 '}>
-                <span>{PGRating}</span>
+                <span>{pgRating}</span>
                 <span className="h-5 w-px bg-[var(--color-secondary)] mx-2 inline-block align-text-bottom "></span>
                 <span>{language}</span>
                 <span className="h-5 w-px bg-[var(--color-secondary)] mx-2 inline-block align-text-bottom "></span>
@@ -89,7 +89,7 @@ export default function CurrentlyShowingCard({
             Showtimes
           </h2>
           <div className={'flex flex-row gap-4 pt-3 lg:pb-0 pb-4'}>
-            {projections?.map((projection) => (
+            {projectionTimes?.map((projection) => (
               <ProjectionTimeButton time={projection} />
             ))}
           </div>

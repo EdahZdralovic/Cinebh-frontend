@@ -15,3 +15,14 @@ export const formatDate = (date: Date | null) => {
   if (!date) return null;
   return `${date.getFullYear()}/${String(date.getMonth() + 1).padStart(2, '0')}/${String(date.getDate()).padStart(2, '0')}`;
 };
+
+export function generateNext10Days() {
+    const days = [];
+    const today = new Date();
+    for (let i = 0; i < 10; i++) {
+        const d = new Date();
+        d.setDate(today.getDate() + i);
+        days.push(d);
+    }
+    return days;
+}

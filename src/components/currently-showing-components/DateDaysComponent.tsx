@@ -1,16 +1,7 @@
 import DayDateButton from '../buttons/DayDateButton.tsx';
 import type { Filters } from '../../types/Filters.ts';
+import { generateNext10Days } from '../../utils/dateUtils.ts';
 
-function generateNext10Days() {
-  const days = [];
-  const today = new Date();
-  for (let i = 0; i < 10; i++) {
-    const d = new Date();
-    d.setDate(today.getDate() + i);
-    days.push(d);
-  }
-  return days;
-}
 interface DateDaysProps {
   filters: Filters;
   onChange: (patch: Partial<Filters>) => void;
@@ -32,7 +23,7 @@ export default function DateDaysComponent({
             isActive={day.toISOString().split('T')[0] === filters.selectedDate}
             onClick={() => {
               onChange({
-                selectedDate: day.toISOString().split('T')[0], // yyyy-mm-dd format
+                selectedDate: day.toISOString().split('T')[0],
               });
             }}
           />

@@ -18,14 +18,15 @@ import type { Filters } from '../../types/Filters.ts';
 
 export function CurrentlyShowing() {
   useScrollToTop();
-  const [filters, setFilters] = useState({
-    cityId: [] as number[],
-    venueId: [] as number[],
-    genreIds: [] as number[],
-    fromDate: null as string | null,
-    toDate: null as string | null,
+
+  const [filters, setFilters] = useState<Filters>({
+    cityId: [],
+    venueId: [],
+    genreIds: [],
+    fromDate: null,
+    toDate: null,
     selectedDate: new Date().toISOString().split('T')[0],
-    projectionTimes: [] as (string | number)[],
+    projectionTimes: [],
     q: '',
   });
   const patchFilters = (patch: Partial<Filters>) =>
@@ -60,14 +61,14 @@ export function CurrentlyShowing() {
             <CurrentlyShowingCard
               coverImageUrl={card.coverImageUrl}
               title={card.title}
-              PGRating={card.PGRating}
+              pgRating={card.pgRating}
               language={card.language}
               duration={card.duration}
               movieGenres={card.movieGenres}
               projectionEnd={
                 card.projectionEnd ? formatDate(card.projectionEnd) : ''
               }
-              projections={card.projections}
+              projectionTimes={card.projectionTimes}
             />
           ))
         ) : (
