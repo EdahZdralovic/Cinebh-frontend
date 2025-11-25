@@ -9,7 +9,7 @@ export default function Home() {
   const TICKER_SIZE = 20;
   return (
     <section>
-      <div className="flex w-full grid grid-row">
+      <div className="w-full grid grid-row">
         <HomeHeroSection />
         <VenuesTicker type={ROUTES.VENUES} size={TICKER_SIZE} />
         <HomeCardsContainer

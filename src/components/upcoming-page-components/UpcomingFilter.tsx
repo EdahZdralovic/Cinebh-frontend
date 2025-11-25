@@ -34,7 +34,7 @@ export default function UpcomingFilter({
       <div className=" sm:grid-cols-4 grid-cols-1 mt-4 hidden lg:grid gap-4 h-10 justify-evenly ">
         <div data-filter="city" className="relative">
           <SelectFilterComponent
-            endpoint="locations"
+            endpoint="/locations"
             placeholder="Cities"
             isOpen={openFilter === 'city'}
             onToggle={() => toggleFilter('city')}
@@ -46,7 +46,7 @@ export default function UpcomingFilter({
         </div>
         <div data-filter="venue" className="relative">
           <SelectFilterComponent
-            endpoint="venues"
+            endpoint="/venues/all"
             placeholder="Cinemas"
             value={filters.venueId}
             isOpen={openFilter === 'venue'}
@@ -69,7 +69,7 @@ export default function UpcomingFilter({
         </div>
         <div data-filter="genre" className="relative">
           <SelectFilterComponent
-            endpoint="genres-upcoming"
+            endpoint="/genres/by-venues/upcoming"
             placeholder="Genres"
             isOpen={openFilter === 'genre'}
             onToggle={() => toggleFilter('genre')}
@@ -110,7 +110,7 @@ export default function UpcomingFilter({
           <div className={'grid grid-cols-1'}>
             <div data-filter="city" className="relative">
               <SelectFilterComponent
-                endpoint="locations"
+                endpoint="/locations"
                 placeholder="Cities"
                 isOpen={openFilter === 'city'}
                 onToggle={() => toggleFilter('city')}
@@ -122,7 +122,7 @@ export default function UpcomingFilter({
             </div>
             <div data-filter="venue" className="relative">
               <SelectFilterComponent
-                endpoint="venues"
+                endpoint="/venues/all"
                 placeholder="Cinemas"
                 value={filters.venueId}
                 isOpen={openFilter === 'venue'}
@@ -145,7 +145,7 @@ export default function UpcomingFilter({
             </div>
             <div data-filter="genre" className="relative">
               <SelectFilterComponent
-                endpoint="genres-upcoming"
+                endpoint="/genres/by-venues/upcoming"
                 placeholder="Genres"
                 isOpen={openFilter === 'genre'}
                 onToggle={() => toggleFilter('genre')}

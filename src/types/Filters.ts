@@ -44,3 +44,7 @@ export interface FilterTypeProps {
   onToggle?: () => void;
 }
 
+export type FilterParams = {
+    venueIds?: number[];
+    cityId?: number[];
+};

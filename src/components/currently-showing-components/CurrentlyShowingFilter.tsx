@@ -30,16 +30,16 @@ export default function CurrentlyShowingFilter({
   }
   return (
     <section className="mt-4 text-[var(--color-primary)]  ">
-        <SearchInput
-            value={filters.q}
-            onSearch={(q) =>
-                q.length >= 3 ? onChange({ q }) : onChange({ q: '' })
-            }
-        />
+      <SearchInput
+        value={filters.q}
+        onSearch={(q) =>
+          q.length >= 3 ? onChange({ q }) : onChange({ q: '' })
+        }
+      />
       <div className=" sm:grid-cols-4 grid-cols-1 mt-4 hidden lg:grid gap-4 h-10 justify-evenly ">
         <div data-filter="city" className="relative">
           <SelectFilterComponent
-            endpoint="locations"
+            endpoint="/locations"
             placeholder="Cities"
             isOpen={openFilter === 'city'}
             onToggle={() => toggleFilter('city')}
@@ -51,7 +51,7 @@ export default function CurrentlyShowingFilter({
         </div>
         <div data-filter="venue" className="relative">
           <SelectFilterComponent
-            endpoint="venues"
+            endpoint="/venues/all"
             placeholder="Cinemas"
             value={filters.venueId}
             isOpen={openFilter === 'venue'}
@@ -76,7 +76,7 @@ export default function CurrentlyShowingFilter({
         </div>
         <div data-filter="genre" className="relative">
           <SelectFilterComponent
-            endpoint="genres-currently"
+            endpoint="/genres/by-day"
             placeholder="Genres"
             isOpen={openFilter === 'genre'}
             onToggle={() => toggleFilter('genre')}
@@ -94,7 +94,7 @@ export default function CurrentlyShowingFilter({
         </div>
         <div data-filter="time" className="relative">
           <SelectFilterComponent
-            endpoint="projections"
+            endpoint="/projections/times"
             placeholder="Projection Times"
             isOpen={openFilter === 'time'}
             onToggle={() => toggleFilter('time')}
@@ -137,80 +137,87 @@ export default function CurrentlyShowingFilter({
         </button>
         {isOpen && (
           <div className={'grid grid-cols-1'}>
-            <SelectFilterComponent
-              endpoint="locations"
-              placeholder="Cities"
-              value={filters.cityId}
-              isOpen={openFilter === 'city'}
-              onToggle={() => toggleFilter('city')}
-              onApply={(ids: number[]) => onChange({ cityId: ids })}
-              icon={LocationIcon}
-            />
-            <SelectFilterComponent
-              endpoint="venues"
-              placeholder="Cinemas"
-              value={filters.venueId}
-              isOpen={openFilter === 'venue'}
-              onToggle={() => toggleFilter('venue')}
-              onApply={(selectedVenueIds, venuesList?: FilterProps[]) => {
-                if (!venuesList) {
-                  return onChange({ venueId: selectedVenueIds });
-                }
+            <div data-filter="city" className="relative">
+              <SelectFilterComponent
+                endpoint="/locations"
+                placeholder="Cities"
+                value={filters.cityId}
+                isOpen={openFilter === 'city'}
+                onToggle={() => toggleFilter('city')}
+                onApply={(ids: number[]) => onChange({ cityId: ids })}
+                icon={LocationIcon}
+              />
+            </div>
+            <div data-filter="venue" className="relative">
+              <SelectFilterComponent
+                endpoint="/venues/all"
+                placeholder="Cinemas"
+                value={filters.venueId}
+                isOpen={openFilter === 'venue'}
+                onToggle={() => toggleFilter('venue')}
+                onApply={(selectedVenueIds, venuesList?: FilterProps[]) => {
+                  if (!venuesList) {
+                    return onChange({ venueId: selectedVenueIds });
+                  }
 
-                const matchedCities = venuesList
-                  .filter((v) => selectedVenueIds.includes(v.id))
-                  .map((v) => v.location.id);
+                  const matchedCities = venuesList
+                    .filter((v) => selectedVenueIds.includes(v.id))
+                    .map((v) => v.location.id);
 
-                onChange({
-                  venueId: selectedVenueIds,
-                  cityId: [...new Set(matchedCities)],
-                });
-              }}
-              icon={VenueIcon}
-              params={{ cityId: filters.cityId }}
-            />
-            <SelectFilterComponent
-              endpoint="genres-currently"
-              placeholder="Genres"
-              isOpen={openFilter === 'genre'}
-              onToggle={() => toggleFilter('genre')}
-              value={filters.genreIds}
-              params={{
-                selectedDate: filters.selectedDate,
-                venueIds: filters.venueId,
-                cityIds: filters.cityId,
-              }}
-              valueKey="id"
-              labelKey="name"
-              onApply={(ids: number[]) => onChange({ genreIds: ids })}
-              icon={GenreIcon}
-            />
+                  onChange({
+                    venueId: selectedVenueIds,
+                    cityId: [...new Set(matchedCities)],
+                  });
+                }}
+                icon={VenueIcon}
+                params={{ cityId: filters.cityId }}
+              />
+            </div>
+            <div data-filter="genre" className="relative">
+              <SelectFilterComponent
+                endpoint="/genres/by-day"
+                placeholder="Genres"
+                isOpen={openFilter === 'genre'}
+                onToggle={() => toggleFilter('genre')}
+                value={filters.genreIds}
+                params={{
+                  selectedDate: filters.selectedDate,
+                  venueIds: filters.venueId,
+                  cityIds: filters.cityId,
+                }}
+                valueKey="id"
+                labelKey="name"
+                onApply={(ids: number[]) => onChange({ genreIds: ids })}
+                icon={GenreIcon}
+              />
+            </div>
+            <div data-filter="time" className="relative">
+              <SelectFilterComponent
+                endpoint="/projections/times"
+                placeholder="Projection Times"
+                isOpen={openFilter === 'time'}
+                onToggle={() => toggleFilter('time')}
+                value={filters.projectionTimes ?? []}
+                params={{
+                  cityId: filters.cityId,
+                  venueId: filters.venueId,
+                  genreIds: filters.genreIds,
+                  selectedDate: filters.selectedDate,
+                }}
+                valueKey="id"
+                labelKey="name"
+                valueType="string"
+                onApply={(selectedIds: number[], allItems?: FilterProps[]) => {
+                  if (!allItems) return;
+                  const times: string[] = allItems
+                    .filter((item) => selectedIds.includes(item.id))
+                    .map((item) => item.name);
 
-            <SelectFilterComponent
-              endpoint="projections"
-              placeholder="Projection Times"
-              isOpen={openFilter === 'time'}
-              onToggle={() => toggleFilter('time')}
-              value={filters.projectionTimes ?? []}
-              params={{
-                cityId: filters.cityId,
-                venueId: filters.venueId,
-                genreIds: filters.genreIds,
-                selectedDate: filters.selectedDate,
-              }}
-              valueKey="id"
-              labelKey="name"
-              valueType="string"
-              onApply={(selectedIds: number[], allItems?: FilterProps[]) => {
-                if (!allItems) return;
-                const times: string[] = allItems
-                  .filter((item) => selectedIds.includes(item.id))
-                  .map((item) => item.name);
-
-                onChange({ projectionTimes: times });
-              }}
-              icon={ProjectionIcon}
-            />
+                  onChange({ projectionTimes: times });
+                }}
+                icon={ProjectionIcon}
+              />
+            </div>
           </div>
         )}
       </div>

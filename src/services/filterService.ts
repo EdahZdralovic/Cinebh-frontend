@@ -1,33 +1,12 @@
 import axiosInstance from './axiosInstance.tsx';
+import type { FilterParams } from '../types/Filters.ts';
 
-type FilterParams = {
-  venueIds?: number[];
-  cityId?: number[];
-};
-
-export async function getFilterData(type: string, params?: FilterParams) {
+export async function getFilterData(endpoint: string, params?: FilterParams) {
   try {
-    const endpoint = (() => {
-      switch (type) {
-        case 'genres-upcoming':
-          return '/genres/by-venues/upcoming';
-        case 'genres-currently':
-          return '/genres/by-day';
-        case 'locations':
-          return '/locations';
-        case 'venues':
-          return '/venues/all';
-        case 'projections':
-          return '/projections/times';
-        default:
-          throw new Error(`Unknown filter type: ${type}`);
-      }
-    })();
-
     const { data } = await axiosInstance.get(endpoint, { params });
     return data;
-  } catch (error) {
-    console.error('Something went wrong', error);
-    throw error;
+  } catch (err) {
+    console.error('Filter API error:', err);
+    throw err;
   }
 }
