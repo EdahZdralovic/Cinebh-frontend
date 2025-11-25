@@ -13,28 +13,28 @@ export function HomeCardsSkeleton() {
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 items-center gap-4 pt-4">
           <MainCard
-            coverImageUrl={'/assets/images/gray_photo.jpg'}
+            coverImageUrl={'/assets/images/gray_photo_loading.avif'}
             title="Loading..."
             isMovie={false}
             street={'Loading...'}
             redStrip={false}
           />
           <MainCard
-            coverImageUrl={'/assets/images/gray_photo.jpg'}
+            coverImageUrl={'/assets/images/gray_photo_loading.avif'}
             title="Loading..."
             isMovie={false}
             street={'Loading...'}
             redStrip={false}
           />
           <MainCard
-            coverImageUrl={'/assets/images/gray_photo.jpg'}
+            coverImageUrl={'/assets/images/gray_photo_loading.avif'}
             title="Loading..."
             isMovie={false}
             street={'Loading...'}
             redStrip={false}
           />
           <MainCard
-            coverImageUrl={'/assets/images/gray_photo.jpg'}
+            coverImageUrl={'/assets/images/gray_photo_loading.avif'}
             title="Loading..."
             isMovie={false}
             street={'Loading...'}
