@@ -66,7 +66,7 @@ function HomeHeroSection() {
           initial="enter"
           animate="center"
           exit="exit"
-          className="relative hero-zoom overflow-hidden bg-center flex justify-end flex-col bg-cover sm:aspect-[16/8] aspect-[9/16]"
+          className="relative hero-zoom overflow-hidden bg-center flex justify-end flex-col bg-cover sm:aspect-[16/9] aspect-[8/16]"
           style={{ backgroundImage: `url(${movie.coverImageUrl})` }}
         >
           <div className="absolute bottom-0 left-0 right-0 h-[60%]  bg-gradient-to-t from-black/55  to-transparent pointer-events-none" />
