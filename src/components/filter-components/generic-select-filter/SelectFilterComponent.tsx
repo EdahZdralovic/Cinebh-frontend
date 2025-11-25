@@ -1,10 +1,11 @@
 import { IoIosArrowDown, IoIosArrowUp } from 'react-icons/io';
 
-import useFilterData from '../../../hooks/useFilterData.ts';
+import useFilterData from '../../../hooks/filter-hooks/useFilterData.ts';
 import SelectFilterSkeleton from './SelectFilterSkeleton.tsx';
-import { useToggleElements } from '../../../hooks/useToggleElements.ts';
-import { useClickOutside } from '../../../hooks/useClickOutside.ts';
+import { useToggleElements } from '../../../hooks/filter-hooks/useToggleElements.ts';
+import { useClickOutside } from '../../../hooks/filter-hooks/useClickOutside.ts';
 import type { FilterProps, FilterTypeProps } from '../../../types/Filters.ts';
+import { useInitialSelectedIds } from '../../../hooks/filter-hooks/useInitialSelectedIds.ts';
 
 export default function SelectFilterComponent({
   endpoint,
@@ -21,21 +22,13 @@ export default function SelectFilterComponent({
     params
   );
 
-  const { selected, toggle, setSelected } = useToggleElements(value);
-
-  useClickOutside(isOpen, () => {
-    handleApply();
-      onApply(selected, elements);
-    onToggle?.();
-  });
-
-  if (loading) return <SelectFilterSkeleton />;
-  if (error) return <p>Error loading...</p>;
+  const initialSelectedIds = useInitialSelectedIds(value, elements);
+  const { selected, toggle, setSelected } =
+    useToggleElements(initialSelectedIds);
 
   const handleApply = () => {
     onToggle?.();
     onApply(selected, elements);
-
   };
 
   const handleCancel = () => {
@@ -44,9 +37,16 @@ export default function SelectFilterComponent({
     onApply([]);
   };
 
+  useClickOutside(isOpen, () => {
+    handleApply();
+  });
+
   const selectedNames = elements
     .filter((el) => selected.includes(el.id))
     .map((el) => el.name);
+
+  if (loading) return <SelectFilterSkeleton />;
+  if (error) return <p>Error loading...</p>;
 
   return (
     <section>

@@ -30,7 +30,12 @@ export default function CurrentlyShowingFilter({
   }
   return (
     <section className="mt-4 text-[var(--color-primary)]  ">
-      <SearchInput value={filters.q} onSearch={(q) => onChange({ q })} />
+        <SearchInput
+            value={filters.q}
+            onSearch={(q) =>
+                q.length >= 3 ? onChange({ q }) : onChange({ q: '' })
+            }
+        />
       <div className=" sm:grid-cols-4 grid-cols-1 mt-4 hidden lg:grid gap-4 h-10 justify-evenly ">
         <div data-filter="city" className="relative">
           <SelectFilterComponent

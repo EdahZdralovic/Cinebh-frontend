@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
-import { getFilterData } from '../services/filterService';
+import { getFilterData } from '../../services/filterService.ts';
 
 export default function useFilterData<T>(type: string, params?: object) {
   const { data, isLoading, isError, error } = useQuery<T[]>({

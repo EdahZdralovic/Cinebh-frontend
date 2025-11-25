@@ -69,7 +69,7 @@ export default function UpcomingFilter({
         </div>
         <div data-filter="genre" className="relative">
           <SelectFilterComponent
-            endpoint="genres"
+            endpoint="genres-upcoming"
             placeholder="Genres"
             isOpen={openFilter === 'genre'}
             onToggle={() => toggleFilter('genre')}
@@ -145,7 +145,7 @@ export default function UpcomingFilter({
             </div>
             <div data-filter="genre" className="relative">
               <SelectFilterComponent
-                endpoint="genres"
+                endpoint="genres-upcoming"
                 placeholder="Genres"
                 isOpen={openFilter === 'genre'}
                 onToggle={() => toggleFilter('genre')}

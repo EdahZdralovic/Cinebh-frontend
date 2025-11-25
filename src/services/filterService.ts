@@ -9,7 +9,7 @@ export async function getFilterData(type: string, params?: FilterParams) {
   try {
     const endpoint = (() => {
       switch (type) {
-        case 'genres':
+        case 'genres-upcoming':
           return '/genres/by-venues/upcoming';
         case 'genres-currently':
           return '/genres/by-day';
