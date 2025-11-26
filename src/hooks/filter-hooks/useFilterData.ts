@@ -14,3 +14,4 @@ export default function useFilterData<T>(type: string, params?: object) {
     error: isError ? error : null,
   };
 }
+

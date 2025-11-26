@@ -9,7 +9,7 @@ import { HomeHeroSkeleton } from './HomeHeroSkeleton.tsx';
 
 function HomeHeroSection() {
   const { mainCards, loading, error } = useMainCards(
-    2,
+    0,
     3,
     'movies/currently-showing'
   );
@@ -66,14 +66,14 @@ function HomeHeroSection() {
           initial="enter"
           animate="center"
           exit="exit"
-          className="relative hero-zoom overflow-hidden bg-center flex justify-end flex-col bg-cover sm:aspect-[16/9] aspect-[8/16]"
+          className="relative hero-zoom overflow-hidden bg-center flex justify-end flex-col bg-cover sm:aspect-[16/8] aspect-[8/16]"
           style={{ backgroundImage: `url(${movie.coverImageUrl})` }}
         >
           <div className="absolute bottom-0 left-0 right-0 h-[60%]  bg-gradient-to-t from-black/55  to-transparent pointer-events-none" />
           <div className="relative pl-[6%] pb-[10%] flex flex-col text-white  items-start justify-end font-bold">
             <GenreButton name={genre} />
             <h1 className="mt-3 sm:text-5xl text-xl">{movie.title}</h1>
-            <p className="sm:text-xl text-sm pt-4 leading-relaxed font-semibold max-w-[50%]">
+            <p className="sm:text-xl text-sm pt-4 leading-relaxed font-semibold sm:max-w-[50%] max-w-[70%]">
               {' '}
               {movie.synopsis}
             </p>
