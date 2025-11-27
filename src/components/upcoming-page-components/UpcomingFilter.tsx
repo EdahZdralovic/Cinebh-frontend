@@ -8,6 +8,7 @@ import { SlLocationPin } from 'react-icons/sl';
 import { useState } from 'react';
 import { CiFilter } from 'react-icons/ci';
 import type { FilterProps, UpcomingFilterProps } from '../../types/Filters.ts';
+import { ROUTES } from '../../utils/Constants.ts';
 
 const LocationIcon = <SlLocationPin />;
 const VenueIcon = <HiOutlineOfficeBuilding />;
@@ -34,7 +35,7 @@ export default function UpcomingFilter({
       <div className=" sm:grid-cols-4 grid-cols-1 mt-4 hidden lg:grid gap-4 h-10 justify-evenly ">
         <div data-filter="city" className="relative">
           <SelectFilterComponent
-            endpoint="/locations"
+            endpoint={ROUTES.LOCATION_FILTER_ENDPOINT}
             placeholder="Cities"
             isOpen={openFilter === 'city'}
             onToggle={() => toggleFilter('city')}
@@ -46,7 +47,7 @@ export default function UpcomingFilter({
         </div>
         <div data-filter="venue" className="relative">
           <SelectFilterComponent
-            endpoint="/venues/all"
+            endpoint={ROUTES.VENUE_FILTER_ENDPOINT}
             placeholder="Cinemas"
             value={filters.venueId}
             isOpen={openFilter === 'venue'}
@@ -69,7 +70,7 @@ export default function UpcomingFilter({
         </div>
         <div data-filter="genre" className="relative">
           <SelectFilterComponent
-            endpoint="/genres/by-venues/upcoming"
+            endpoint={ROUTES.GENRE_FILTER_UPCOMING_ENDPOINT}
             placeholder="Genres"
             isOpen={openFilter === 'genre'}
             onToggle={() => toggleFilter('genre')}
@@ -110,7 +111,7 @@ export default function UpcomingFilter({
           <div className={'grid grid-cols-1'}>
             <div data-filter="city" className="relative">
               <SelectFilterComponent
-                endpoint="/locations"
+                endpoint={ROUTES.LOCATION_FILTER_ENDPOINT}
                 placeholder="Cities"
                 isOpen={openFilter === 'city'}
                 onToggle={() => toggleFilter('city')}
@@ -122,7 +123,7 @@ export default function UpcomingFilter({
             </div>
             <div data-filter="venue" className="relative">
               <SelectFilterComponent
-                endpoint="/venues/all"
+                endpoint={ROUTES.VENUE_FILTER_ENDPOINT}
                 placeholder="Cinemas"
                 value={filters.venueId}
                 isOpen={openFilter === 'venue'}
@@ -145,7 +146,7 @@ export default function UpcomingFilter({
             </div>
             <div data-filter="genre" className="relative">
               <SelectFilterComponent
-                endpoint="/genres/by-venues/upcoming"
+                endpoint={ROUTES.GENRE_FILTER_UPCOMING_ENDPOINT}
                 placeholder="Genres"
                 isOpen={openFilter === 'genre'}
                 onToggle={() => toggleFilter('genre')}

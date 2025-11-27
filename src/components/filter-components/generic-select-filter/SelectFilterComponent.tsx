@@ -32,7 +32,6 @@ export default function SelectFilterComponent({
   };
 
   const handleCancel = () => {
-    onToggle?.();
     setSelected([]);
     onApply([]);
   };

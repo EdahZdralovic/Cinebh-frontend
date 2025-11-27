@@ -8,6 +8,7 @@ import { useState } from 'react';
 import { CiFilter } from 'react-icons/ci';
 import { MdOutlineAccessTime } from 'react-icons/md';
 import type { FilterProps, Filters } from '../../types/Filters.ts';
+import { ROUTES } from '../../utils/Constants.ts';
 
 type CurrentlyShowingFilterProps = {
   filters: Filters;
@@ -39,7 +40,7 @@ export default function CurrentlyShowingFilter({
       <div className=" sm:grid-cols-4 grid-cols-1 mt-4 hidden lg:grid gap-4 h-10 justify-evenly ">
         <div data-filter="city" className="relative">
           <SelectFilterComponent
-            endpoint="/locations"
+            endpoint={ROUTES.LOCATION_FILTER_ENDPOINT}
             placeholder="Cities"
             isOpen={openFilter === 'city'}
             onToggle={() => toggleFilter('city')}
@@ -51,7 +52,7 @@ export default function CurrentlyShowingFilter({
         </div>
         <div data-filter="venue" className="relative">
           <SelectFilterComponent
-            endpoint="/venues/all"
+            endpoint={ROUTES.VENUE_FILTER_ENDPOINT}
             placeholder="Cinemas"
             value={filters.venueId}
             isOpen={openFilter === 'venue'}
@@ -76,7 +77,7 @@ export default function CurrentlyShowingFilter({
         </div>
         <div data-filter="genre" className="relative">
           <SelectFilterComponent
-            endpoint="/genres/by-day"
+            endpoint={ROUTES.GENRES_FILTER_BY_DAY_ENDPOINT}
             placeholder="Genres"
             isOpen={openFilter === 'genre'}
             onToggle={() => toggleFilter('genre')}
@@ -85,6 +86,7 @@ export default function CurrentlyShowingFilter({
               selectedDate: filters.selectedDate,
               venueIds: filters.venueId,
               cityIds: filters.cityId,
+              projectionTimes: filters.projectionTimes,
             }}
             valueKey="id"
             labelKey="name"
@@ -94,7 +96,7 @@ export default function CurrentlyShowingFilter({
         </div>
         <div data-filter="time" className="relative">
           <SelectFilterComponent
-            endpoint="/projections/times"
+            endpoint={ROUTES.PROJECTIONS_FILTER_BY_DAY_ENDPOINT}
             placeholder="Projection Times"
             isOpen={openFilter === 'time'}
             onToggle={() => toggleFilter('time')}
@@ -139,7 +141,7 @@ export default function CurrentlyShowingFilter({
           <div className={'grid grid-cols-1'}>
             <div data-filter="city" className="relative">
               <SelectFilterComponent
-                endpoint="/locations"
+                endpoint={ROUTES.LOCATION_FILTER_ENDPOINT}
                 placeholder="Cities"
                 value={filters.cityId}
                 isOpen={openFilter === 'city'}
@@ -150,7 +152,7 @@ export default function CurrentlyShowingFilter({
             </div>
             <div data-filter="venue" className="relative">
               <SelectFilterComponent
-                endpoint="/venues/all"
+                endpoint={ROUTES.VENUE_FILTER_ENDPOINT}
                 placeholder="Cinemas"
                 value={filters.venueId}
                 isOpen={openFilter === 'venue'}
@@ -175,7 +177,7 @@ export default function CurrentlyShowingFilter({
             </div>
             <div data-filter="genre" className="relative">
               <SelectFilterComponent
-                endpoint="/genres/by-day"
+                endpoint={ROUTES.GENRES_FILTER_BY_DAY_ENDPOINT}
                 placeholder="Genres"
                 isOpen={openFilter === 'genre'}
                 onToggle={() => toggleFilter('genre')}
@@ -184,6 +186,7 @@ export default function CurrentlyShowingFilter({
                   selectedDate: filters.selectedDate,
                   venueIds: filters.venueId,
                   cityIds: filters.cityId,
+                  projectionTimes: filters.projectionTimes,
                 }}
                 valueKey="id"
                 labelKey="name"
@@ -193,7 +196,7 @@ export default function CurrentlyShowingFilter({
             </div>
             <div data-filter="time" className="relative">
               <SelectFilterComponent
-                endpoint="/projections/times"
+                endpoint={ROUTES.PROJECTIONS_FILTER_BY_DAY_ENDPOINT}
                 placeholder="Projection Times"
                 isOpen={openFilter === 'time'}
                 onToggle={() => toggleFilter('time')}

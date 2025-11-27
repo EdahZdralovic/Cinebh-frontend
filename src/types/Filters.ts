@@ -45,6 +45,6 @@ export interface FilterTypeProps {
 }
 
 export type FilterParams = {
-    venueIds?: number[];
-    cityId?: number[];
+  venueIds?: number[];
+  cityId?: number[];
 };
