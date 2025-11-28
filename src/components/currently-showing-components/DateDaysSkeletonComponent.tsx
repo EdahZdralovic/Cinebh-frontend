@@ -1,15 +1,7 @@
 import DayDateButton from '../buttons/DayDateButton.tsx';
+import {generateNext10Days} from "../../utils/dateUtils.ts";
 
-function generateNext10Days() {
-  const days = [];
-  const today = new Date();
-  for (let i = 0; i < 10; i++) {
-    const d = new Date();
-    d.setDate(today.getDate() + i);
-    days.push(d);
-  }
-  return days;
-}
+
 
 export default function DateDaysSkeletonComponent() {
   const days = generateNext10Days();

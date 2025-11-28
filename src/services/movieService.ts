@@ -9,43 +9,37 @@ export const getCards = async (type: string, page: number, size: number) => {
     const { data } = await axiosInstance.get(url, { params });
     return data;
   } catch (error) {
-    console.error('Something went wrong', error);
     throw error;
   }
 };
 
 export const getUpcomingMovies = async (
-  type: string,
+  url: string,
   filters: any,
   page: number,
   size: number
 ) => {
-  const url = `${type}`;
   const params = buildMovieParams(filters, page, size);
 
   try {
     const { data } = await axiosInstance.get(url, { params });
     return data;
   } catch (error) {
-    console.error('Something went wrong', error);
     throw error;
   }
 };
 export const getCurrentlyShowingMovies = async (
-  type: string,
+  url: string,
   filters: any,
   page: number,
   size: number
 ) => {
-  const url = `${type}`;
   const params = buildMovieParams(filters, page, size);
 
   try {
-      console.log("projectionTimes koje saljem", filters.projectionTimes);
     const { data } = await axiosInstance.get(url, { params });
     return data;
   } catch (error) {
-    console.error('Something went wrong', error);
     throw error;
   }
 };

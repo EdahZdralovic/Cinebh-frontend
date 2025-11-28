@@ -2,11 +2,20 @@ import { useRef, useState } from 'react';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import './datepicker-overrides.css';
-import { FiCalendar } from 'react-icons/fi';
 import { IoIosArrowDown, IoIosArrowUp } from 'react-icons/io';
 import type { DatePickerProps } from '../../../types/Filters.ts';
-import { formatDate, fromISO, toISO } from '../../../utils/dateUtils.ts';
+import { toISO } from '../../../utils/dateUtils.ts';
 import { MdArrowBackIos, MdArrowForwardIos } from 'react-icons/md';
+import CustomDatePickerHeader from './CustomDatePickerHeader.tsx';
+import { useDateRangeLabel } from '../../../hooks/filter-hooks/useDateRangeLabel.ts';
+import StartEndDateSection from './StartDateEndDateSection.tsx';
+import {
+  createHandleCalendarOpen,
+  createHandleDateChange,
+  createToggle,
+  DateToString,
+  getPlaceholder,
+} from './DatePickerFunctions.ts';
 
 export function CustomDatePicker({ value, onApply }: DatePickerProps) {
   const [tempStart, setTempStart] = useState<Date | null>(null);
@@ -22,41 +31,18 @@ export function CustomDatePicker({ value, onApply }: DatePickerProps) {
     setTempStart(null);
     setTempEnd(null);
   };
-  const displayLabel = (() => {
-    const start = tempStart || fromISO(value.fromDate);
-    const end = tempEnd || fromISO(value.toDate);
-
-    if (start && end) return `${formatDate(start)} - ${formatDate(end)}`;
-    if (start) return `${formatDate(start)} - ...`;
-
-    return 'Pick Range';
-  })();
+  const displayLabel = useDateRangeLabel(tempStart, tempEnd, value);
 
   const CustomInput = ({ onClick }: { onClick: () => void }) => (
-    <div
+    <CustomDatePickerHeader
+      label={displayLabel}
+      isOpen={isOpen}
       onClick={onClick}
-      className="w-full flex items-center gap-2 bg-white  rounded-lg px-3 h-12 cursor-pointer"
-    >
-      <FiCalendar
-        className={
-          ' ml-0 flex justify-center ' +
-          (isOpen
-            ? '  text-[var(--color-secondary)] '
-            : 'text-[var(--color-primary)]  ')
-        }
-      />
-      <span
-        className={isOpen ? ' text-[var(--color-primary)] ' : 'text-gray-500 '}
-      >
-        {displayLabel}
-      </span>
-    </div>
+    />
   );
-  const toggle = () => setIsOpen((prev) => !prev);
-  const placeHolder =
-    tempStart != null && tempEnd != null
-      ? { tempStart } + ' - ' + { tempEnd }
-      : 'Pick Range';
+
+  const toggle = createToggle(setIsOpen);
+  const placeHolder = getPlaceholder(tempStart, tempEnd);
 
   return (
     <div
@@ -79,17 +65,13 @@ export function CustomDatePicker({ value, onApply }: DatePickerProps) {
           endDate={tempEnd}
           shouldCloseOnSelect={false}
           placeholderText={placeHolder}
-          onChange={(dates) => {
-            const [start, end] = dates;
-            setTempStart(start);
-
-            setTempEnd(end);
-          }}
-          onCalendarOpen={() => {
-            setIsOpen(true);
-            setTempStart(fromISO(value.fromDate));
-            setTempEnd(fromISO(value.toDate));
-          }}
+          onChange={createHandleDateChange(setTempStart, setTempEnd)}
+          onCalendarOpen={createHandleCalendarOpen(
+            setIsOpen,
+            setTempStart,
+            setTempEnd,
+            value
+          )}
           onCalendarClose={() => setIsOpen(false)}
           formatWeekDay={(nameOfDay) => nameOfDay.substr(0, 3)}
           renderCustomHeader={({
@@ -100,24 +82,7 @@ export function CustomDatePicker({ value, onApply }: DatePickerProps) {
             nextMonthButtonDisabled,
           }) => (
             <div className="w-full z-100 ">
-              <div className="grid grid-cols-2 gap-4 mx-2 px-2 text-[#1D2939] py-3 bg-white">
-                <div className="border z-40 text-start p-2 px-3 border-gray-200 rounded-xl">
-                  <div className="text-xs text-gray-500 font-thin">
-                    Start Date
-                  </div>
-                  <div className="text-sm font-normal">
-                    {tempStart ? formatDate(tempStart) : 'Choose date'}
-                  </div>
-                </div>
-                <div className="border text-start p-2 px-3 z-40 border-gray-200 rounded-xl">
-                  <div className="text-xs text-gray-500 font-medium">
-                    End Date
-                  </div>
-                  <div className="text-sm">
-                    {tempEnd ? formatDate(tempEnd) : 'Choose date'}
-                  </div>
-                </div>
-              </div>
+              <StartEndDateSection tempStart={tempStart} tempEnd={tempEnd} />
               <div className="flex items-center z-60 justify-between px-4 py-2">
                 <button
                   onClick={decreaseMonth}
@@ -127,10 +92,7 @@ export function CustomDatePicker({ value, onApply }: DatePickerProps) {
                   <MdArrowBackIos />
                 </button>
                 <span className="font-normal text-gray-800">
-                  {date.toLocaleDateString('en-US', {
-                    month: 'short',
-                    year: 'numeric',
-                  })}
+                  {DateToString(date)}
                 </span>
                 <button
                   onClick={increaseMonth}

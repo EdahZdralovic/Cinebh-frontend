@@ -7,8 +7,14 @@ import SearchInput from '../filter-components/search-filter/SearchInput.tsx';
 import { SlLocationPin } from 'react-icons/sl';
 import { useState } from 'react';
 import { CiFilter } from 'react-icons/ci';
-import type { FilterProps, UpcomingFilterProps } from '../../types/Filters.ts';
+import type { UpcomingFilterProps } from '../../types/Filters.ts';
 import { ROUTES } from '../../utils/Constants.ts';
+import {
+  createHandleCityApply,
+  createHandleGenreApply,
+  createHandleSearch,
+  createHandleVenueApply,
+} from '../../utils/FilterFunctions.ts';
 
 const LocationIcon = <SlLocationPin />;
 const VenueIcon = <HiOutlineOfficeBuilding />;
@@ -18,20 +24,20 @@ export default function UpcomingFilter({
   filters,
   onChange,
 }: UpcomingFilterProps) {
+  const [isOpen, setIsOpen] = useState(false);
   const [openFilter, setOpenFilter] = useState<string | null>(null);
   function toggleFilter(name: string) {
     setOpenFilter((prev) => (prev === name ? null : name));
   }
-  const [isOpen, setIsOpen] = useState(false);
+
+  const handleSearch = createHandleSearch(onChange);
+  const handleVenueApply = createHandleVenueApply(onChange);
+  const handleGenreApply = createHandleGenreApply(onChange);
+  const handleCityApply = createHandleCityApply(onChange);
 
   return (
     <section className="mt-4 text-[var(--color-primary)]  ">
-      <SearchInput
-        value={filters.q}
-        onSearch={(q) =>
-          q.length >= 3 ? onChange({ q }) : onChange({ q: '' })
-        }
-      />
+      <SearchInput value={filters.q} onSearch={handleSearch} />
       <div className=" sm:grid-cols-4 grid-cols-1 mt-4 hidden lg:grid gap-4 h-10 justify-evenly ">
         <div data-filter="city" className="relative">
           <SelectFilterComponent
@@ -40,7 +46,7 @@ export default function UpcomingFilter({
             isOpen={openFilter === 'city'}
             onToggle={() => toggleFilter('city')}
             value={filters.cityId}
-            onApply={(ids: number[]) => onChange({ cityId: ids })}
+            onApply={handleCityApply}
             icon={LocationIcon}
             params={{ cityId: filters.cityId }}
           />
@@ -52,18 +58,7 @@ export default function UpcomingFilter({
             value={filters.venueId}
             isOpen={openFilter === 'venue'}
             onToggle={() => toggleFilter('venue')}
-            onApply={(selectedVenueIds, venuesList?: FilterProps[]) => {
-              if (!venuesList) {
-                return onChange({ venueId: selectedVenueIds });
-              }
-              const matchedCities = venuesList
-                .filter((v) => selectedVenueIds.includes(v.id))
-                .map((v) => v.location.id);
-              onChange({
-                venueId: selectedVenueIds,
-                cityId: [...new Set(matchedCities)],
-              });
-            }}
+            onApply={handleVenueApply}
             icon={VenueIcon}
             params={{ cityId: filters.cityId }}
           />
@@ -80,7 +75,7 @@ export default function UpcomingFilter({
                 ? { venueIds: filters.venueId }
                 : undefined
             }
-            onApply={(ids: number[]) => onChange({ genreIds: ids })}
+            onApply={handleGenreApply}
             icon={GenreIcon}
           />
         </div>
@@ -101,7 +96,7 @@ export default function UpcomingFilter({
             'bg-white flex  justify-start border items-center  rounded-md w-full h-12 ' +
             (isOpen
               ? ' text-[var(--color-secondary)] '
-              : '  text-[var(--color-primary)]')
+              : ' text-[var(--color-primary)]')
           }
           onClick={() => setIsOpen(!isOpen)}
         >
@@ -116,7 +111,7 @@ export default function UpcomingFilter({
                 isOpen={openFilter === 'city'}
                 onToggle={() => toggleFilter('city')}
                 value={filters.cityId}
-                onApply={(ids: number[]) => onChange({ cityId: ids })}
+                onApply={handleCityApply}
                 icon={LocationIcon}
                 params={{ cityId: filters.cityId }}
               />
@@ -128,18 +123,7 @@ export default function UpcomingFilter({
                 value={filters.venueId}
                 isOpen={openFilter === 'venue'}
                 onToggle={() => toggleFilter('venue')}
-                onApply={(selectedVenueIds, venuesList?: FilterProps[]) => {
-                  if (!venuesList) {
-                    return onChange({ venueId: selectedVenueIds });
-                  }
-                  const matchedCities = venuesList
-                    .filter((v) => selectedVenueIds.includes(v.id))
-                    .map((v) => v.location.id);
-                  onChange({
-                    venueId: selectedVenueIds,
-                    cityId: [...new Set(matchedCities)],
-                  });
-                }}
+                onApply={handleVenueApply}
                 icon={VenueIcon}
                 params={{ cityId: filters.cityId }}
               />
@@ -152,7 +136,7 @@ export default function UpcomingFilter({
                 onToggle={() => toggleFilter('genre')}
                 value={filters.genreIds}
                 params={{ venueIds: filters.venueId }}
-                onApply={(ids: number[]) => onChange({ genreIds: ids })}
+                onApply={handleGenreApply}
                 icon={GenreIcon}
               />
             </div>

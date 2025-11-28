@@ -38,7 +38,7 @@ export function TicketsCard({
       </h4>
       <p className="pt-6 font-light text-md ">{disclaimer}</p>
       {options.map((option) => (
-        <span className="flex  pt-8 text-md text-left pl-6 gap-3">
+        <span className="flex pt-8 text-md text-left pl-6 gap-3">
           <Check className="text-[var(--color-secondary)] text-left " />
           {option} <br />
         </span>

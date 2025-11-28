@@ -1,3 +1,6 @@
+
+import { Link } from 'react-router-dom';
+
 export default function NoMoviesToPreview() {
   return (
     <section
@@ -8,7 +11,7 @@ export default function NoMoviesToPreview() {
       <div className={'sm:mt-8 mt-2'}>
         <img
           src="/assets/images/cinema_tape.png"
-          className={'w-[72px] mt-14   h-[64px] aspect-square '}
+          className={'w-[72px] mt-14 h-[64px] aspect-square '}
           alt={'Cinema Tape'}
         />
       </div>
@@ -24,12 +27,13 @@ export default function NoMoviesToPreview() {
         for amazing movie experience or explore our other exciting cinema
         features in the meantime!
       </p>
-      <button //we can not use Link To here because it will not reset all filters
-        onClick={() => window.location.reload()} //this resets page for real
-        className="underline underline-thicknes-2 pb-4 font-bold mb-14 mt-2 text-[var(--color-secondary)]"
-      >
-        Explore Upcoming Movies
-      </button>
+      <Link to="/upcoming">
+        <button
+          className="underline underline-thicknes-2 pb-4 font-bold mb-14 mt-2 text-[var(--color-secondary)]"
+        >
+          Explore Upcoming Movies
+        </button>
+      </Link>
     </section>
   );
 }

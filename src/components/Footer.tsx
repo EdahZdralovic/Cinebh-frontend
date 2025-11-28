@@ -11,7 +11,7 @@ export default function Footer() {
                className="h-[32px] w-[130px] object-contain" />
         </div>
       </Link>
-      <div className="flex items-center justify-center gap-6 pt-4 text-[12px]  text-white">
+      <div className="flex items-center justify-center gap-6 pt-4 text-xs  text-white">
         <Link to="/about" className="hover:underline font-bold">
           ABOUT US
         </Link>
@@ -21,7 +21,7 @@ export default function Footer() {
         </Link>
       </div>
       <div className="pt-4 ">
-        <p className="text-[14px] font-normal">
+        <p className="text-sm font-normal">
           Copyright @Cinebh. Built with love in Sarajevo. All rights reserved.
         </p>
       </div>

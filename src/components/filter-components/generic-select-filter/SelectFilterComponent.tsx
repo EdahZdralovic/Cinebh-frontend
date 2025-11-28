@@ -39,6 +39,7 @@ export default function SelectFilterComponent({
   useClickOutside(isOpen, () => {
     handleApply();
   });
+    console.log("ELEMENTS TYPE:", typeof elements, elements);
 
   const selectedNames = elements
     .filter((el) => selected.includes(el.id))
@@ -104,7 +105,7 @@ export default function SelectFilterComponent({
                   toggle(el.id);
                 }}
                 className={
-                  'px-3 py-2 text-sm cursor-pointer flex items-center truncate  ' +
+                  'px-3 py-2 text-sm cursor-pointer flex items-center truncate ' +
                   (selected.includes(el.id)
                     ? 'bg-[#FDE3E3] font-bold rounded-md'
                     : '')

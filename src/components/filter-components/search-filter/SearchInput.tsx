@@ -1,23 +1,20 @@
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { IoSearchOutline } from 'react-icons/io5';
+import { useDebounce } from '../../../hooks/useDebounce.ts';
 
 type SearchInputProps = {
-  value: string;
-  onSearch: (query: string) => void;
+  value?: string;
+  onSearch?: (query: string) => void;
 };
 
-export default function SearchInput({ value, onSearch }: SearchInputProps) {
+export default function SearchInput({ value="", onSearch = () => {}}: SearchInputProps) {
   const [localValue, setLocalValue] = useState(value);
   const [isOpen, setIsOpen] = useState(false);
-  useEffect(() => setLocalValue(value), [value]);
+  const debounce = useDebounce(localValue, 1000);
 
   useEffect(() => {
-    const timeout = setTimeout(() => {
-      onSearch(localValue);
-    }, 1000);
-
-    return () => clearTimeout(timeout);
-  }, [localValue]);
+    onSearch(debounce);
+  }, [debounce]);
 
   return (
     <div

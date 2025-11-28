@@ -7,7 +7,8 @@ interface LoadMoreButtonProps {
 export function LoadMoreButton({disabled = false, onClick}: LoadMoreButtonProps) {
     return (
         <button onClick={onClick} disabled={disabled}
-                className={"text-[16px] font-semibold underline " + (disabled ? " text-[var(--color-disabled)] " : " text-[var(--color-secondary)] ")}
+                className={"text-md font-semibold underline " + (disabled ? " text-[var(--color-disabled)] " : " text-[var(--color-secondary)] ")}
         >Load more</button>
     );
 }
+

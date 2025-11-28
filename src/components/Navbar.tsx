@@ -43,7 +43,7 @@ export default function Navbar() {
       </div>
       {isOpen && (
         <div className="absolute left-0 top-full w-full md:hidden shadow-lg bg-[var(--color-primary)] border-t border-white/10">
-          <nav className="mx-auto flex max-w-[1440px] flex-col items-center gap-4 px-6 py-8">
+          <nav className="mx-auto flex max-w-[2000px] flex-col items-center gap-4 px-6 py-8">
             <Link
               to="/showing"
               onClick={() => setIsOpen(false)}

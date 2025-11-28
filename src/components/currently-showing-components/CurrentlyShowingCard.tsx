@@ -32,7 +32,7 @@ export default function CurrentlyShowingCard({
           }
         >
           {isSkeleton ? (
-            <div className={''}>
+            <div>
               <h2
                 className={'2xl:text-3xl text-lg text-gray-500 font-semibold'}
               >
@@ -50,9 +50,9 @@ export default function CurrentlyShowingCard({
               </div>
             </div>
           ) : (
-            <div className={''}>
+            <div>
               <h2 className={'2xl:text-3xl text-lg font-semibold'}>{title}</h2>
-              <div className={'  xl:my-4 my-1 '}>
+              <div className={'xl:my-4 my-1 '}>
                 <span>{pgRating}</span>
                 <span className="h-5 w-px bg-[var(--color-secondary)] mx-2 inline-block align-text-bottom "></span>
                 <span>{language}</span>
@@ -71,7 +71,7 @@ export default function CurrentlyShowingCard({
             </div>
           )}
 
-          <div className={'text-gray-500 mb-4 text-[14px] '}>
+          <div className={'text-gray-500 mb-4 text-sm '}>
             <p>
               {isSkeleton
                 ? 'Loading...'

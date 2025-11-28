@@ -1,3 +1,5 @@
+import {useDateInfo} from "../../hooks/filter-hooks/useDateInfo.ts";
+
 interface DayDateButtonProps {
   date: Date;
   isActive?: boolean;
@@ -11,17 +13,13 @@ export default function DayDateButton({
   onClick,
   isSkeleton = false,
 }: DayDateButtonProps) {
-  const monthName = date.toLocaleString('en-US', { month: 'short' });
-  const dayNumber = date.getDate();
-  const weekday = date.toLocaleString('en-US', { weekday: 'short' });
-  const today = new Date();
-  const isToday = today.getDate() === date.getDate();
 
+    const { monthName, dayNumber, weekday, isToday } = useDateInfo(date);
   return (
     <button
       onClick={onClick}
       className={
-        ' border shadow-md w-full aspect-[110/84] rounded-lg   text-[16px] ' +
+        ' border shadow-md w-full aspect-[110/84] rounded-lg text-md ' +
         (isActive
           ? ' bg-[var(--color-secondary)] border-[var(--color-secondary)] text-white '
           : ' bg-white border-gray-200') +

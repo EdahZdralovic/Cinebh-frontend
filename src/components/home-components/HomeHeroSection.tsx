@@ -1,17 +1,20 @@
 import { useEffect, useState } from 'react';
-import { AnimatePresence, motion, type Variants } from 'framer-motion';
+import { AnimatePresence, motion } from 'framer-motion';
 import GenreButton from '../buttons/GenreButton.tsx';
 
 import { useMainCards } from '../../hooks/useMainCards.ts';
 import { HeroButton } from '../buttons/HeroButton.tsx';
 import { HomeCardsErrorMessage } from './HomeCardsErrorMessage.tsx';
 import { HomeHeroSkeleton } from './HomeHeroSkeleton.tsx';
+import { ROUTES } from '../../utils/Constants.ts';
+import { HomeHeroVariants } from '../../utils/animations.ts';
 
 function HomeHeroSection() {
+  const COUNT = 3;
   const { mainCards, loading, error } = useMainCards(
     0,
     3,
-    'movies/currently-showing'
+    ROUTES.CURRENTLY_SHOWING
   );
   const [movieNumber, setMovieNumber] = useState(0);
   const movies = mainCards;
@@ -34,42 +37,20 @@ function HomeHeroSection() {
 
   const movie = movies[movieNumber];
   const genre = movie.movieGenres?.[0];
-  const variants: Variants = {
-    enter: {
-      opacity: 0,
-      x: -100,
-    },
-    center: {
-      opacity: 1,
-      x: 0,
-      transition: {
-        duration: 0.6,
-        ease: 'easeInOut',
-      },
-    },
-    exit: {
-      opacity: 0,
-      x: 100,
-      transition: {
-        duration: 0.6,
-        ease: 'easeInOut',
-      },
-    },
-  };
 
   return (
     <section>
       <AnimatePresence mode="wait">
         <motion.div
-          key={movieNumber} // Changed from movie.coverImageUrl
-          variants={variants}
+          key={movieNumber}
+          variants={HomeHeroVariants}
           initial="enter"
           animate="center"
           exit="exit"
           className="relative hero-zoom overflow-hidden bg-center flex justify-end flex-col bg-cover sm:aspect-[16/8] aspect-[8/16]"
           style={{ backgroundImage: `url(${movie.coverImageUrl})` }}
         >
-          <div className="absolute bottom-0 left-0 right-0 h-[60%]  bg-gradient-to-t from-black/55  to-transparent pointer-events-none" />
+          <div className="absolute bottom-0 left-0 right-0 h-[60%] bg-gradient-to-t from-black/55  to-transparent pointer-events-none" />
           <div className="relative pl-[6%] pb-[10%] flex flex-col text-white  items-start justify-end font-bold">
             <GenreButton name={genre} />
             <h1 className="mt-3 sm:text-5xl text-xl">{movie.title}</h1>
@@ -80,18 +61,13 @@ function HomeHeroSection() {
           </div>
 
           <div className="relative  pb-6 left-1/2-translate-x-1/2 flex justify-center gap-6 ">
-            <HeroButton
-              isActive={movieNumber === 0}
-              onClick={() => setMovieNumber(0)}
-            />
-            <HeroButton
-              isActive={movieNumber === 1}
-              onClick={() => setMovieNumber(1)}
-            />
-            <HeroButton
-              isActive={movieNumber === 2}
-              onClick={() => setMovieNumber(2)}
-            />
+            {Array.from({ length: COUNT }).map((_, i) => (
+              <HeroButton
+                 isActive={movieNumber === i}
+                onClick={() => setMovieNumber(i)}
+                key={i}
+              />
+            ))}
           </div>
         </motion.div>
       </AnimatePresence>

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import CurrentlyShowingFilter from '../../components/currently-showing-components/CurrentlyShowingFilter.tsx';
 import DateDaysComponent from '../../components/currently-showing-components/DateDaysComponent.tsx';
@@ -27,16 +27,35 @@ export function CurrentlyShowing() {
     projectionTimes: [],
     q: '',
   });
+
   const patchFilters = (patch: Partial<Filters>) => {
     setFilters((f) => ({ ...f, ...patch }));
   };
-
   const CurrentlyShowingUrl = 'movies/currently-showing';
-  const [size, setSize] = useState(6);
-  const { currentlyCards, totalElements, loading, error } =
-    useCurrentlyShowingMovies(filters, CurrentlyShowingUrl, 0, size);
+  const [movies, setMovies] = useState<CurrentlyShowingCardProps[]>([]);
+  const [page, setPage] = useState(0);
 
-  if (loading) return <CurrentlyShowingSkeleton />;
+  const size = 6;
+  useEffect(() => {
+    setPage(0);
+  }, [filters]);
+
+  const {
+    currentlyCards: pageResults,
+    totalElements,
+    loading,
+    error,
+  } = useCurrentlyShowingMovies(filters, CurrentlyShowingUrl, page, size);
+  useEffect(() => {
+    if (!pageResults) return;
+    if (page === 0) {
+      setMovies(pageResults);
+    } else {
+      setMovies((prev) => [...prev, ...pageResults]);
+    }
+  }, [pageResults]);
+
+  if (loading && page === 0) return <CurrentlyShowingSkeleton />;
   if (error)
     return (
       <HomeCardsErrorMessage
@@ -55,10 +74,10 @@ export function CurrentlyShowing() {
         </p>
         <CurrentlyShowingFilter filters={filters} onChange={patchFilters} />
         <DateDaysComponent filters={filters} onChange={patchFilters} />
-        {totalElements > 0 ? (
-          currentlyCards.map((card: CurrentlyShowingCardProps) => (
+        {movies.length > 0 ? (
+          movies.map((card: CurrentlyShowingCardProps) => (
             <CurrentlyShowingCard
-                key = {card.id}
+              key={card.id}
               coverImageUrl={card.coverImageUrl}
               title={card.title}
               pgRating={card.pgRating}
@@ -71,14 +90,16 @@ export function CurrentlyShowing() {
               projectionTimes={card.projectionTimes}
             />
           ))
-        ) : (
+        ) : !loading && page === 0 ? (
           <NoMoviesToPreview />
-        )}{' '}
+        ) : null}
       </div>
+
       <div className={'my-8 flex justify-center '}>
         <LoadMoreButton
-          disabled={size >= totalElements}
-          onClick={() => setSize(size + 3)}
+            disabled={movies.length >= totalElements}
+          onClick={() => {setPage((p) => p + 1);}}
+
         />
       </div>
     </section>
