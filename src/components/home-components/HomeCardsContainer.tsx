@@ -2,7 +2,6 @@ import { useState } from 'react';
 
 import { useMainCards } from '../../hooks/useMainCards.ts';
 import HomeCardsSection from './HomeCardsSection.tsx';
-import { HomeCardsSkeleton } from './HomeCardsSkeleton.tsx';
 import { HomeCardsErrorMessage } from './HomeCardsErrorMessage.tsx';
 
 interface HomeCardsProps {
@@ -27,7 +26,7 @@ export default function HomeCardsContainer({
     size,
     type
   );
-  if (loading) return <HomeCardsSkeleton />;
+
   if (error)
     return (
       <HomeCardsErrorMessage
@@ -56,6 +55,7 @@ export default function HomeCardsContainer({
         onNextPage={nextPage}
         seeAllLink={seeAllLink}
         sectionForVenues={isVenueContainer}
+        loading={loading}
       />
     </section>
   );
