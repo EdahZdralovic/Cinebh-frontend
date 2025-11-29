@@ -13,6 +13,8 @@ import { useScrollToTop } from '../../hooks/useScrollToTop.ts';
 import CurrentlyShowingCard from '../../components/currently-showing-components/CurrentlyShowingCard.tsx';
 import type { CurrentlyShowingCardProps } from '../../types/Cards.ts';
 import type { Filters } from '../../types/Filters.ts';
+import SearchInput from '../../components/filter-components/search-filter/SearchInput.tsx';
+import { createHandleSearch } from '../../utils/FilterFunctions.ts';
 
 export function CurrentlyShowing() {
   useScrollToTop();
@@ -34,6 +36,7 @@ export function CurrentlyShowing() {
   const CurrentlyShowingUrl = 'movies/currently-showing';
   const [movies, setMovies] = useState<CurrentlyShowingCardProps[]>([]);
   const [page, setPage] = useState(0);
+  const handleSearch = createHandleSearch(patchFilters);
 
   const size = 6;
   useEffect(() => {
@@ -46,6 +49,7 @@ export function CurrentlyShowing() {
     loading,
     error,
   } = useCurrentlyShowingMovies(filters, CurrentlyShowingUrl, page, size);
+
   useEffect(() => {
     if (!pageResults) return;
     if (page === 0) {
@@ -55,7 +59,6 @@ export function CurrentlyShowing() {
     }
   }, [pageResults]);
 
-  if (loading && page === 0) return <CurrentlyShowingSkeleton />;
   if (error)
     return (
       <HomeCardsErrorMessage
@@ -69,13 +72,18 @@ export function CurrentlyShowing() {
       className={'items-center text-[var(--color-primary)]  pt-6 lg:pt-12'}
     >
       <div className={'relative sm:px-[6%] px-[4%]'}>
-        <p className="sm:text-3xl text-2xl font-semibold">
-          Currently Showing ({totalElements})
+        <p className="sm:text-3xl text-2xl font-semibold mb-4">
+          Currently Showing {!loading && `(${totalElements})`}
         </p>
+        <SearchInput value={filters.q} onSearch={handleSearch} />
         <CurrentlyShowingFilter filters={filters} onChange={patchFilters} />
         <DateDaysComponent filters={filters} onChange={patchFilters} />
-        {movies.length > 0 ? (
-          movies.map((card: CurrentlyShowingCardProps) => (
+        {loading && page === 0 ? (
+          <>
+            <CurrentlyShowingSkeleton />
+          </>
+        ) : movies.length > 0 ? (
+          movies.map((card) => (
             <CurrentlyShowingCard
               key={card.id}
               coverImageUrl={card.coverImageUrl}
@@ -90,16 +98,17 @@ export function CurrentlyShowing() {
               projectionTimes={card.projectionTimes}
             />
           ))
-        ) : !loading && page === 0 ? (
-          <NoMoviesToPreview />
-        ) : null}
+        ) : (
+          !loading && page === 0 && <NoMoviesToPreview forUpcoming={false} />
+        )}
       </div>
 
       <div className={'my-8 flex justify-center '}>
         <LoadMoreButton
-            disabled={movies.length >= totalElements}
-          onClick={() => {setPage((p) => p + 1);}}
-
+          disabled={movies.length >= totalElements}
+          onClick={() => {
+            setPage((p) => p + 1);
+          }}
         />
       </div>
     </section>

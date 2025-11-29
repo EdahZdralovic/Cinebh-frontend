@@ -1,7 +1,7 @@
 import React from 'react';
 import { openingLabel } from './OpeningLabel.tsx';
 import type { MainCardProps } from '../../types/Cards.ts';
-import RedStripDate from "./RedStripDate.tsx";
+import RedStripDate from './RedStripDate.tsx';
 
 export default function MainCard({
   coverImageUrl,
@@ -19,7 +19,7 @@ export default function MainCard({
   let detailsContent: React.ReactNode = null;
   if (isMovie) {
     detailsContent = (
-      <div className="">
+      <div>
         <span className="whitespace-nowrap pr-2">{duration} MIN</span>
         <span className="h-5 w-px bg-[var(--color-gray-text)] mx-2 inline-block align-text-bottom "></span>
         <span className="px-2">{genre}</span>
@@ -42,11 +42,11 @@ export default function MainCard({
           <img
             src={coverImageUrl}
             alt={title}
-            className="relative h-full z-10 min-w-[95%] aspect-[94/100] w-full  rounded-2xl object-cover"
+            className="relative h-full z-10 min-w-[95%] insert-0 aspect-[94/100] w-full  rounded-2xl object-cover"
           />
-            {redStrip ? <RedStripDate label={dateForLabel} /> : null}
+          {redStrip ? <RedStripDate label={dateForLabel} /> : null}
         </div>
-            <div className="font-semibold pl-4 truncate text-xl pb-2 ">{title}</div>
+        <div className="font-semibold pl-4 truncate text-xl pb-2 ">{title}</div>
         <div className="pl-4 text-md text-[var(--color-gray-text)] tracking-[1.25%] pb-5 font-thin inline-flex items-center gap-2">
           {detailsContent}
         </div>

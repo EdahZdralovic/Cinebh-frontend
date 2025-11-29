@@ -1,11 +1,9 @@
 import axios from 'axios';
 import qs from 'qs';
 
-
-//this is for my testing puposes to havel ocal link so i can copy
-// 'http://localhost:8080/api/' .   import.meta.env.VITE_BACKEND_URL for railway conection
+//..env variables -> VITE_BASE_BACKEND_URL , VITE_PROD_BACKEND_URL
 const axiosInstance = axios.create({
-  baseURL: import.meta.env.VITE_BACKEND_URL ,
+  baseURL: import.meta.env.VITE_PROD_BACKEND_URL,
   headers: {
     'Content-Type': 'application/json',
   },

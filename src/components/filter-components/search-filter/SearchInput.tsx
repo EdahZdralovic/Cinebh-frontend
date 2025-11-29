@@ -5,6 +5,7 @@ import { useDebounce } from '../../../hooks/useDebounce.ts';
 type SearchInputProps = {
   value?: string;
   onSearch?: (query: string) => void;
+
 };
 
 export default function SearchInput({ value="", onSearch = () => {}}: SearchInputProps) {

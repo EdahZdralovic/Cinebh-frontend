@@ -1,7 +1,12 @@
-
 import { Link } from 'react-router-dom';
+interface NoMoviesToPreviewProps {
+  forUpcoming: boolean;
+}
 
-export default function NoMoviesToPreview() {
+export default function NoMoviesToPreview({
+  forUpcoming = false,
+}: NoMoviesToPreviewProps) {
+  const LinkToPage = forUpcoming ? '/showing' : '/upcoming';
   return (
     <section
       className={
@@ -27,11 +32,12 @@ export default function NoMoviesToPreview() {
         for amazing movie experience or explore our other exciting cinema
         features in the meantime!
       </p>
-      <Link to="/upcoming">
-        <button
-          className="underline underline-thicknes-2 pb-4 font-bold mb-14 mt-2 text-[var(--color-secondary)]"
-        >
-          Explore Upcoming Movies
+
+      <Link to={LinkToPage}>
+        <button className="underline underline-thicknes-2 pb-4 font-bold mb-14 mt-2 text-[var(--color-secondary)]">
+          {forUpcoming
+            ? 'Explore Currently Showing Movies '
+            : 'Explore Upcoming Movies'}
         </button>
       </Link>
     </section>
