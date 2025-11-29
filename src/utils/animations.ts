@@ -9,7 +9,7 @@ export const HomeHeroVariants: Variants = {
         opacity: 1,
         filter: 'blur(0px)',
         transition: {
-            duration: 0.6,
+            duration: 0.5,
             ease: 'easeOut',
         },
     },
