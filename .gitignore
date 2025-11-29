@@ -34,3 +34,4 @@ backend/
 
 *storybook.log
 storybook-static
+.vite
