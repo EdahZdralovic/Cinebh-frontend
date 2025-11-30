@@ -38,7 +38,7 @@ export default function MainCard({
   return (
     <section>
       <div className="justify-center z-0 shadow-lg  w-auto relative  grid  items-center grid-col-1 rounded-3xl">
-        <div className="relative m-4 rounded-2xl min-h-[92%] aspect-[94/100] ">
+        <div className="relative m-4 rounded-2xl lg:min-h-[92%] aspect-[94/100] ">
           <img
             src={coverImageUrl}
             alt={title}
