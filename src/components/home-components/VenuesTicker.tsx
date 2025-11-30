@@ -22,7 +22,7 @@ export default function VenuesTicker({ type, size }: VenuesTickerProps) {
         {list.map((venue, index) => (
           <button
             key={index}
-            className="p-3 text-gray-400 mx-4 font-bold border border-gray-200 rounded-md hover:bg-gray-300"
+            className="p-3 text-gray-400 mx-4 font-bold border border-gray-200 rounded-md"
           >
             {venue.title}
           </button>
