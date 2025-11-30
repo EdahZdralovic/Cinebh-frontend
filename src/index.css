@@ -19,7 +19,7 @@
 
 .hero-bg {
     background-size: 100%;
-    background-position: center;
+
     transition: background-position 8s ease-in-out;
     background-position: top;
 }
@@ -45,8 +45,6 @@
 }
 
 .animate-scroll-x {
-    animation: scrollX 20s linear infinite;
+    animation: scrollX 35s linear infinite;
 }
-.animate-scroll-x:hover {
-    animation-play-state: paused;
-}
+
