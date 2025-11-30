@@ -42,7 +42,7 @@ export default function MainCard({
           <img
             src={coverImageUrl}
             alt={title}
-            className="relative h-full z-10 min-w-full min-h-full  w-full  rounded-2xl object-cover"
+            className="relative h-full z-10 min-w-full aspect-[94/100]  w-full  rounded-2xl object-cover"
           />
           {redStrip ? <RedStripDate label={dateForLabel} /> : null}
         </div>
