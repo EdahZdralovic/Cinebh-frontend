@@ -1,4 +1,4 @@
-import { useQuery } from '@tanstack/react-query';
+import { keepPreviousData, useQuery } from '@tanstack/react-query';
 import { getUpcomingMovies } from '../services/movieService.ts';
 import type { MainCardResponse } from './useMainCards.ts';
 
@@ -19,6 +19,7 @@ export function useUpcomingMovies(
     queryKey: [filters, 'upcoming-cards', page, size],
     queryFn: () => getUpcomingMovies(type, filters, page, size),
     staleTime: 1000 * 60 * 5,
+    placeholderData: keepPreviousData,
   });
 
   return {
