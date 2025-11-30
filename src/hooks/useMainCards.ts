@@ -1,6 +1,7 @@
-import { useQuery } from '@tanstack/react-query';
+import { useQuery, keepPreviousData } from '@tanstack/react-query';
 import { getCards } from '../services/movieService.ts';
 import type { MainCardResponse } from '../types/Cards.ts';
+
 export type { MainCardResponse } from '../types/Cards.ts';
 
 export function useMainCards(page: number, size: number, type: string) {
@@ -8,6 +9,7 @@ export function useMainCards(page: number, size: number, type: string) {
     queryKey: ['main-cards', type, page, size],
     queryFn: () => getCards(type, page, size),
     staleTime: 1000 * 60 * 5,
+    placeholderData: keepPreviousData,
   });
   return {
     mainCards: data?.content ?? [],
