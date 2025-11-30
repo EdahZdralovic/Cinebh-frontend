@@ -2,7 +2,6 @@ import MainCard from '../cards/MainCard.tsx';
 
 export function HomeCardsSkeleton() {
   const COUNT = 4;
-
   return (
     <>
       {Array.from({ length: COUNT }).map((_, i) => (

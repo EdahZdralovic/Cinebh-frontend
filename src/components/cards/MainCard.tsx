@@ -38,12 +38,11 @@ export default function MainCard({
   return (
     <section>
       <div className="justify-center z-0 shadow-lg  w-auto relative  grid  items-center grid-col-1 rounded-3xl">
-        <div className="relative m-4 rounded-2xl min-h-[91%] aspect-[94/100] ">
+        <div className="relative m-4 rounded-2xl min-h-[92%] aspect-[94/100] ">
           <img
             src={coverImageUrl}
             alt={title}
-            loading={"eager"}
-            className="relative h-full z-10 min-w-full min-h-full  w-full  rounded-2xl object-cover"
+            className="relative h-full z-10 min-w-full min-h-full rounded-2xl object-cover"
           />
           {redStrip ? <RedStripDate label={dateForLabel} /> : null}
         </div>

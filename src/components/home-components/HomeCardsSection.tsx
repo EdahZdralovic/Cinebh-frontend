@@ -46,22 +46,24 @@ export default function HomeCardsSection({
           </h6>
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 items-center gap-4 pt-4">
-          {loading ? (
-            <HomeCardsSkeleton />
-          ) : (
-            cards.map((card) => (
-              <MainCard
-                coverImageUrl={card.coverImageUrl}
-                title={card.title}
-                duration={card.duration}
-                movieGenres={card.movieGenres}
-                isMovie={isMovie}
-                street={card.street}
-                redStrip={false}
-                projectionStart={card.projectionStart}
-              />
-            ))
-          )}
+          <div className="contents animate-fade-in">
+            {loading ? (
+              <HomeCardsSkeleton />
+            ) : (
+              cards.map((card) => (
+                <MainCard
+                  coverImageUrl={card.coverImageUrl}
+                  title={card.title}
+                  duration={card.duration}
+                  movieGenres={card.movieGenres}
+                  isMovie={isMovie}
+                  street={card.street}
+                  redStrip={false}
+                  projectionStart={card.projectionStart}
+                />
+              ))
+            )}
+          </div>
         </div>
         <div className="flex flex-row justify-end items-center gap-4 pt-6 font-thin mb-10 text-md ">
           {loading ? (
