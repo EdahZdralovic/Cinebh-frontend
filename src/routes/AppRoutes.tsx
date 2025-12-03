@@ -5,7 +5,8 @@ import About from '../pages/About/about';
 import Tickets from '../pages/Tickets/tickets';
 
 import { CurrentlyShowing } from '../pages/currentlyShowing/CurrentlyShowing.tsx';
-import UpcomingMovies from "../pages/UpcomingMovies/UpcomingMovies.tsx";
+import UpcomingMovies from '../pages/UpcomingMovies/UpcomingMovies.tsx';
+import {MovieDetails} from "../pages/movieDetails/MovieDetails.tsx";
 
 export default function AppRoutes() {
   return (
@@ -15,6 +16,7 @@ export default function AppRoutes() {
       <Route path="/tickets" element={<Tickets />} />
       <Route path="/upcoming" element={<UpcomingMovies />} />
       <Route path="/showing" element={<CurrentlyShowing />} />
+      <Route path="/movie" element={<MovieDetails />} />
     </Routes>
   );
 }
