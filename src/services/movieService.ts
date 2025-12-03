@@ -1,0 +1,45 @@
+import axiosInstance from './axiosInstance';
+import { buildMovieParams } from '../utils/buildMovieParams.ts';
+
+export const getCards = async (type: string, page: number, size: number) => {
+  const url = `${type}`;
+  const params = { page, size };
+
+  try {
+    const { data } = await axiosInstance.get(url, { params });
+    return data;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const getUpcomingMovies = async (
+  url: string,
+  filters: any,
+  page: number,
+  size: number
+) => {
+  const params = buildMovieParams(filters, page, size);
+
+  try {
+    const { data } = await axiosInstance.get(url, { params });
+    return data;
+  } catch (error) {
+    throw error;
+  }
+};
+export const getCurrentlyShowingMovies = async (
+  url: string,
+  filters: any,
+  page: number,
+  size: number
+) => {
+  const params = buildMovieParams(filters, page, size);
+
+  try {
+    const { data } = await axiosInstance.get(url, { params });
+    return data;
+  } catch (error) {
+    throw error;
+  }
+};

@@ -1,4 +1,4 @@
-# Cinebh - frontend repository - README file
+# CinemaBH-frontend README file
 
 **Project start date:** 27.10.2025
 Intern: Edah Ždralović

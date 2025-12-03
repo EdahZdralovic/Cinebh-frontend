@@ -1,0 +1,52 @@
+@import "@fontsource/urbanist/700.css";
+@import "@fontsource/urbanist/400.css";
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+    font-family: "Urbanist", sans-serif;
+    --color-primary: #1D2939;
+    --color-disabled: #E4E7EC;
+    --color-gray-text: #667085;
+    --color-secondary: #B22222;
+    --color-light-red: #FDE3E3;
+}
+
+
+
+
+.hero-bg {
+    background-size: 100%;
+    background-position: center;
+    transition: background-position 8s ease-in-out;
+    background-position: top;
+}
+
+
+@keyframes fadeZoom {
+    0% {
+        opacity: 0;
+        transform: scale(1.05);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+@keyframes scrollX {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(-50%);
+    }
+}
+
+.animate-scroll-x {
+    animation: scrollX 20s linear infinite;
+}
+.animate-scroll-x:hover {
+    animation-play-state: paused;
+}
