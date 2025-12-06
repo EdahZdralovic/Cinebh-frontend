@@ -2,10 +2,25 @@ import { Link } from 'react-router-dom';
 import { useState } from 'react';
 import { Menu, X } from 'lucide-react';
 
-export default function Navbar() {
+import { getUserFromToken } from '../services/authService.ts';
+import { SignInNavarButton } from './buttons/SignInNavbarButton.tsx';
+
+interface NavbarProps {
+  onSignInClick: () => void;
+}
+
+export default function Navbar({ onSignInClick }: NavbarProps) {
   const [isOpen, setIsOpen] = useState(false);
+  const userEmail = getUserFromToken();
+  const userName = userEmail?.split('@')[0];
+
+  function logout() {
+    localStorage.clear();
+    window.location.reload();
+  }
+
   return (
-    <nav className="sticky top-0 left-0 w-full h-[80px] bg-[var(--color-primary)] text-white flex items-center justify-between px-10 z-50">
+    <nav className="sticky top-0 left-0 w-full h-[80px] bg-[var(--color-primary)] text-white flex items-center justify-between px-10 z-50 border-b border-gray-500">
       <Link to="/">
         <div className="flex items-center gap-2 pl-2 md:pl-12 z-100">
           <img
@@ -33,6 +48,13 @@ export default function Navbar() {
             Upcoming Movies
           </Link>
         </div>
+        <div className={''}>
+          <SignInNavarButton
+            userLabel={userName}
+            onSignInClick={onSignInClick}
+            onLogout={logout}
+          />
+        </div>
         <div className="md:hidden">
           {isOpen ? (
             <X size={28} onClick={() => setIsOpen(false)} />
@@ -58,6 +80,11 @@ export default function Navbar() {
             >
               Upcoming Movies
             </Link>
+            <SignInNavarButton
+              userLabel={userName}
+              onSignInClick={onSignInClick}
+              onLogout={logout}
+            />
           </nav>
         </div>
       )}
