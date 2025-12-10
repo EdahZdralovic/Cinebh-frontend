@@ -2,7 +2,7 @@ import { type ReactNode, useState } from 'react';
 
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
-import SignInOutSideOpener from '../components/sidebar-components/SignInOutSideOpener.tsx';
+import LoginSignupSideSection from '../components/sidebar-components/LoginSignupSideSection.tsx';
 
 interface MainLayoutProps {
   children: ReactNode;
@@ -16,7 +16,7 @@ export default function MainLayout({ children }: MainLayoutProps) {
       <main className="flex-grow">{children}</main>
       <Footer />
       {signInOpen && (
-        <SignInOutSideOpener onClose={() => setSignInOpen(false)} />
+        <LoginSignupSideSection onClose={() => setSignInOpen(false)} />
       )}
     </div>
   );
