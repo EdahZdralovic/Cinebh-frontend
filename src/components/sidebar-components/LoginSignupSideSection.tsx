@@ -8,7 +8,7 @@ import type {
   SignInOutSideOpenerProps,
 } from '../../types/AuthTypes.ts';
 
-export default function SignInOutSideOpener({
+export default function LoginSignupSideSection({
   onClose,
 }: SignInOutSideOpenerProps) {
   const [view, setView] = useState<SideBarView>('signIn');
