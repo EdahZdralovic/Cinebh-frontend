@@ -45,8 +45,6 @@ export function EmailVerifyType({
     handleResendVerification(email, isForVerification, reset, setApiError);
 
   const { counter, reset } = useCountdown(30, enterCode);
-  setCode('');
-
   return (
     <section>
       <div className="flex justify-start mb-4 items-center mt-10">
