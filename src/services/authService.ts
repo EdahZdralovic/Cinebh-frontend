@@ -92,6 +92,7 @@ export async function verifyCode(
 export async function forgotPassword(email: string) {
   await axiosInstance.post('/auth/forgot-password', { email });
 }
+
 export async function resendVerification(
   email: string,
   isForVerification: boolean
