@@ -2,21 +2,11 @@ import { SignInButton } from '../../buttons/SignInButton.tsx';
 import { FaApple, FaGoogle } from 'react-icons/fa';
 import { InputField } from '../InputField.tsx';
 import { useState } from 'react';
-import { LuMail } from 'react-icons/lu';
-import { GoLock } from 'react-icons/go';
-import { login, register } from '../../../services/authService.ts';
 import { LogInSideBarArrowButton } from '../../buttons/LogInSideBarArrowButton.tsx';
-
-interface SignInSignUpProps {
-  onClose: () => void;
-  isForSignUp: boolean;
-  onLoginSuccess?: () => void;
-  onRegisterSuccess?: () => void;
-  goToSignUp?: () => void;
-  goToSignIn?: () => void;
-  goToReset?: () => void;
-  isForPasswordReset?: boolean;
-}
+import { LOCK_ICON, MAIL_ICON } from '../../../utils/icons.tsx';
+import { useAuthSubmit } from '../../../hooks/auth-hooks/useAuthSubmit.ts';
+import { NotVerifiedButton } from '../../buttons/NotVerifiedButton.tsx';
+import type { SignInSignUpProps } from '../../../types/AuthTypes.ts';
 
 export function SignInSignUpInput({
   onClose,
@@ -30,49 +20,24 @@ export function SignInSignUpInput({
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [email, setEmail] = useState('');
-  const [error, setError] = useState('');
-  const [hasSubmitted, setHasSubmitted] = useState(false);
 
-  const mailIcon = (
-    <LuMail
-      className={
-        ' absolute left-1 top-1/2 -translate-y-1/2 w-10 pointer-events-none'
-      }
-    />
-  );
-  const passwordIcon = (
-    <GoLock
-      className={
-        ' absolute left-1 top-1/2 -translate-y-1/2 w-10 pointer-events-none'
-      }
-    />
-  );
+  const {
+    loginSubmit,
+    registerSubmit,
+    error,
+    hasSubmitted,
+    needsVerification,
+  } = useAuthSubmit({
+    email,
+    password,
+    confirmPassword,
+    onLoginSuccess,
+    onRegisterSuccess,
+  });
 
   const showPasswordError =
     isForSignUp && hasSubmitted && password !== confirmPassword;
-
   const isMatchingPassword = !showPasswordError;
-
-  const handleLogin = async () => {
-    try {
-      await login(email, password);
-      onLoginSuccess?.();
-    } catch {
-      setError('Wrong email or password');
-    }
-  };
-  const handleRegister = async () => {
-    setHasSubmitted(true);
-    if (password !== confirmPassword) {
-      return;
-    }
-    try {
-      await register(email, password);
-      onRegisterSuccess?.();
-    } catch {
-      setError('Registration failed');
-    }
-  };
 
   return (
     <section className={''}>
@@ -97,7 +62,7 @@ export function SignInSignUpInput({
               type={'email'}
               name={'Email'}
               value={email}
-              icon={mailIcon}
+              icon={MAIL_ICON}
               onChange={(e) => setEmail(e.target.value)}
             />
           </>
@@ -107,25 +72,35 @@ export function SignInSignUpInput({
           placeHolder={'Password'}
           type={'password'}
           name={'Password'}
-          icon={passwordIcon}
+          icon={LOCK_ICON}
           value={password}
           isPassword
           onChange={(e) => setPassword(e.target.value)}
           isMatchingPasswords={!showPasswordError}
         />
+
         {isForSignUp && (
           <InputField
             placeHolder={'Retype Password'}
             type={'password'}
             name={'Confirm Password'}
-            icon={passwordIcon}
+            icon={LOCK_ICON}
             isPassword
             onChange={(e) => setConfirmPassword(e.target.value)}
             isMatchingPasswords={!showPasswordError}
           />
         )}
+
         {error && (
           <p className="text-[var(--color-secondary)] text-sm mt-1 ">{error}</p>
+        )}
+        {needsVerification && (
+          <div className="text-center mt-3">
+            <NotVerifiedButton
+              email={email}
+              onRegisterSuccess={onRegisterSuccess}
+            />
+          </div>
         )}
 
         <div
@@ -144,7 +119,7 @@ export function SignInSignUpInput({
         </div>
         <SignInButton
           disabled={!isMatchingPassword && isForSignUp}
-          onClick={isForSignUp ? handleRegister : handleLogin}
+          onClick={isForSignUp ? registerSubmit : loginSubmit}
         />
 
         <div className={'w-4/6 self-center ml-[20%] mt-6'}>

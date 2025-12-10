@@ -48,7 +48,7 @@ export default function Navbar({ onSignInClick }: NavbarProps) {
             Upcoming Movies
           </Link>
         </div>
-        <div className={''}>
+        <div className="hidden md:flex items-center ">
           <SignInNavarButton
             userLabel={userName}
             onSignInClick={onSignInClick}

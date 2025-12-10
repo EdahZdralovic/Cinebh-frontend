@@ -1,0 +1,57 @@
+import { useState } from 'react';
+import { login, register } from '../../services/authService.ts';
+import type { useAuthSubmitProps } from '../../types/AuthTypes.ts';
+
+export function useAuthSubmit({
+  email,
+  password,
+  confirmPassword,
+  onLoginSuccess,
+  onRegisterSuccess,
+}: useAuthSubmitProps) {
+  const [error, setError] = useState<string | null>(null);
+  const [hasSubmitted, setHasSubmitted] = useState(false);
+  const [needsVerification, setNeedsVerification] = useState(false);
+
+  const loginSubmit = async () => {
+    try {
+      setError(null);
+      await login(email, password);
+      onLoginSuccess?.();
+    } catch (err: any) {
+      const backendMessage = err?.response?.data?.message;
+      const status = err?.response?.status;
+      if (status === 403) {
+        setNeedsVerification(true);
+        setError(backendMessage);
+        return;
+      }
+      setNeedsVerification(false);
+      setError('Invalid email or password');
+    }
+  };
+
+  const registerSubmit = async () => {
+    setHasSubmitted(true);
+
+    if (password !== confirmPassword) return;
+
+    try {
+      setError(null);
+      await register(email, password);
+      onRegisterSuccess?.(email);
+    } catch (err: any) {
+      const message =
+        err?.response?.data?.message || err?.message || 'Registration failed';
+      setError(message);
+    }
+  };
+
+  return {
+    loginSubmit,
+    registerSubmit,
+    error,
+    hasSubmitted,
+    needsVerification,
+  };
+}

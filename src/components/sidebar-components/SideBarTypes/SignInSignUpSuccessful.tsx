@@ -1,9 +1,6 @@
 import { LogInSideBarArrowButton } from '../../buttons/LogInSideBarArrowButton.tsx';
-
-interface SignInSignUpSuccessfulProps {
-  isForSignUp?: boolean;
-  onClose: () => void;
-}
+import { SignInButton } from '../../buttons/SignInButton.tsx';
+import type { SignInSignUpSuccessfulProps } from '../../../types/AuthTypes.ts';
 
 export function SignInSingUpSuccessful({
   isForSignUp,
@@ -21,6 +18,7 @@ export function SignInSingUpSuccessful({
           {isForSignUp ? 'You are all set!  🎉' : 'Sign In Successful!  🎉 '}
         </h1>
       </div>
+
       <div className={'items-center text-center '}>
         <p className={'text-center text-[var(--color-second-white)] mt-6 '}>
           {isForSignUp
@@ -42,18 +40,8 @@ export function SignInSingUpSuccessful({
           className="object-contain "
         />
       </div>
-      {isForSignUp ? (
-        <button
-          className={
-            'mt-[22%] h-12 w-full bg-[var(--color-secondary)] rounded-lg text-white '
-          }
-          onClick={onClose}
-        >
-          See Movies
-        </button>
-      ) : (
-        ' '
-      )}
+      <div className={'mb-10'}></div>
+      {isForSignUp ? <SignInButton onClick={onClose} text="See Movies" /> : ' '}
     </section>
   );
 }

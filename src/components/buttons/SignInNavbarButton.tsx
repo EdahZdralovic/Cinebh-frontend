@@ -15,6 +15,7 @@ export function SignInNavarButton({
 }: SignInNavbarButtonProps) {
   const [open, setOpen] = useState(false);
   const isLoggedIn = !!userLabel;
+
   const handleMainClick = () => {
     if (!isLoggedIn) {
       onSignInClick?.();
@@ -26,26 +27,22 @@ export function SignInNavarButton({
   return (
     <div className="relative flex flex-row ">
       {isLoggedIn && (
-        <button className="transition p-2 border border-[var(--color-disabled-primary)] mx-4 px-3 rounded-lg">
+        <button className="transition p-2 md:border border-[var(--color-disabled-primary)] mx-4 px-3 rounded-lg">
           <FaRegBell size={20} />
         </button>
       )}
       <button
         onClick={handleMainClick}
-        className="h-12 px-6 bg-[var(--color-primary)]  mr-14 rounded-lg border border-white text-white flex items-center gap-2"
+        className="md:h-12 px-6 bg-[var(--color-primary)]  mr-14 rounded-lg md:border border-white text-white flex items-center gap-2"
       >
         <span>{isLoggedIn ? userLabel : 'Sign In'}</span>
-        {isLoggedIn && (
-          <IoIosArrowDown
-            className={`transition-transform ${open ? 'rotate-180' : ''}`}
-          />
-        )}
+        {isLoggedIn && <IoIosArrowDown className={open ? 'rotate-180' : ''} />}
       </button>
       {open && isLoggedIn && (
-        <div className="absolute right-0 mt-2 w-40 bg-[var(--color-primary)] rounded-lg shadow-lg overflow-hidden">
+        <div className="absolute right-0 mt-2 w-20 bg-[var(--color-primary)] rounded-lg shadow-lg overflow-hidden">
           <button
             onClick={onLogout}
-            className="w-full px-4 py-3 text-left hover:bg-gray-700"
+            className="w-full px-4 py-3 border rounded-lg border-white text-left hover:bg-gray-700"
           >
             Logout
           </button>

@@ -1,17 +1,6 @@
-import { type ReactNode, useState } from 'react';
+import { useState } from 'react';
 import { BsEye, BsEyeSlash } from 'react-icons/bs';
-
-interface InputFieldProps {
-  icon: ReactNode;
-  placeHolder?: string;
-  type?: string;
-  onSubmit?: () => void;
-  name: string;
-  isPassword?: boolean;
-  value?: string;
-  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  isMatchingPasswords?: boolean;
-}
+import type { InputFieldProps } from '../../types/AuthTypes.ts';
 
 export function InputField({
   icon,
@@ -31,7 +20,6 @@ export function InputField({
       <h5
         className={isMatchingPasswords ? ' ' : ' text-[var(--color-error-red)]'}
       >
-        {' '}
         {name}
       </h5>
 

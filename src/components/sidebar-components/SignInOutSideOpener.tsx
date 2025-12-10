@@ -1,24 +1,19 @@
 import { useEffect, useState } from 'react';
-
 import { SignInSingUpSuccessful } from './SideBarTypes/SignInSignUpSuccessful';
 import { SignInSignUpInput } from './SideBarTypes/SignInSignUpInput';
-import { PasswordResetType } from './SideBarTypes/PasswordResetType';
 import { NewPasswordEnterType } from './SideBarTypes/NewPasswordEnterType.tsx';
+import { EmailVerifyType } from './SideBarTypes/EmailVerifyType.tsx';
+import type {
+  SideBarView,
+  SignInOutSideOpenerProps,
+} from '../../types/AuthTypes.ts';
 
-interface SignInOutSideOpenerProps {
-  onClose: () => void;
-}
-
-type SideBarView =
-  | 'signIn'
-  | 'signUp'
-  | 'successLogin'
-  | 'successSignUp'
-  | 'reset'
-  | 'newPassword';
-
-function SignInOutSideOpener({ onClose }: SignInOutSideOpenerProps) {
+export default function SignInOutSideOpener({
+  onClose,
+}: SignInOutSideOpenerProps) {
   const [view, setView] = useState<SideBarView>('signIn');
+  const [signupEmail, setSignupEmail] = useState<string>('');
+  const [resetEmail, setResetEmail] = useState<string | null>(null);
 
   useEffect(() => {
     if (view === 'successLogin') {
@@ -29,8 +24,8 @@ function SignInOutSideOpener({ onClose }: SignInOutSideOpenerProps) {
 
   return (
     <section>
-      <div className="fixed h-full items-center md:w-2/6 overflow-y-auto overscroll-contain w-full sm:top-[80px] top-0 pb-14 sm:pb-0  right-0 bg-[var(--color-primary)] text-white flex flex-col">
-        <div className={'  w-4/6'}>
+      <div className="fixed h-full items-center md:w-2/6 overflow-y-auto overscroll-contain w-full top-[80px] top-0 pb-14 sm:pb-0  right-0 bg-[var(--color-primary)] text-white flex flex-col">
+        <div className={'sm:w-4/6 w-10/12'}>
           <div className="mt-[10%]   relative flex justify-center ">
             <img src="/assets/logos/Logo.png" width={130} />
           </div>
@@ -41,6 +36,10 @@ function SignInOutSideOpener({ onClose }: SignInOutSideOpenerProps) {
               onLoginSuccess={() => setView('successLogin')}
               goToSignUp={() => setView('signUp')}
               goToReset={() => setView('reset')}
+              onRegisterSuccess={(email) => {
+                setSignupEmail(email);
+                setView('verifySignup');
+              }}
               onClose={onClose}
             />
           )}
@@ -48,18 +47,34 @@ function SignInOutSideOpener({ onClose }: SignInOutSideOpenerProps) {
           {view === 'signUp' && (
             <SignInSignUpInput
               isForSignUp={true}
-              onRegisterSuccess={() => setView('successSignUp')}
+              onRegisterSuccess={(email) => {
+                setSignupEmail(email);
+                setView('verifySignup');
+              }}
               goToSignUp={() => setView('signIn')}
               goToReset={() => setView('reset')}
               onClose={onClose}
             />
           )}
 
+          {view === 'verifySignup' && signupEmail && (
+            <EmailVerifyType
+              isForVerification
+              presetEmail={signupEmail}
+              onBack={() => setView('signUp')}
+              onVerified={() => setView('successSignUp')}
+            />
+          )}
+
           {view === 'reset' && (
-            <PasswordResetType
+            <EmailVerifyType
+              isForVerification={false}
               onBack={() => setView('signIn')}
-              onClose={onClose}
-              onVerified={() => setView('newPassword')}
+              presetEmail={signupEmail}
+              onVerified={(email) => {
+                setResetEmail(email);
+                setView('newPassword');
+              }}
             />
           )}
 
@@ -70,8 +85,10 @@ function SignInOutSideOpener({ onClose }: SignInOutSideOpenerProps) {
           {view === 'successSignUp' && (
             <SignInSingUpSuccessful onClose={onClose} isForSignUp={true} />
           )}
+
           {view === 'newPassword' && (
             <NewPasswordEnterType
+              email={resetEmail}
               onBack={() => setView('reset')}
               onSuccess={() => setView('successLogin')}
             />
@@ -81,5 +98,3 @@ function SignInOutSideOpener({ onClose }: SignInOutSideOpenerProps) {
     </section>
   );
 }
-
-export default SignInOutSideOpener;
