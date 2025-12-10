@@ -10,6 +10,7 @@ export async function login(email: string, password: string) {
   localStorage.setItem('refreshToken', res.data.refreshToken);
   return res.data;
 }
+
 export async function register(email: string, password: string) {
   const res = await axiosInstance.post('/auth/register', {
     email,
@@ -49,6 +50,7 @@ export async function verifyCode(
 export async function forgotPassword(email: string) {
   await axiosInstance.post('/auth/forgot-password', { email });
 }
+
 export async function resendVerification(
   email: string,
   isForVerification: boolean
