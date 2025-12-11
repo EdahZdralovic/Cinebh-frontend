@@ -43,7 +43,12 @@ export function useAuthSubmit({
     } catch (err: any) {
       const message =
         err?.response?.data?.message || err?.message || 'Registration failed';
+      const status = err?.response?.status;
       setError(message);
+      if (status === 403) {
+        setNeedsVerification(true);
+        return;
+      }
     }
   };
 
