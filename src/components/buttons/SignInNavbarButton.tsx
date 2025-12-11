@@ -42,7 +42,7 @@ export function SignInNavarButton({
         <div className="absolute right-0 mt-2 w-20 bg-[var(--color-primary)] rounded-lg shadow-lg overflow-hidden">
           <button
             onClick={onLogout}
-            className="w-full px-4 py-3 border rounded-lg border-white text-left hover:bg-gray-700"
+            className="w-full px-4 py-3 border rounded-lg border-white text-left hover:bg-gray-600"
           >
             Logout
           </button>
