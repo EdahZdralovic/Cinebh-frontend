@@ -22,7 +22,6 @@ export function EmailVerifyType({
   presetEmail,
 }: EmailVerifyTypeProps) {
   const [email, setEmail] = useState(presetEmail ?? '');
-  const [code, setCode] = useState('');
   const [loading, setLoading] = useState(false);
 
   const title = isForVerification ? 'Verify Email' : 'Password Reset';
@@ -39,7 +38,7 @@ export function EmailVerifyType({
     });
 
   const safeHandleContinue = () =>
-    withLoading(loading, setLoading, () => handleContinue(code));
+    withLoading(loading, setLoading, () => handleContinue());
 
   const onResendClick = () =>
     handleResendVerification(email, isForVerification, reset, setApiError);
