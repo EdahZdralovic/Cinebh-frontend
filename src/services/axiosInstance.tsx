@@ -72,10 +72,7 @@ axiosInstance.interceptors.response.use(
         const refreshToken = localStorage.getItem('refreshToken');
         if (!refreshToken) throw new Error('Missing refresh token');
 
-        const res = await axios.post(
-          `${import.meta.env.VITE_BASE_BACKEND_URL}/auth/refresh`,
-          { refreshToken }
-        );
+        const res = await axiosInstance.post('/auth/refresh', { refreshToken });
         const newToken = res.data.accessToken;
         localStorage.setItem('accessToken', newToken);
         processQueue(null, newToken);
