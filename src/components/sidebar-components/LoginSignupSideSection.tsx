@@ -90,7 +90,7 @@ export default function LoginSignupSideSection({
             <NewPasswordEnterType
               email={resetEmail}
               onBack={() => setView('reset')}
-              onSuccess={() => setView('successLogin')}
+              onSuccess={() => setView('successSignUp')}
             />
           )}
         </div>
