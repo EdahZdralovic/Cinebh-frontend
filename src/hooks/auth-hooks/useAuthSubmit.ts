@@ -12,9 +12,11 @@ export function useAuthSubmit({
   const [error, setError] = useState<string | null>(null);
   const [hasSubmitted, setHasSubmitted] = useState(false);
   const [needsVerification, setNeedsVerification] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const loginSubmit = async () => {
     try {
+      setLoading(true);
       setError(null);
       await login(email, password);
       onLoginSuccess?.();
@@ -28,6 +30,8 @@ export function useAuthSubmit({
       }
       setNeedsVerification(false);
       setError('Invalid email or password');
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -58,5 +62,6 @@ export function useAuthSubmit({
     error,
     hasSubmitted,
     needsVerification,
+    loading,
   };
 }

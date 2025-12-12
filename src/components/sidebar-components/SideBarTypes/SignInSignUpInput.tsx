@@ -27,6 +27,7 @@ export function SignInSignUpInput({
     error,
     hasSubmitted,
     needsVerification,
+    loading,
   } = useAuthSubmit({
     email,
     password,
@@ -120,6 +121,7 @@ export function SignInSignUpInput({
         <SignInButton
           disabled={!isMatchingPassword && isForSignUp}
           onClick={isForSignUp ? registerSubmit : loginSubmit}
+          isLoading={loading}
         />
 
         <div className={'w-4/6 self-center ml-[20%] mt-6'}>
