@@ -39,7 +39,6 @@ export default function SelectFilterComponent({
   useClickOutside(isOpen, () => {
     handleApply();
   });
-    console.log("ELEMENTS TYPE:", typeof elements, elements);
 
   const selectedNames = elements
     .filter((el) => selected.includes(el.id))
