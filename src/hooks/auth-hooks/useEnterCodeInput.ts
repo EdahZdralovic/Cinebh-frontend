@@ -1,4 +1,5 @@
 import { useRef, useState } from 'react';
+import { KEYBOARD } from '../../utils/Constants.ts';
 
 export function useEnterCodeInput(
   length: number,
@@ -29,7 +30,7 @@ export function useEnterCodeInput(
     e: React.KeyboardEvent<HTMLInputElement>,
     index: number
   ) => {
-    if (e.key !== 'Backspace') return;
+    if (e.key !== KEYBOARD.BACKSPACE) return;
     const copy = [...code];
 
     if (copy[index] !== '') {

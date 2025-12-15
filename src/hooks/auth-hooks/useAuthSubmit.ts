@@ -21,15 +21,14 @@ export function useAuthSubmit({
       await login(email, password);
       onLoginSuccess?.();
     } catch (err: any) {
-      const backendMessage = err?.response?.data?.message;
       const status = err?.response?.status;
       if (status === 403) {
         setNeedsVerification(true);
-        setError(backendMessage);
+        setError(err.response.data.message);
         return;
       }
       setNeedsVerification(false);
-      setError('Invalid email or password');
+      setError(err.response.data.message);
     } finally {
       setLoading(false);
     }
@@ -46,10 +45,8 @@ export function useAuthSubmit({
       await register(email, password);
       onRegisterSuccess?.(email);
     } catch (err: any) {
-      const message =
-        err?.response?.data?.message || err?.message || 'Registration failed';
       const status = err?.response?.status;
-      setError(message);
+      setError(err?.response?.data?.message);
       if (status === 403) {
         setNeedsVerification(true);
         return;

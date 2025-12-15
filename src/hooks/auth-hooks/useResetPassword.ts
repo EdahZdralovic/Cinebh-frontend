@@ -1,5 +1,7 @@
 import { useState } from 'react';
 import type { UseResetPasswordProps } from '../../types/AuthTypes.ts';
+import { resetPassword } from '../../services/authService.ts';
+import { ERRORS } from '../../utils/Constants.ts';
 
 export function useResetPassword({ email, onSuccess }: UseResetPasswordProps) {
   const [password, setPassword] = useState('');
@@ -8,40 +10,26 @@ export function useResetPassword({ email, onSuccess }: UseResetPasswordProps) {
   const [loading, setLoading] = useState(false);
   const [apiError, setApiError] = useState<string | null>(null);
 
-  const ERROR_TEXT =
-    'Something went wrong while resetting your password. Please try again.';
-
-  const showError =
-    hasSubmitted &&
-    password.length > 0 &&
-    confirm.length > 0 &&
-    password !== confirm;
+  const showError = hasSubmitted && password !== confirm;
 
   const submit = async () => {
     setHasSubmitted(true);
-    if (password !== confirm) return;
-
+    if (!email) {
+      setApiError(ERRORS.MISSING_EMAIL);
+      return;
+    }
     try {
       setLoading(true);
       setApiError(null);
-      const res = await fetch('http://localhost:8080/api/auth/reset-password', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          email,
-          newPassword: password,
-        }),
-      });
-      if (!res.ok) throw new Error('RESET FAILED');
 
-      onSuccess();
-    } catch {
-      setApiError(ERROR_TEXT);
+      await resetPassword(email, password);
+      onSuccess?.();
+    } catch (err: any) {
+      setApiError(err?.response?.data?.message);
     } finally {
       setLoading(false);
     }
   };
-
   return {
     password,
     confirm,

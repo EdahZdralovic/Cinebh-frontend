@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { verifyCode } from '../../services/authService.ts';
 import type { useEmailVerificationFlowProps } from '../../types/AuthTypes.ts';
+import { ERRORS } from '../../utils/Constants.ts';
 
 export function useEmailVerificationFlow({
   isForVerification,
@@ -13,7 +14,7 @@ export function useEmailVerificationFlow({
   const handleContinue = async (code?: string) => {
     setApiError(null);
     if (!email || email.trim().length === 0) {
-      setApiError('Email missing');
+      setApiError(ERRORS.MISSING_EMAIL);
       return;
     }
     if (!enterCode) {
@@ -22,9 +23,7 @@ export function useEmailVerificationFlow({
           await forgotPassword(email);
           setEnterCode(true);
         } catch (err: any) {
-          setApiError(
-            err?.response?.data?.message || 'Email is not registered'
-          );
+          setApiError(err?.response?.data?.message);
         }
       }
       return;
@@ -34,7 +33,7 @@ export function useEmailVerificationFlow({
         await verifyCode(email, code || '', isForVerification);
         onVerified(email);
       } catch (err: any) {
-        setApiError(err.message);
+        setApiError(err?.response?.data?.message);
       }
     }
   };
