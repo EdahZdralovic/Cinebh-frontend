@@ -11,18 +11,28 @@ export const fromISO = (s: string | null) => {
   return new Date(y, (m ?? 1) - 1, d ?? 1);
 };
 
+export function generateNext10Days() {
+  const days = [];
+  const today = new Date();
+  for (let i = 0; i < 10; i++) {
+    const d = new Date();
+    d.setDate(today.getDate() + i);
+    days.push(d);
+  }
+  return days;
+}
+
+export function getDatePlusDays(days: number) {
+  const date = new Date();
+  date.setDate(date.getDate() + days);
+  return date.toISOString().split('T')[0];
+}
+export const TEN_DAYS_FROM_NOW = getDatePlusDays(7);
+
+export function formatDateSecond(date: string) {
+  return date.replace(/-/g, '/');
+}
 export const formatDate = (date: Date | null) => {
   if (!date) return null;
   return `${date.getFullYear()}/${String(date.getMonth() + 1).padStart(2, '0')}/${String(date.getDate()).padStart(2, '0')}`;
 };
-
-export function generateNext10Days() {
-    const days = [];
-    const today = new Date();
-    for (let i = 0; i < 10; i++) {
-        const d = new Date();
-        d.setDate(today.getDate() + i);
-        days.push(d);
-    }
-    return days;
-}

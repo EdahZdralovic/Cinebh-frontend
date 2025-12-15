@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import GenreButton from '../buttons/GenreButton.tsx';
 
-import { useMainCards } from '../../hooks/useMainCards.ts';
+import { useMainCards } from '../../hooks/movie-hooks/useMainCards.ts';
 import { HeroButton } from '../buttons/HeroButton.tsx';
 import { HomeCardsErrorMessage } from './HomeCardsErrorMessage.tsx';
 import { HomeHeroSkeleton } from './HomeHeroSkeleton.tsx';
@@ -63,7 +63,7 @@ function HomeHeroSection() {
           <div className="relative  pb-6 left-1/2-translate-x-1/2 flex justify-center gap-6 ">
             {Array.from({ length: COUNT }).map((_, i) => (
               <HeroButton
-                 isActive={movieNumber === i}
+                isActive={movieNumber === i}
                 onClick={() => setMovieNumber(i)}
                 key={i}
               />

@@ -5,6 +5,7 @@ interface SignInButtonProps {
   disabled?: boolean;
   isLoading?: boolean;
   text?: string;
+  whiteBackground?: boolean;
 }
 
 export function SignInButton({
@@ -12,13 +13,17 @@ export function SignInButton({
   disabled,
   isLoading,
   text = 'Continue',
+  whiteBackground = false,
 }: SignInButtonProps) {
   return (
     <button
       onClick={!isLoading ? onClick : undefined}
       disabled={disabled || isLoading}
       className={
-        'h-12 w-full rounded-lg text-white bg-[var(--color-secondary)]'
+        (whiteBackground
+          ? ' text-[var(--color-secondary)] bg-white border border-[var(--color-secondary)] '
+          : ' text-white bg-[var(--color-secondary)] ') +
+        'h-12 w-full rounded-lg  '
       }
     >
       {isLoading ? (

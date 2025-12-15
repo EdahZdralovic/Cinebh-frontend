@@ -1,7 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
-import { getCurrentlyShowingMovies } from '../services/movieService.ts';
+import { getCurrentlyShowingMovies } from '../../services/movieService.ts';
 import type { MainCardResponse } from './useMainCards.ts';
-import type { Filters } from '../types/Filters.ts';
+import type { Filters } from '../../types/Filters.ts';
 
 export function useCurrentlyShowingMovies(
   filters: Filters,

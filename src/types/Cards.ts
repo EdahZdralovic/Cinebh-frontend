@@ -6,6 +6,7 @@ export interface MainCardResponse {
 }
 
 export interface MainCardProps {
+  id: number;
   coverImageUrl: string;
   title: string;
   duration?: number;
@@ -17,14 +18,14 @@ export interface MainCardProps {
   projectionStart?: string;
 }
 export interface CurrentlyShowingCardProps {
-    id?: number
-    coverImageUrl: string;
-    title?: string;
-    duration?: number;
-    pgRating?: string;
-    language?: string;
-    movieGenres?: string[];
-    projectionEnd?: string;
-    projectionTimes?: string[];
-    isSkeleton?: boolean;
+  id?: number;
+  coverImageUrl: string;
+  title?: string;
+  duration?: number;
+  pgRating?: string;
+  language?: string;
+  movieGenres?: string[];
+  projectionEnd?: string;
+  projectionTimes?: string[];
+  isSkeleton?: boolean;
 }

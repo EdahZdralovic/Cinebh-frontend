@@ -1,6 +1,5 @@
 interface GenreButtonProps {
   name?: string;
-  genreId?: number;
 }
 
 export default function GenreButton({ name }: GenreButtonProps) {

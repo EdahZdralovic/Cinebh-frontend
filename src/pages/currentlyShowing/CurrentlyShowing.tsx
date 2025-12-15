@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import CurrentlyShowingFilter from '../../components/currently-showing-components/CurrentlyShowingFilter.tsx';
 import DateDaysComponent from '../../components/currently-showing-components/DateDaysComponent.tsx';
 
-import { useCurrentlyShowingMovies } from '../../hooks/useCurrentlyShowingMovies.ts';
+import { useCurrentlyShowingMovies } from '../../hooks/movie-hooks/useCurrentlyShowingMovies.ts';
 import { HomeCardsErrorMessage } from '../../components/home-components/HomeCardsErrorMessage.tsx';
 import NoMoviesToPreview from '../../components/upcoming-page-components/NoMoviesToPreview.tsx';
 import { formatDate } from '../../utils/formatDate.ts';
@@ -15,6 +15,7 @@ import type { CurrentlyShowingCardProps } from '../../types/Cards.ts';
 import type { Filters } from '../../types/Filters.ts';
 import SearchInput from '../../components/filter-components/search-filter/SearchInput.tsx';
 import { createHandleSearch } from '../../utils/FilterFunctions.ts';
+import { Link } from 'react-router-dom';
 
 export function CurrentlyShowing() {
   useScrollToTop();
@@ -83,20 +84,22 @@ export function CurrentlyShowing() {
             <CurrentlyShowingSkeleton />
           </>
         ) : movies.length > 0 ? (
-          movies.map((card, index) => (
-            <CurrentlyShowingCard
-              key={index}
-              coverImageUrl={card.coverImageUrl}
-              title={card.title}
-              pgRating={card.pgRating}
-              language={card.language}
-              duration={card.duration}
-              movieGenres={card.movieGenres}
-              projectionEnd={
-                card.projectionEnd ? formatDate(card.projectionEnd) : ''
-              }
-              projectionTimes={card.projectionTimes}
-            />
+          movies.map((card) => (
+            <Link to={`/movies/${card.id}`}>
+              <CurrentlyShowingCard
+                key={card.id}
+                coverImageUrl={card.coverImageUrl}
+                title={card.title}
+                pgRating={card.pgRating}
+                language={card.language}
+                duration={card.duration}
+                movieGenres={card.movieGenres}
+                projectionEnd={
+                  card.projectionEnd ? formatDate(card.projectionEnd) : ''
+                }
+                projectionTimes={card.projectionTimes}
+              />
+            </Link>
           ))
         ) : (
           !loading && page === 0 && <NoMoviesToPreview forUpcoming={false} />

@@ -1,4 +1,4 @@
-import { useMainCards } from '../../hooks/useMainCards.ts';
+import { useMainCards } from '../../hooks/movie-hooks/useMainCards.ts';
 
 interface VenuesTickerProps {
   type: string;

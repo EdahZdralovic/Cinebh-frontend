@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-import { useMainCards } from '../../hooks/useMainCards.ts';
+import { useMainCards } from '../../hooks/movie-hooks/useMainCards.ts';
 import HomeCardsSection from './HomeCardsSection.tsx';
 import { HomeCardsErrorMessage } from './HomeCardsErrorMessage.tsx';
 

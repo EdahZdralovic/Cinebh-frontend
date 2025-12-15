@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import UpcomingFilter from '../../components/upcoming-page-components/UpcomingFilter.tsx';
 import { HomeCardsErrorMessage } from '../../components/home-components/HomeCardsErrorMessage.tsx';
-import { useUpcomingMovies } from '../../hooks/useUpcomingMovies.ts';
+import { useUpcomingMovies } from '../../hooks/movie-hooks/useUpcomingMovies.ts';
 import { LoadMoreButton } from '../../components/buttons/LoadMoreButton.tsx';
 import NoMoviesToPreview from '../../components/upcoming-page-components/NoMoviesToPreview.tsx';
 import UpcomingMoviesSkeleton from '../../components/upcoming-page-components/UpcomingMoviesSkeleton.tsx';
@@ -9,6 +9,7 @@ import type { MainCardProps } from '../../types/Cards.ts';
 import MainCard from '../../components/cards/MainCard.tsx';
 import type { Filters } from '../../types/Filters.ts';
 import { useScrollToTop } from '../../hooks/useScrollToTop.ts';
+import { Link } from 'react-router-dom';
 
 export default function UpcomingMovies() {
   useScrollToTop();
@@ -71,15 +72,18 @@ export default function UpcomingMovies() {
       ) : movies.length > 0 ? (
         <div className="grid lg:grid-cols-4 md:grid-cols-2 justify-center items-center gap-4 pt-8">
           {movies.map((card: MainCardProps) => (
-            <MainCard
-              coverImageUrl={card.coverImageUrl}
-              title={card.title}
-              duration={card.duration}
-              movieGenres={card.movieGenres}
-              isMovie={true}
-              projectionStart={card.projectionStart}
-              redStrip={true}
-            />
+            <Link to={`/movies/${card.id}`}>
+              <MainCard
+                coverImageUrl={card.coverImageUrl}
+                title={card.title}
+                duration={card.duration}
+                movieGenres={card.movieGenres}
+                isMovie={true}
+                projectionStart={card.projectionStart}
+                redStrip={true}
+                id={card.id}
+              />
+            </Link>
           ))}
         </div>
       ) : (

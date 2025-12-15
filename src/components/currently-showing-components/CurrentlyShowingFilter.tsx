@@ -1,12 +1,7 @@
 import { useState } from 'react';
 
 import 'react-datepicker/dist/react-datepicker.css';
-import { HiOutlineOfficeBuilding } from 'react-icons/hi';
-import { BiCameraMovie } from 'react-icons/bi';
-import { SlLocationPin } from 'react-icons/sl';
 import { CiFilter } from 'react-icons/ci';
-import { MdOutlineAccessTime } from 'react-icons/md';
-
 import { ROUTES } from '../../utils/Constants.ts';
 import type { Filters } from '../../types/Filters.ts';
 import SelectFilterComponent from '../filter-components/generic-select-filter/SelectFilterComponent.tsx';
@@ -18,16 +13,17 @@ import {
   createHandleVenueApply,
   createToggleFilter,
 } from '../../utils/FilterFunctions';
+import {
+  GenreIcon,
+  LocationIcon,
+  ProjectionIcon,
+  VenueIcon,
+} from '../../utils/icons.tsx';
 
 type CurrentlyShowingFilterProps = {
   filters: Filters;
   onChange: (patch: Partial<Filters>) => void;
 };
-
-const LocationIcon = <SlLocationPin />;
-const VenueIcon = <HiOutlineOfficeBuilding />;
-const GenreIcon = <BiCameraMovie />;
-const ProjectionIcon = <MdOutlineAccessTime />;
 
 function CurrentlyShowingFilter({
   filters,

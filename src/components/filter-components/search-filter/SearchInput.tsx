@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { IoSearchOutline } from 'react-icons/io5';
-import { useDebounce } from '../../../hooks/useDebounce.ts';
+import { useDebounce } from '../../../hooks/filter-hooks/useDebounce.ts';
 
 type SearchInputProps = {
   value?: string;

@@ -1,5 +1,6 @@
-import axiosInstance from './axiosInstance';
+import axiosInstance, { delay } from './axiosInstance';
 import { buildMovieParams } from '../utils/buildMovieParams.ts';
+import type { MovieDetailsProps } from '../types/MovieTypes.ts';
 
 export const getCards = async (type: string, page: number, size: number) => {
   const url = `${type}`;
@@ -42,4 +43,15 @@ export const getCurrentlyShowingMovies = async (
   } catch (error) {
     throw error;
   }
+};
+
+export async function getMovieDetails(id: number): Promise<MovieDetailsProps> {
+  await delay(1000);
+  const res = await axiosInstance.get(`/movies/details/${id}`);
+  return res.data;
+}
+
+export const formatDate = (date: Date | null) => {
+  if (!date) return null;
+  return `${date.getFullYear()}/${String(date.getMonth() + 1).padStart(2, '0')}/${String(date.getDate()).padStart(2, '0')}`;
 };
