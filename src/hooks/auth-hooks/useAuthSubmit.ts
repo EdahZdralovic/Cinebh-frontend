@@ -41,6 +41,7 @@ export function useAuthSubmit({
     if (password !== confirmPassword) return;
 
     try {
+      setLoading(true);
       setError(null);
       await register(email, password);
       onRegisterSuccess?.(email);
@@ -53,6 +54,8 @@ export function useAuthSubmit({
         setNeedsVerification(true);
         return;
       }
+    } finally {
+      setLoading(false);
     }
   };
 
