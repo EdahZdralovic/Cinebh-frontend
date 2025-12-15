@@ -1,17 +1,14 @@
 import axiosInstance from './axiosInstance';
+import { jwtDecode } from 'jwt-decode';
 import { AUTH_CONST, ROUTES } from '../utils/Constants.ts';
 
-export async function login(
-  email: string,
-  password: string,
-  rememberMe: boolean
-) {
+export async function login(email: string, password: string) {
   const res = await axiosInstance.post(ROUTES.LOGIN_ENDPOINT, {
     email,
     password,
-    rememberMe,
   });
-
+  localStorage.setItem(AUTH_CONST.ACCESS_TOKEN, res.data.accessToken);
+  localStorage.setItem(AUTH_CONST.REFRESH_TOKEN, res.data.refreshToken);
   return res.data;
 }
 
@@ -20,8 +17,21 @@ export async function register(email: string, password: string) {
     email,
     password,
   });
-
+  localStorage.setItem(AUTH_CONST.ACCESS_TOKEN, res.data.accessToken);
+  localStorage.setItem(AUTH_CONST.REFRESH_TOKEN, res.data.refreshToken);
   return res.data;
+}
+
+export function getUserFromToken() {
+  const token = localStorage.getItem(AUTH_CONST.ACCESS_TOKEN);
+  if (!token) return null;
+
+  try {
+    const decoded: any = jwtDecode(token);
+    return decoded.sub ?? null;
+  } catch {
+    return null;
+  }
 }
 
 export async function verifyCode(
@@ -62,43 +72,4 @@ export async function resetPassword(email: string, newPassword: string) {
     newPassword,
   });
   return res.data;
-}
-
-export async function logout() {
-  await axiosInstance.post(ROUTES.LOGOUT_ENDPOINT, {});
-}
-
-export async function getCurrentUser() {
-  const res = await axiosInstance.get(ROUTES.USER_EMAIL_ENDPOINT, {
-    withCredentials: true,
-  });
-  return res.data;
-}
-
-export async function verifyCode(
-  email: string,
-  code: string,
-  isForVerification: boolean
-) {
-  const res = await axiosInstance.post('/auth/verify', {
-    email,
-    code,
-    type: isForVerification ? 'EMAIL_VERIFY' : 'PASSWORD_RESET',
-  });
-
-  return res.data;
-}
-
-export async function forgotPassword(email: string) {
-  await axiosInstance.post('/auth/forgot-password', { email });
-}
-
-export async function resendVerification(
-  email: string,
-  isForVerification: boolean
-) {
-  await axiosInstance.post('/auth/resend-verification', {
-    email,
-    type: isForVerification ? 'EMAIL_VERIFY' : 'PASSWORD_RESET',
-  });
 }
