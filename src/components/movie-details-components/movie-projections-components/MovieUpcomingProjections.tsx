@@ -50,7 +50,7 @@ export function MovieUpcomingProjections({
           <div className="flex justify-center items-center w-full">
             <img
               src={notifyImageUrl}
-              alt={title}
+              alt={'Notify Bell'}
               className={' self-center p-10  w-1/2 mt-4 '}
             />
           </div>
