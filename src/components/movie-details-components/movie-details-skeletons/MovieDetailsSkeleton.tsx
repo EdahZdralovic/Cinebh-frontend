@@ -4,68 +4,11 @@ import { MovieUpcomingProjections } from '../movie-projections-components/MovieU
 import { SeeAlsoMovies } from '../SeeAlsoMovies.tsx';
 import { ActorsContainer } from '../movie-description-components/ActorsContainer.tsx';
 import { RiLoader2Fill } from 'react-icons/ri';
-import { LOADING_MESSAGES } from '../../../utils/Constants.ts';
 import { MediaContainer } from '../movie-description-components/MediaContainer.tsx';
 
-export interface CrewMemberProps {
-  fullName: string;
-  characterName: string | null;
-  role: string;
-}
-
-const ACTORS_FOR_SKELETON: CrewMemberProps[] = [
-  {
-    fullName: 'Maybe Brad Pit?',
-    characterName: 'Loading...',
-    role: 'ACTOR',
-  },
-  {
-    fullName: 'Hmm, De Niro ?',
-    characterName: 'Loading...',
-    role: 'ACTOR',
-  },
-  {
-    fullName: 'Is it Jennifer Aniston ?',
-    characterName: 'Loading...',
-    role: 'ACTOR',
-  },
-  {
-    fullName: 'Is that Morgan Freeman?',
-    characterName: 'Loading...',
-    role: 'ACTOR',
-  },
-];
-const DIRECORS_FOR_SKELETON: CrewMemberProps[] = [
-  {
-    fullName: 'Quentin Tarantino ? ',
-    characterName: '',
-    role: 'DIRECTOR',
-  },
-  {
-    fullName: 'Oh, Martin Scorsese ?',
-    characterName: '',
-    role: 'DIRECTOR',
-  },
-];
-const WRITERS_FOR_SKELETON: CrewMemberProps[] = [
-  {
-    fullName: 'Writers who ? ',
-    characterName: '',
-    role: 'WRITERS',
-  },
-  {
-    fullName: 'Nope, no fun here?',
-    characterName: '',
-    role: 'WRITERS',
-  },
-];
-
 export function MovieDetailsSkeleton() {
-  const genresSkeletonArray = [
-    LOADING_MESSAGES.JUST_LOADING,
-    LOADING_MESSAGES.JUST_LOADING,
-    LOADING_MESSAGES.JUST_LOADING,
-  ];
+  const genresSkeleton = ['Loading...', 'Loading...'];
+  const loadingText = 'Movie details are loading, please wait. ';
   return (
     <section>
       <div
@@ -94,36 +37,24 @@ export function MovieDetailsSkeleton() {
               Loading...
             </h1>
             <DescriptionContainer
-              pgRating={
-                <RiLoader2Fill className={'size-4 ml-1 mr-2 animate-spin'} />
-              }
-              language={
-                <RiLoader2Fill className={' size-4 ml-0 animate-spin '} />
-              }
-              duration={
-                <RiLoader2Fill
-                  className={'size-4 animate-spin mb-2 inline-flex mr-1 '}
-                />
-              }
-              dateStart={LOADING_MESSAGES.JUST_LOADING}
-              dateEnd={LOADING_MESSAGES.PLEASE_WAIT}
-              genres={genresSkeletonArray}
-              synopsis={LOADING_MESSAGES.LONG_LOADING_TEXT}
-              directors={DIRECORS_FOR_SKELETON}
-              writers={WRITERS_FOR_SKELETON}
+              pgRating={<RiLoader2Fill className={' size-4 ml-1 mr-2 '} />}
+              language={<RiLoader2Fill className={' size-4 ml-0 '} />}
+              duration={<RiLoader2Fill className={' size-4 '} />}
+              dateStart={'Loading'}
+              dateEnd={'Please wait'}
+              genres={genresSkeleton}
+              synopsis={loadingText}
+              directors={[]}
+              writers={[]}
             />
 
             <div className={'md:mt-8 mt-2 flex flex-col '}>
-              <ActorsContainer actors={ACTORS_FOR_SKELETON} />
+              <ActorsContainer actors={[]} />
               <RatingContainer rottenTomatoesRating={0.0} imdbRating={0.0} />
             </div>
           </div>
           <div className={'md:mr-6 md:ml-4 '}>
-            <MovieUpcomingProjections
-              isSkeleton={true}
-              title={''}
-              startDate={''}
-            />
+            <MovieUpcomingProjections isSkeleton={true} />
           </div>
         </div>
         <div className={'md:mt-0 mt-5'}>
