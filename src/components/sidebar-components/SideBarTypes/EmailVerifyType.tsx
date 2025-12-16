@@ -89,7 +89,7 @@ export function EmailVerifyType({
 
                 onVerified(email);
               } catch (err: any) {
-                setApiError('INVALID_CODE');
+                setApiError(err.response.data.message);
               }
             }}
           />
