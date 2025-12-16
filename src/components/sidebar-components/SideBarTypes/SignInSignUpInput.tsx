@@ -1,7 +1,7 @@
 import { SignInButton } from '../../buttons/SignInButton.tsx';
 import { FaApple, FaGoogle } from 'react-icons/fa';
 import { InputField } from '../InputField.tsx';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { LogInSideBarArrowButton } from '../../buttons/LogInSideBarArrowButton.tsx';
 import { LOCK_ICON, MAIL_ICON } from '../../../utils/icons.tsx';
 import { useAuthSubmit } from '../../../hooks/auth-hooks/useAuthSubmit.ts';
@@ -36,6 +36,11 @@ export function SignInSignUpInput({
     onRegisterSuccess,
   });
 
+  const [errorText, setErrorText] = useState(error);
+  useEffect(() => {
+    if (error) setErrorText(error);
+  }, [error]);
+
   const showPasswordError =
     isForSignUp && hasSubmitted && password !== confirmPassword;
   const isMatchingPassword = !showPasswordError;
@@ -57,14 +62,16 @@ export function SignInSignUpInput({
           ''
         ) : (
           <>
-            {' '}
             <InputField
               placeHolder={'Email Address'}
               type={'email'}
               name={'Email'}
               value={email}
               icon={MAIL_ICON}
-              onChange={(e) => setEmail(e.target.value)}
+              onChange={(e) => {
+                setEmail(e.target.value);
+                setErrorText('');
+              }}
             />
           </>
         )}
@@ -76,7 +83,10 @@ export function SignInSignUpInput({
           icon={LOCK_ICON}
           value={password}
           isPassword
-          onChange={(e) => setPassword(e.target.value)}
+          onChange={(e) => {
+            setPassword(e.target.value);
+            setErrorText('');
+          }}
           isMatchingPasswords={!showPasswordError}
         />
 
@@ -87,13 +97,18 @@ export function SignInSignUpInput({
             name={'Confirm Password'}
             icon={LOCK_ICON}
             isPassword
-            onChange={(e) => setConfirmPassword(e.target.value)}
+            onChange={(e) => {
+              setEmail(e.target.value);
+              setErrorText('');
+            }}
             isMatchingPasswords={!showPasswordError}
           />
         )}
 
         {error && (
-          <p className="text-[var(--color-secondary)] text-sm mt-1 ">{error}</p>
+          <p className="text-[var(--color-secondary)] text-sm mt-1 ">
+            {errorText}
+          </p>
         )}
         {needsVerification && (
           <div className="text-center mt-3">

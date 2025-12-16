@@ -1,4 +1,5 @@
 import { resendVerification } from '../services/authService';
+import { AUTH_CONST } from './Constants.ts';
 
 export function maskEmail(email: string) {
   const [name, domain] = email.split('@');
@@ -35,3 +36,9 @@ export async function handleResendVerification(
     setApiError(err?.message || 'Failed to resend');
   }
 }
+
+export const isValidEmail = (email: string) =>
+  AUTH_CONST.EMAIL_REGEX.test(email.trim());
+
+export const isValidPassword = (password: string) =>
+  AUTH_CONST.PASSWORD_REGEX.test(password);

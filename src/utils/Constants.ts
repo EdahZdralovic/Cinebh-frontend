@@ -23,11 +23,22 @@ export const AUTH_CONST = {
   REFRESH_TOKEN: 'refreshToken',
   ACCESS_TOKEN: 'accessToken',
   BEARER: 'Bearer ',
+  REGEX_PATTERN: '^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$',
+  TEXT_KEY_WORD: 'text',
+  PASSWORD_KEY_WORD: 'password',
+  EMAIL_KEY_WORD: 'email',
+  EMAIL_REGEX: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
+  PASSWORD_REGEX: /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,}$/,
 };
 
 export const ERRORS = {
   MISSING_EMAIL: 'Please enter valid email.',
   MISSING_REFRESH_TOKEN: 'Missing refresh token',
+  INVALID_EMAIL: 'Please enter valid email.',
+  PASSWORDS_NOT_MATCHING: 'Passwords do not match.',
+  STRONGER_PASSWORD:
+    'Your password needs to contain at least 8 characters, 1 uppercase letter and 1 number.',
+  ERROR_CODE_INPUT: 'Enter all 4 digits of code',
 };
 
 export const KEYBOARD = {

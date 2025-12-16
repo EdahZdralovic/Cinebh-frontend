@@ -5,14 +5,15 @@ export function useEnterCodeInput(
   length: number,
   onComplete: (code: string) => void
 ) {
-  const [code, setCode] = useState<string[]>(Array(length).fill(''));
+  const [code, setCode] = useState(Array(length).fill(''));
   const inputs = useRef<(HTMLInputElement | null)[]>([]);
 
   const handleChange = (value: string, index: number) => {
     const isValidInput =
-      value === '' || (value.length === 1 && value >= '0' && value <= '9');
+      value === '' || (value.length < 5 && value >= '0' && value <= '9999');
     if (!isValidInput) return;
-
+    if (value.length > 1) {
+    }
     const newCode = [...code];
     newCode[index] = value;
     setCode(newCode);

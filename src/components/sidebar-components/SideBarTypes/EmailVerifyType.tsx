@@ -23,13 +23,15 @@ export function EmailVerifyType({
 }: EmailVerifyTypeProps) {
   const [email, setEmail] = useState(presetEmail ?? '');
   const [loading, setLoading] = useState(false);
+  const [code, setCode] = useState('');
+  const [isCodeComplete, setIsCodeComplete] = useState(false);
 
   const title = isForVerification ? 'Verify Email' : 'Password Reset';
   const description = isForVerification
     ? 'Enter your email to receive a verification code.'
     : 'Provide your account’s email for which you want to reset your password.';
 
-  const { enterCode, apiError, setApiError, handleContinue } =
+  const { enterCode, error, setError, handleContinue } =
     useEmailVerificationFlow({
       isForVerification,
       email,
@@ -38,10 +40,10 @@ export function EmailVerifyType({
     });
 
   const safeHandleContinue = () =>
-    withLoading(loading, setLoading, () => handleContinue());
+    withLoading(loading, setLoading, () => handleContinue(code));
 
   const onResendClick = () =>
-    handleResendVerification(email, isForVerification, reset, setApiError);
+    handleResendVerification(email, isForVerification, reset, setError);
 
   const { counter, reset } = useCountdown(30, enterCode);
   return (
@@ -75,22 +77,15 @@ export function EmailVerifyType({
               icon={MAIL_ICON}
               onChange={(e) => setEmail(e.target.value)}
             />
-            {apiError && (
-              <p className="text-red-400 text-sm text-start">{apiError}</p>
+            {error && (
+              <p className="text-red-400 text-sm text-start">{error}</p>
             )}
           </>
         ) : (
           <EnterCodeInput
-            onComplete={async (code) => {
-              try {
-                const data = await verifyCode(email, code, isForVerification);
-                localStorage.setItem('accessToken', data.accessToken);
-                localStorage.setItem('refreshToken', data.refreshToken);
-
-                onVerified(email);
-              } catch (err: any) {
-                setApiError(err.response.data.message);
-              }
+            onComplete={(c) => {
+              setCode(c);
+              setError(null);
             }}
           />
         )}
@@ -107,8 +102,8 @@ export function EmailVerifyType({
           ) : (
             <ResendButton email={email} onResend={onResendClick} />
           )}
-          {apiError && (
-            <p className="text-red-400 text-sm text-center ">{apiError}</p>
+          {error && (
+            <p className="text-red-400 text-sm text-center ">{error}</p>
           )}
         </div>
       )}

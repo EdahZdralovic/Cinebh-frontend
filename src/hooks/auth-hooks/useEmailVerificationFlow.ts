@@ -10,11 +10,11 @@ export function useEmailVerificationFlow({
   onVerified,
 }: useEmailVerificationFlowProps) {
   const [enterCode, setEnterCode] = useState(isForVerification);
-  const [apiError, setApiError] = useState<string | null>(null);
+  const [error, setError] = useState<string | null>(null);
   const handleContinue = async (code?: string) => {
-    setApiError(null);
+    setError(null);
     if (!email || email.trim().length === 0) {
-      setApiError(ERRORS.MISSING_EMAIL);
+      setError(ERRORS.MISSING_EMAIL);
       return;
     }
     if (!enterCode) {
@@ -23,24 +23,29 @@ export function useEmailVerificationFlow({
           await forgotPassword(email);
           setEnterCode(true);
         } catch (err: any) {
-          setApiError(err?.response?.data?.message);
+          setError(err?.response?.data?.message);
         }
       }
       return;
     }
     if (enterCode) {
+      if (!code || code.length !== 4) {
+        setError(ERRORS.ERROR_CODE_INPUT);
+        return;
+      }
+
       try {
         await verifyCode(email, code || '', isForVerification);
         onVerified(email);
       } catch (err: any) {
-        setApiError(err?.response?.data?.message);
+        setError(err?.response?.data?.message);
       }
     }
   };
   return {
     enterCode,
-    apiError,
-    setApiError,
+    error,
+    setError,
     handleContinue,
   };
 }

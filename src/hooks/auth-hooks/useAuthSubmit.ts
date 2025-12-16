@@ -1,6 +1,8 @@
 import { useState } from 'react';
-import { login, register } from '../../services/authService.ts';
+import { isValidEmail, login, register } from '../../services/authService.ts';
 import type { useAuthSubmitProps } from '../../types/AuthTypes.ts';
+import { ERRORS } from '../../utils/Constants.ts';
+import { isValidPassword } from '../../utils/AuthFunctions.ts';
 
 export function useAuthSubmit({
   email,
@@ -37,8 +39,16 @@ export function useAuthSubmit({
   const registerSubmit = async () => {
     setHasSubmitted(true);
 
-    if (password !== confirmPassword) return;
+    if (!isValidEmail(email)) {
+      setError(ERRORS.INVALID_EMAIL);
+      return;
+    }
 
+    if (!isValidPassword(password)) {
+      setError(ERRORS.STRONGER_PASSWORD);
+      return;
+    }
+    if (password !== confirmPassword) return;
     try {
       setLoading(true);
       setError(null);

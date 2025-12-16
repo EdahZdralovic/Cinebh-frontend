@@ -20,7 +20,7 @@ export function NewPasswordEnterType({
     setPassword,
     setConfirm,
     showError,
-    apiError,
+    Error,
     loading,
     submit,
   } = useResetPassword({ email, onSuccess });
@@ -71,9 +71,7 @@ export function NewPasswordEnterType({
           </p>
         )}
 
-        {apiError && (
-          <p className="text-red-400 text-sm text-center">{apiError}</p>
-        )}
+        {Error && <p className="text-red-400 text-sm text-center">{Error}</p>}
 
         <button
           onClick={submit}

@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { BsEye, BsEyeSlash } from 'react-icons/bs';
 import type { InputFieldProps } from '../../types/AuthTypes.ts';
+import { AUTH_CONST, ERRORS } from '../../utils/Constants.ts';
 
 export function InputField({
   icon,
@@ -14,7 +15,7 @@ export function InputField({
 }: InputFieldProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
-
+  const isEmail = type === AUTH_CONST.EMAIL_KEY_WORD;
   return (
     <div className={'flex mt-2  w-full text-lg flex-col justify-start'}>
       <h5
@@ -22,7 +23,6 @@ export function InputField({
       >
         {name}
       </h5>
-
       <div
         className={
           'relative bg-white items-center mb-2 rounded-lg text-[var(--color-primary)] ' +
@@ -44,12 +44,22 @@ export function InputField({
           className={
             'h-12 rounded-lg w-full pl-10 pr-10 min-w-[30px] text-lg leading-3 focus:outline-none '
           }
-          type={isPassword ? (showPassword ? 'text' : 'password') : type}
+          type={
+            isPassword
+              ? showPassword
+                ? AUTH_CONST.TEXT_KEY_WORD
+                : AUTH_CONST.PASSWORD_KEY_WORD
+              : isEmail
+                ? AUTH_CONST.TEXT_KEY_WORD
+                : type
+          }
           placeholder={placeHolder}
           onFocus={() => setIsOpen(true)}
-          onSubmit={() => setIsOpen(false)}
+          onBlur={() => setIsOpen(false)}
           value={value}
           onChange={onChange}
+          pattern={isEmail ? AUTH_CONST.REGEX_PATTERN : ''}
+          title={isEmail ? ERRORS.INVALID_EMAIL : ''}
         />
         {isPassword === true ? (
           <span
@@ -70,7 +80,7 @@ export function InputField({
         ' '
       ) : (
         <span className={'text-xs text-[var(--color-error-red)]'}>
-          Passwords do not match.
+          {ERRORS.PASSWORDS_NOT_MATCHING}
         </span>
       )}
     </div>
