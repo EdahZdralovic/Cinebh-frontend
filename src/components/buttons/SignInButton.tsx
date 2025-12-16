@@ -23,7 +23,8 @@ export function SignInButton({
         (whiteBackground
           ? ' text-[var(--color-secondary)] bg-white border border-[var(--color-secondary)] '
           : ' text-white bg-[var(--color-secondary)] ') +
-        'h-12 w-full rounded-lg  '
+        'h-12 w-full rounded-lg  ' +
+        (disabled ? ' bg-gray-400 text-white ' : ' ')
       }
     >
       {isLoading ? (

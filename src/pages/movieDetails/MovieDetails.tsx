@@ -10,6 +10,7 @@ import { useScrollToTop } from '../../hooks/useScrollToTop.ts';
 import { formatDateSecond, TEN_DAYS_FROM_NOW } from '../../utils/dateUtils.ts';
 import { MovieProjections } from '../../components/movie-details-components/movie-projections-components/MovieProjections.tsx';
 import { MediaSkeletonContainer } from '../../components/movie-details-components/movie-details-skeletons/mediaSkeletonContainer.tsx';
+import { MovieDetailsSkeleton } from '../../components/movie-details-components/movie-details-skeletons/movieDetailsSkeleton.tsx';
 
 export function MovieDetails() {
   useScrollToTop();
@@ -22,15 +23,9 @@ export function MovieDetails() {
   const { movie, loading, error } = useMovieDetails(movieId);
 
   if (loading) {
-    return (
-      <section>
-        <div className="flex flex-col lg:mx-[6%] mx-4 md:mt-8 mt-3">
-          <h2 className="md:text-3xl text-xl font-bold">Movie Details</h2>
-          <MediaSkeletonContainer />
-        </div>
-      </section>
-    );
+    return <MovieDetailsSkeleton />;
   }
+
   if (error) return <div>Movie not found.</div>;
   const dateStart = formatDateSecond(movie.projectionStart);
   const dateEnd = formatDateSecond(movie.projectionEnd);

@@ -23,9 +23,9 @@ export function DescriptionContainer({
         <span className="h-5 w-px bg-[var(--color-secondary)] mx-2 inline-block align-text-bottom "></span>
         <span className="md:px-2">{language}</span>
         <span className="h-5 w-px bg-[var(--color-secondary)] mx-2 inline-block align-text-bottom "></span>
-        <span className="md:px-2 flex  md:w-[9%] w-14 ">{duration} MIN</span>
-        <span className="h-5 w-px bg-[var(--color-secondary)] mx-2 inline-block align-text-bottom "></span>
-        <span className={'md:px-2 flex  '}>
+        <span className="md:pl-2 flex  md:w-[8%] w-14 ">{duration} MIN</span>
+        <span className="h-5 w-px bg-[var(--color-secondary)] mx-0 inline-block align-text-bottom "></span>
+        <span className={'md:px-2 flex ml-2  '}>
           Projection date: {dateStart} - {dateEnd}
         </span>
       </div>
@@ -40,14 +40,16 @@ export function DescriptionContainer({
         {directors.map((director, index) => (
           <span key={index} className={'text-'}>
             {director.fullName}
+            {index < directors.length - 1 ? ', ' : ''}
           </span>
         ))}
       </div>
-      <div className={'mt-6 text-lg '}>
-        <span className={'text-gray-500 text-md'}>Writters: </span>
+      <div className={'md:mt-6 mt-3 md:mb-0 mb-2 text-lg '}>
+        <span className={'text-gray-500 text-md'}>Writers: </span>
         {writers.map((writer, index) => (
           <span key={index} className={'text-'}>
             {writer.fullName}
+            {index < writers.length - 1 ? ', ' : ''}
           </span>
         ))}
       </div>

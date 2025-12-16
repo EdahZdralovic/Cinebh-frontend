@@ -4,7 +4,6 @@ import { MiniMovieCard } from '../cards/MiniMovieCard.tsx';
 import ArrowButton, { ArrowDirection } from '../buttons/ArrowButton.tsx';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { MiniMovieSkeletonCard } from '../cards/MiniMovieSkeletonCard.tsx';
 
 export function SeeAlsoMovies() {
   const [page, setPage] = useState(0);
@@ -14,7 +13,7 @@ export function SeeAlsoMovies() {
     size,
     ROUTES.CURRENTLY_SHOWING
   );
-
+  const COUNT = 6;
   function nextPage() {
     setPage((p) => Math.min(p + 1, totalPages - 1));
   }
@@ -25,16 +24,20 @@ export function SeeAlsoMovies() {
     <section className={'text-[var(--color-primary)]'}>
       <h2 className={'text-xl font-bold'}>See Also</h2>
       <div className={' grid md:grid-cols-6 grid-cols-2  md:gap-4 gap-2 my-4'}>
-        {mainCards.map((miniCard, index) => (
-          <Link to={`/movies/${miniCard.id}`}>
-            <MiniMovieCard
-              title={miniCard.title}
-              coverImageUrl={miniCard.coverImageUrl}
-              key={index}
-              loading={loading}
-            />
-          </Link>
-        ))}
+        {loading
+          ? Array.from({ length: COUNT }).map((_, i) => (
+              <MiniMovieCard key={i} isSkeleton={true} />
+            ))
+          : mainCards.map((miniCard, index) => (
+              <Link to={`/movies/${miniCard.id}`}>
+                <MiniMovieCard
+                  title={miniCard.title}
+                  coverImageUrl={miniCard.coverImageUrl}
+                  key={index}
+                  isSkeleton={loading}
+                />
+              </Link>
+            ))}
       </div>
       <div className="flex flex-row justify-end items-center gap-4  pt-6 font-thin mb-10 text-md ">
         <div>

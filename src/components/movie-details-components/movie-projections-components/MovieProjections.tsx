@@ -6,6 +6,7 @@ import { useScrollToTop } from '../../../hooks/useScrollToTop.ts';
 import { useMovieProjections } from '../../../hooks/movie-hooks/useMovieDetailsProjections.ts';
 import { ProjectionTimeButton } from '../../buttons/ProjectionTimeButton.tsx';
 import { SignInButton } from '../../buttons/SignInButton.tsx';
+import { MovieUpcomingProjections } from './MovieUpcomingProjections.tsx';
 
 interface MovieProjectionsProps {
   filters: Filters;
@@ -25,10 +26,14 @@ export function MovieProjections({ movieId }: { movieId: number }) {
     q: '',
   });
   const { projections, loading, error } = useMovieProjections(movieId, filters);
+  if (loading) return <MovieUpcomingProjections isSkeleton={true} />;
 
   const patchFilters = (patch: Partial<Filters>) => {
     setFilters((f) => ({ ...f, ...patch }));
   };
+  const venueSelected = (filters.venueId?.length ?? 0) > 0;
+  const selectedTime = filters.projectionTimes?.[0] ?? null;
+  const canBuy = venueSelected && !!selectedTime;
 
   return (
     <section
@@ -48,14 +53,23 @@ export function MovieProjections({ movieId }: { movieId: number }) {
           </div>
 
           <div>
-            <h4 className={'text-xl font-bold'}>Standard</h4>
+            <h4 className={'text-2xl font-bold'}>Standard</h4>
           </div>
           <div className={'flex flex-wrap gap-4 mt-4 pb-14 '}>
             {projections.length === 0 && (
               <div className={'min-h-[54px] '}>No projections found.</div>
             )}
             {projections.map((projection) => (
-              <ProjectionTimeButton time={projection.name} />
+              <ProjectionTimeButton
+                time={projection.name}
+                isActive={projection.name === selectedTime}
+                onClick={() => {
+                  patchFilters({
+                    projectionTimes:
+                      projection.name === selectedTime ? [] : [projection.name],
+                  });
+                }}
+              />
             ))}
           </div>
           <div className={'h-8'}></div>
@@ -65,8 +79,12 @@ export function MovieProjections({ movieId }: { movieId: number }) {
             ' p-8 border-gray-200 border rounded-b-2xl grid grid-cols-2 gap-6  '
           }
         >
-          <SignInButton whiteBackground text={'Reserve Ticket'} />
-          <SignInButton text={'Buy Ticket'} />
+          <SignInButton
+            whiteBackground
+            text={'Reserve Ticket'}
+            disabled={!canBuy}
+          />
+          <SignInButton text={'Buy Ticket'} disabled={!canBuy} />
         </div>
       </div>
     </section>

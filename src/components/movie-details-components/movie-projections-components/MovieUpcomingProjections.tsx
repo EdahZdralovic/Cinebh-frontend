@@ -2,8 +2,9 @@ import { SignInButton } from '../../buttons/SignInButton.tsx';
 import { useSignIn } from '../../../context/SignInContext.tsx';
 
 interface MovieUpcomingProjectionsProps {
-  title: string;
-  startDate: string;
+  title?: string;
+  startDate?: string;
+  isSkeleton?: boolean;
 }
 function getMonthName(dateString: string): string {
   const date = new Date(dateString);
@@ -16,6 +17,7 @@ function getMonthName(dateString: string): string {
 export function MovieUpcomingProjections({
   title,
   startDate,
+  isSkeleton = false,
 }: MovieUpcomingProjectionsProps) {
   const month = getMonthName(startDate);
   const notifyImageUrl = '/assets/logos/notifyMeLogo.png';
@@ -38,7 +40,9 @@ export function MovieUpcomingProjections({
               'text-2xl self-center mt-4 font-bold text-[var(--color-disabled-primary)]'
             }
           >
-            {title + ' is coming in ' + month + ' !'}
+            {isSkeleton
+              ? 'Movie is Loading, please wait. '
+              : title + ' is coming in ' + month + ' !'}
           </h1>
           <p
             className={
