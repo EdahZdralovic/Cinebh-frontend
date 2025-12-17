@@ -71,3 +71,12 @@ export interface SignInSignUpSuccessfulProps {
 export interface EnterCodeInputProps {
   onComplete: (code: string) => void;
 }
+
+export interface HandlePasteProps {
+  e: React.ClipboardEvent<HTMLInputElement>;
+  code: string[];
+  setCode: React.Dispatch<React.SetStateAction<string[]>>;
+  inputs: React.MutableRefObject<(HTMLInputElement | null)[]>;
+  codeLength: number;
+  onComplete: (code: string) => void;
+}

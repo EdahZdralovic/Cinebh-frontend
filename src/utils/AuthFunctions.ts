@@ -1,5 +1,6 @@
 import { resendVerification } from '../services/authService';
 import { AUTH_CONST } from './Constants.ts';
+import type { HandlePasteProps } from '../types/AuthTypes.ts';
 
 export function maskEmail(email: string) {
   const [name, domain] = email.split('@');
@@ -37,6 +38,32 @@ export async function handleResendVerification(
   }
 }
 
+export function handlePaste({
+  e,
+  code,
+  setCode,
+  inputs,
+  codeLength,
+  onComplete,
+}: HandlePasteProps) {
+  e.preventDefault();
+  const pasted = e.clipboardData.getData('text').replace(/\D/g, '');
+  if (!pasted) return;
+  const digits = pasted.slice(0, codeLength).split('');
+  const newCode = [...code];
+  digits.forEach((digit, idx) => {
+    newCode[idx] = digit;
+    const input = inputs.current[idx];
+    if (input) input.value = digit;
+  });
+  setCode(newCode);
+
+  if (newCode.every((d) => d !== '')) {
+    onComplete(newCode.join(''));
+  }
+}
+
+/*provjeri sto ovo nije ukljuceno ovaj valid email */
 export const isValidEmail = (email: string) =>
   AUTH_CONST.EMAIL_REGEX.test(email.trim());
 

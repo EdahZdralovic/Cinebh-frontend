@@ -6,7 +6,7 @@ export function useEnterCodeInput(
   onComplete: (code: string) => void
 ) {
   const [code, setCode] = useState(Array(length).fill(''));
-  const inputs = useRef<(HTMLInputElement | null)[]>([]);
+  const inputs = useRef<HTMLInputElement[]>([]);
 
   const handleChange = (value: string, index: number) => {
     const isValidInput =
@@ -48,6 +48,7 @@ export function useEnterCodeInput(
 
   return {
     code,
+    setCode,
     inputs,
     handleChange,
     handleKeyDown,

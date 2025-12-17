@@ -23,7 +23,8 @@ export function SignInButton({
     >
       {isLoading ? (
         <div className={'flex justify-center'}>
-          <RiLoader2Fill className={'pr-2 self-center size-7'} /> Loading...
+          <RiLoader2Fill className={'mr-3 animate-spin size-5'} />
+          Loading...
         </div>
       ) : (
         text

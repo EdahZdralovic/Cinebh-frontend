@@ -98,7 +98,7 @@ export function SignInSignUpInput({
             icon={LOCK_ICON}
             isPassword
             onChange={(e) => {
-              setEmail(e.target.value);
+              setConfirmPassword(e.target.value);
               setErrorText('');
             }}
             isMatchingPasswords={!showPasswordError}

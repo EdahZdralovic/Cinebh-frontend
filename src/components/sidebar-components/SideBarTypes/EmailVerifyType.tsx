@@ -12,7 +12,7 @@ import {
 } from '../../../utils/AuthFunctions.ts';
 import { SignInButton } from '../../buttons/SignInButton.tsx';
 import { ResendButton } from '../../buttons/ResendButton.tsx';
-import { forgotPassword, verifyCode } from '../../../services/authService.ts';
+import { forgotPassword } from '../../../services/authService.ts';
 import type { EmailVerifyTypeProps } from '../../../types/AuthTypes.ts';
 
 export function EmailVerifyType({
@@ -24,7 +24,6 @@ export function EmailVerifyType({
   const [email, setEmail] = useState(presetEmail ?? '');
   const [loading, setLoading] = useState(false);
   const [code, setCode] = useState('');
-  const [isCodeComplete, setIsCodeComplete] = useState(false);
 
   const title = isForVerification ? 'Verify Email' : 'Password Reset';
   const description = isForVerification
@@ -110,7 +109,7 @@ export function EmailVerifyType({
       <div className={'mb-8'}></div>
       <SignInButton
         onClick={safeHandleContinue}
-        disabled={loading || !email || enterCode}
+        disabled={loading}
         isLoading={loading}
         text="Continue"
       />

@@ -33,7 +33,7 @@ export function useEmailVerificationFlow({
         setError(ERRORS.ERROR_CODE_INPUT);
         return;
       }
-
+      console.log(code);
       try {
         await verifyCode(email, code || '', isForVerification);
         onVerified(email);

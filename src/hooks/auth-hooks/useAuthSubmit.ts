@@ -39,6 +39,7 @@ export function useAuthSubmit({
   const registerSubmit = async () => {
     setHasSubmitted(true);
 
+    //Backend is also validating password and email on register as fallback methods
     if (!isValidEmail(email)) {
       setError(ERRORS.INVALID_EMAIL);
       return;
@@ -48,6 +49,7 @@ export function useAuthSubmit({
       setError(ERRORS.STRONGER_PASSWORD);
       return;
     }
+
     if (password !== confirmPassword) return;
     try {
       setLoading(true);

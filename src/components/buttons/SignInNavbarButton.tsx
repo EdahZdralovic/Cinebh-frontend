@@ -39,12 +39,12 @@ export function SignInNavarButton({
         {isLoggedIn && <IoIosArrowDown className={open ? 'rotate-180' : ''} />}
       </button>
       {open && isLoggedIn && (
-        <div className="absolute right-0 mt-2 w-20 bg-[var(--color-primary)] rounded-lg shadow-lg overflow-hidden">
+        <div className="absolute top-11  right-12 mr-4 mt-2 z-40 w-[90px] bg-[var(--color-primary)] rounded-lg shadow-lg overflow-hidden">
           <button
             onClick={onLogout}
-            className="w-full px-4 py-3 border rounded-lg border-white text-left hover:bg-gray-600"
+            className="w-full px-3 py-3 border rounded-lg border-white font-bold text-left hover:bg-gray-600"
           >
-            Logout
+            Sign Out
           </button>
         </div>
       )}
