@@ -24,6 +24,7 @@ export interface UseResetPasswordProps {
 export interface useAuthSubmitProps {
   email: string;
   password: string;
+  rememberMe: boolean;
   confirmPassword?: string;
   onLoginSuccess?: () => void;
   onRegisterSuccess?: (email: string) => void;

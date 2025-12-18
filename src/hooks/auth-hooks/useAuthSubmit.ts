@@ -3,10 +3,12 @@ import { isValidEmail, login, register } from '../../services/authService.ts';
 import type { useAuthSubmitProps } from '../../types/AuthTypes.ts';
 import { ERRORS } from '../../utils/Constants.ts';
 import { isValidPassword } from '../../utils/AuthFunctions.ts';
+import { useAuth } from '../../context/AuthContext.tsx';
 
 export function useAuthSubmit({
   email,
   password,
+  rememberMe,
   confirmPassword,
   onLoginSuccess,
   onRegisterSuccess,
@@ -15,12 +17,14 @@ export function useAuthSubmit({
   const [hasSubmitted, setHasSubmitted] = useState(false);
   const [needsVerification, setNeedsVerification] = useState(false);
   const [loading, setLoading] = useState(false);
+  const { refreshUser } = useAuth();
 
   const loginSubmit = async () => {
     try {
       setLoading(true);
       setError(null);
-      await login(email, password);
+      await login(email, password, rememberMe);
+      await refreshUser();
       onLoginSuccess?.();
     } catch (err: any) {
       const status = err?.response?.status;
@@ -39,7 +43,6 @@ export function useAuthSubmit({
   const registerSubmit = async () => {
     setHasSubmitted(true);
 
-    //Backend is also validating password and email on register as fallback methods
     if (!isValidEmail(email)) {
       setError(ERRORS.INVALID_EMAIL);
       return;

@@ -20,7 +20,7 @@ export function SignInSignUpInput({
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [email, setEmail] = useState('');
-
+  const [rememberMe, setRememberMe] = useState(false);
   const {
     loginSubmit,
     registerSubmit,
@@ -31,6 +31,7 @@ export function SignInSignUpInput({
   } = useAuthSubmit({
     email,
     password,
+    rememberMe,
     confirmPassword,
     onLoginSuccess,
     onRegisterSuccess,
@@ -127,6 +128,8 @@ export function SignInSignUpInput({
           <div>
             <input
               type="checkbox"
+              checked={rememberMe}
+              onChange={(e) => setRememberMe(e.target.checked)}
               className="w-4 h-4 mb-5 rounded-md accent-[var(--color-primary)]  checked:bg-transparent border border-gray-200 "
             />
             <span className="text-lg pl-2 ">Remember me</span>

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { IoIosArrowDown } from 'react-icons/io';
 import { FaRegBell } from 'react-icons/fa';
 
@@ -16,6 +16,10 @@ export function SignInNavarButton({
   const [open, setOpen] = useState(false);
   const isLoggedIn = !!userLabel;
 
+  useEffect(() => {
+    if (!isLoggedIn) setOpen(false);
+  }, [isLoggedIn]);
+
   const handleMainClick = () => {
     if (!isLoggedIn) {
       onSignInClick?.();
@@ -23,7 +27,6 @@ export function SignInNavarButton({
       setOpen(!open);
     }
   };
-
   return (
     <div className="relative flex flex-row ">
       {isLoggedIn && (

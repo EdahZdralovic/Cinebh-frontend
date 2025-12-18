@@ -15,6 +15,8 @@ export const ROUTES = {
   LOGIN_ENDPOINT: '/auth/login',
   REGISTER_ENDPOINT: '/auth/register',
   REFRESH_TOKEN_ENDPOINT: '/auth/refresh',
+  LOGOUT_ENDPOINT: '/auth/logout',
+  HOME_ROUTE: '/',
 };
 
 export const AUTH_CONST = {
@@ -39,6 +41,7 @@ export const ERRORS = {
   STRONGER_PASSWORD:
     'Your password needs to contain at least 8 characters, 1 uppercase letter and 1 number.',
   ERROR_CODE_INPUT: 'Enter all 4 digits of code',
+  AUTH_CONTEXT_ERROR: 'Error: useAuth is misplaced.',
 };
 
 export const KEYBOARD = {

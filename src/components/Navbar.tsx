@@ -1,22 +1,28 @@
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
 import { Menu, X } from 'lucide-react';
-
-import { getUserFromToken } from '../services/authService.ts';
 import { SignInNavarButton } from './buttons/SignInNavbarButton.tsx';
+import { useAuth } from '../context/AuthContext';
+import { logout } from '../services/authService.ts';
+import { useNavigate } from 'react-router-dom';
 
 interface NavbarProps {
   onSignInClick: () => void;
+  onUserLoaded?: () => void;
 }
 
 export default function Navbar({ onSignInClick }: NavbarProps) {
   const [isOpen, setIsOpen] = useState(false);
-  const userEmail = getUserFromToken();
-  const userName = userEmail?.split('@')[0];
+  const { user, refreshUser } = useAuth();
+  const userName = user?.split('@')[0];
+  const navigate = useNavigate();
 
-  function logout() {
-    localStorage.clear();
-    window.location.reload();
+  async function handleLogout() {
+    try {
+      await logout();
+      await refreshUser();
+      navigate('/');
+    } catch {}
   }
 
   return (
@@ -52,7 +58,7 @@ export default function Navbar({ onSignInClick }: NavbarProps) {
           <SignInNavarButton
             userLabel={userName}
             onSignInClick={onSignInClick}
-            onLogout={logout}
+            onLogout={handleLogout}
           />
         </div>
         <div className="md:hidden">
@@ -83,7 +89,7 @@ export default function Navbar({ onSignInClick }: NavbarProps) {
             <SignInNavarButton
               userLabel={userName}
               onSignInClick={onSignInClick}
-              onLogout={logout}
+              onLogout={handleLogout}
             />
           </nav>
         </div>
