@@ -46,7 +46,7 @@ export const getCurrentlyShowingMovies = async (
 };
 
 export async function getMovieDetails(id: number): Promise<MovieDetailsProps> {
-  await delay(4000);
+  await delay(1000);
   const res = await axiosInstance.get(`/movies/details/${id}`);
   return res.data;
 }
