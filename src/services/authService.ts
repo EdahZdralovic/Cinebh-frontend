@@ -1,14 +1,16 @@
 import axiosInstance from './axiosInstance';
-import { jwtDecode } from 'jwt-decode';
 import { AUTH_CONST, ROUTES } from '../utils/Constants.ts';
 
-export async function login(email: string, password: string) {
+export async function login(
+  email: string,
+  password: string,
+  rememberMe: boolean
+) {
   const res = await axiosInstance.post(ROUTES.LOGIN_ENDPOINT, {
     email,
     password,
+    rememberMe,
   });
-  localStorage.setItem(AUTH_CONST.ACCESS_TOKEN, res.data.accessToken);
-  localStorage.setItem(AUTH_CONST.REFRESH_TOKEN, res.data.refreshToken);
   return res.data;
 }
 
@@ -17,21 +19,8 @@ export async function register(email: string, password: string) {
     email,
     password,
   });
-  localStorage.setItem(AUTH_CONST.ACCESS_TOKEN, res.data.accessToken);
-  localStorage.setItem(AUTH_CONST.REFRESH_TOKEN, res.data.refreshToken);
+
   return res.data;
-}
-
-export function getUserFromToken() {
-  const token = localStorage.getItem(AUTH_CONST.ACCESS_TOKEN);
-  if (!token) return null;
-
-  try {
-    const decoded: any = jwtDecode(token);
-    return decoded.sub ?? null;
-  } catch {
-    return null;
-  }
 }
 
 export async function verifyCode(
@@ -73,6 +62,16 @@ export async function resetPassword(email: string, newPassword: string) {
   });
   return res.data;
 }
-//
-const EMAIL_REGEX = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-export const isValidEmail = (email: string) => EMAIL_REGEX.test(email.trim());
+
+export async function logout() {
+  await axiosInstance.post(ROUTES.LOGOUT_ENDPOINT, {});
+  window.location.replace(ROUTES.HOME_ROUTE);
+}
+
+export const isValidEmail = (email: string) =>
+  AUTH_CONST.EMAIL_REGEX.test(email.trim());
+
+export async function getCurrentUser() {
+  const res = await axiosInstance.get('/users/email');
+  return res.data;
+}
