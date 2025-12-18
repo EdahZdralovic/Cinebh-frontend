@@ -83,9 +83,9 @@ export function CurrentlyShowing() {
             <CurrentlyShowingSkeleton />
           </>
         ) : movies.length > 0 ? (
-          movies.map((card) => (
+          movies.map((card, index) => (
             <CurrentlyShowingCard
-              key={card.id}
+              key={index}
               coverImageUrl={card.coverImageUrl}
               title={card.title}
               pgRating={card.pgRating}
