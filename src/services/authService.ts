@@ -11,6 +11,7 @@ export async function login(
     password,
     rememberMe,
   });
+
   return res.data;
 }
 
@@ -65,13 +66,11 @@ export async function resetPassword(email: string, newPassword: string) {
 
 export async function logout() {
   await axiosInstance.post(ROUTES.LOGOUT_ENDPOINT, {});
-  window.location.replace(ROUTES.HOME_ROUTE);
 }
 
-export const isValidEmail = (email: string) =>
-  AUTH_CONST.EMAIL_REGEX.test(email.trim());
-
 export async function getCurrentUser() {
-  const res = await axiosInstance.get('/users/email');
+  const res = await axiosInstance.get('/users/email', {
+    withCredentials: true,
+  });
   return res.data;
 }
