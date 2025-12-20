@@ -63,7 +63,6 @@ export function handlePaste({
   }
 }
 
-/*provjeri sto ovo nije ukljuceno ovaj valid email */
 export const isValidEmail = (email: string) =>
   AUTH_CONST.EMAIL_REGEX.test(email.trim());
 

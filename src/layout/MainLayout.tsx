@@ -10,14 +10,20 @@ interface MainLayoutProps {
 
 export default function MainLayout({ children }: MainLayoutProps) {
   const [signInOpen, setSignInOpen] = useState(false);
+
+  function handleOpenSignIn() {
+    setSignInOpen(true);
+  }
+
+  function handleCloseSignIn() {
+    setSignInOpen(false);
+  }
   return (
     <div className="min-h-screen flex flex-col bg-gray-50 text-white">
-      <Navbar onSignInClick={() => setSignInOpen(true)} />
+      <Navbar onSignInClick={handleOpenSignIn} />
       <main className="flex-grow">{children}</main>
       <Footer />
-      {signInOpen && (
-        <LoginSignupSideSection onClose={() => setSignInOpen(false)} />
-      )}
+      {signInOpen && <LoginSignupSideSection onClose={handleCloseSignIn} />}
     </div>
   );
 }

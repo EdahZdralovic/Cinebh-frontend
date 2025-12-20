@@ -27,7 +27,7 @@ export function SignInButton({
           Loading...
         </div>
       ) : (
-        text
+        <>{text}</>
       )}
     </button>
   );

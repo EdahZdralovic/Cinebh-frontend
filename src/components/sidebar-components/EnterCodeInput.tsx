@@ -31,8 +31,7 @@ export function EnterCodeInput({ onComplete }: EnterCodeInputProps) {
           }
           onChange={(e) => handleChange(e.target.value, idx)}
           onKeyDown={(e) => handleKeyDown(e, idx)}
-          className="w-14 h-20 text-center text-5xl text-white bg-[var(--color-disabled-primary)]
-                     border-[var(--color-disabled)] rounded-2xl border outline-none focus:border-4"
+          className="w-14 h-20 text-center text-5xl text-white bg-[var(--color-disabled-primary)] border-[var(--color-disabled)] rounded-2xl border outline-none focus:border-4"
         />
       ))}
     </section>

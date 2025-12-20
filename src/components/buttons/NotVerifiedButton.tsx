@@ -1,5 +1,4 @@
-import { useState } from 'react';
-import { resendVerification } from '../../services/authService.ts';
+import { useResendVerification } from '../../hooks/auth-hooks/useResendVerification.ts';
 
 interface NotVerifiedButtonProps {
   email: string;
@@ -10,33 +9,27 @@ export function NotVerifiedButton({
   email,
   onRegisterSuccess,
 }: NotVerifiedButtonProps) {
-  const [loading, setLoading] = useState(false);
+  const { mutate, isPending } = useResendVerification();
 
-  const handleClick = async () => {
-    if (loading) return;
+  const handleClick = () => {
     if (!email || !email.trim()) return;
 
-    try {
-      setLoading(true);
-      // ovo je uvijek EMAIL_VERIFY case
-      await resendVerification(email, true);
-      onRegisterSuccess?.(email);
-    } catch (err) {
-      console.error(err);
-    } finally {
-      setLoading(false);
-    }
+    mutate(email, {
+      onSuccess: () => {
+        onRegisterSuccess?.(email);
+      },
+    });
   };
 
   return (
     <button
       onClick={handleClick}
-      disabled={loading || !email.trim()}
+      disabled={isPending || !email.trim()}
       className={`underline text-md text-white ${
-        loading || !email.trim() ? 'opacity-50 cursor-not-allowed' : ''
+        isPending || !email.trim() ? 'opacity-50 cursor-not-allowed' : ''
       }`}
     >
-      {loading ? 'Sending...' : 'Resend verification email'}
+      {isPending ? 'Sending...' : 'Resend verification email'}
     </button>
   );
 }

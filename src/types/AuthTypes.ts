@@ -1,14 +1,14 @@
 import type { ReactNode } from 'react';
 
-export type SideBarView =
-  | 'signIn'
-  | 'signUp'
-  | 'verifySignup'
-  | 'successLogin'
-  | 'successSignUp'
-  | 'reset'
-  | 'newPassword';
-
+export enum SideBarView {
+  SIGN_IN = 'signIn',
+  SIGN_UP = 'signUp',
+  VERIFY_CODE = 'verifySignup',
+  SUCCESS_LOG_IN = 'successLogin',
+  SUCCESS_SIGN_UP = 'successSignUp',
+  RESET = 'reset',
+  NEW_PASSWORD = 'newPassword',
+}
 export interface useEmailVerificationFlowProps {
   isForVerification: boolean;
   email: string;
@@ -81,3 +81,27 @@ export interface HandlePasteProps {
   codeLength: number;
   onComplete: (code: string) => void;
 }
+
+export type AuthUser = {
+  email: string;
+  role: RoleEnum;
+  exp: number;
+};
+
+export enum RoleEnum {
+  ADMIN = 'ADMIN',
+  CUSTOMER = 'CUSTOMER',
+}
+
+export type AuthContextType = {
+  user: AuthUser | null;
+  login: (
+    email: string,
+    password: string,
+    rememberMe: boolean
+  ) => Promise<void>;
+
+  register: (email: string, password: string) => Promise<void>;
+
+  logout: () => Promise<void>;
+};

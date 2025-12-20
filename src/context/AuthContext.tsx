@@ -1,32 +1,51 @@
 import { createContext, useContext, useEffect, useState } from 'react';
-import { getCurrentUser } from '../services/authService';
-import { ERRORS } from '../utils/Constants.ts';
-
-type AuthContextType = {
-  user: string | null;
-  refreshUser: () => Promise<void>;
-};
+import {
+  getCurrentUser,
+  login as loginApi,
+  logout as logoutApi,
+  register as registerApi,
+} from '../services/authService';
+import { ERRORS } from '../utils/Constants';
+import type { AuthContextType, AuthUser } from '../types/AuthTypes';
 
 const AuthContext = createContext<AuthContextType | null>(null);
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
-  const [user, setUser] = useState<string | null>(null);
+  const [user, setUser] = useState<AuthUser | null>(null);
 
-  const refreshUser = async () => {
+  const login = async (
+    email: string,
+    password: string,
+    rememberMe: boolean
+  ) => {
+    await loginApi(email, password, rememberMe);
+    const user = await getCurrentUser();
+    setUser(user);
+  };
+
+  const loadUser = async () => {
     try {
-      const data = await getCurrentUser();
-      setUser(data.email);
+      const user = await getCurrentUser();
+      setUser(user);
     } catch {
       setUser(null);
     }
   };
-
   useEffect(() => {
-    refreshUser();
+    loadUser();
   }, []);
 
+  const register = async (email: string, password: string) => {
+    await registerApi(email, password);
+  };
+
+  const logout = async () => {
+    await logoutApi();
+    setUser(null);
+  };
+
   return (
-    <AuthContext.Provider value={{ user, refreshUser }}>
+    <AuthContext.Provider value={{ user, login, register, logout }}>
       {children}
     </AuthContext.Provider>
   );

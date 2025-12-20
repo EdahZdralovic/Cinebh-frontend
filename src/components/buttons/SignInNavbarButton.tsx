@@ -8,7 +8,7 @@ interface SignInNavbarButtonProps {
   userLabel?: string;
 }
 
-export function SignInNavarButton({
+export function SignInNavbarButton({
   onSignInClick,
   onLogout,
   userLabel,

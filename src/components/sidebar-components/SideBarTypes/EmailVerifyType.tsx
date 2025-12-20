@@ -1,19 +1,19 @@
-import { LogInSideBarArrowButton } from '../../buttons/LogInSideBarArrowButton.tsx';
-import { InputField } from '../InputField.tsx';
 import { useState } from 'react';
-import { EnterCodeInput } from '../EnterCodeInput.tsx';
-import { useCountdown } from '../../../hooks/auth-hooks/useCountdown.ts';
-import { useEmailVerificationFlow } from '../../../hooks/auth-hooks/useEmailVerificationFlow.ts';
-import { MAIL_ICON } from '../../../utils/icons.tsx';
+import { forgotPassword } from '../../../services/authService.ts';
+import type { EmailVerifyTypeProps } from '../../../types/AuthTypes.ts';
 import {
   handleResendVerification,
   maskEmail,
   withLoading,
 } from '../../../utils/AuthFunctions.ts';
+import { useCountdown } from '../../../hooks/auth-hooks/useCountdown.ts';
+import { useEmailVerificationFlow } from '../../../hooks/auth-hooks/useEmailVerificationFlow.ts';
+import { EnterCodeInput } from '../EnterCodeInput.tsx';
+import { InputField } from '../InputField.tsx';
+import { LogInSideBarArrowButton } from '../../buttons/LogInSideBarArrowButton.tsx';
 import { SignInButton } from '../../buttons/SignInButton.tsx';
 import { ResendButton } from '../../buttons/ResendButton.tsx';
-import { forgotPassword } from '../../../services/authService.ts';
-import type { EmailVerifyTypeProps } from '../../../types/AuthTypes.ts';
+import { MAIL_ICON } from '../../../utils/icons.tsx';
 
 export function EmailVerifyType({
   isForVerification,
@@ -37,6 +37,16 @@ export function EmailVerifyType({
       forgotPassword,
       onVerified,
     });
+
+  function handleEmailChange(e: React.ChangeEvent<HTMLInputElement>) {
+    setEmail(e.target.value);
+    setError(null);
+  }
+
+  function handleCodeComplete(code: string) {
+    setCode(code);
+    setError(null);
+  }
 
   const safeHandleContinue = () =>
     withLoading(loading, setLoading, () => handleContinue(code));
@@ -74,19 +84,14 @@ export function EmailVerifyType({
               name="Email"
               value={email}
               icon={MAIL_ICON}
-              onChange={(e) => setEmail(e.target.value)}
+              onChange={handleEmailChange}
             />
             {error && (
               <p className="text-red-400 text-sm text-start">{error}</p>
             )}
           </>
         ) : (
-          <EnterCodeInput
-            onComplete={(c) => {
-              setCode(c);
-              setError(null);
-            }}
-          />
+          <EnterCodeInput onComplete={handleCodeComplete} />
         )}
       </div>
 

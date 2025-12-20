@@ -11,7 +11,7 @@ export function useEnterCodeInput(
   const handleChange = (value: string, index: number) => {
     const isValidInput =
       value === '' || (value.length < 5 && value >= '0' && value <= '9999');
-    if (!isValidInput) return;
+    if (!isValidInput) return 'Please enter all four digits.';
     if (value.length > 1) {
     }
     const newCode = [...code];

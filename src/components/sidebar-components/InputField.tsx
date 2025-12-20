@@ -1,7 +1,7 @@
 import { useState } from 'react';
-import { BsEye, BsEyeSlash } from 'react-icons/bs';
 import type { InputFieldProps } from '../../types/AuthTypes.ts';
 import { AUTH_CONST, ERRORS } from '../../utils/Constants.ts';
+import { BsEye, BsEyeSlash } from 'react-icons/bs';
 
 export function InputField({
   icon,
@@ -16,6 +16,15 @@ export function InputField({
   const [isOpen, setIsOpen] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const isEmail = type === AUTH_CONST.EMAIL_KEY_WORD;
+
+  function handleFocus() {
+    setIsOpen(true);
+  }
+
+  function handleBlur() {
+    setIsOpen(false);
+  }
+
   return (
     <div className={'flex mt-2  w-full text-lg flex-col justify-start'}>
       <h5
@@ -54,8 +63,8 @@ export function InputField({
                 : type
           }
           placeholder={placeHolder}
-          onFocus={() => setIsOpen(true)}
-          onBlur={() => setIsOpen(false)}
+          onFocus={handleFocus}
+          onBlur={handleBlur}
           value={value}
           onChange={onChange}
           pattern={isEmail ? AUTH_CONST.REGEX_PATTERN : ''}

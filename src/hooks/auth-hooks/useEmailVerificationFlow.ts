@@ -17,30 +17,27 @@ export function useEmailVerificationFlow({
       setError(ERRORS.MISSING_EMAIL);
       return;
     }
-    if (!enterCode) {
-      if (!isForVerification) {
-        try {
-          await forgotPassword(email);
-          setEnterCode(true);
-        } catch (err: any) {
-          setError(err?.response?.data?.message);
-        }
-      }
-      return;
-    }
-    if (enterCode) {
-      if (!code || code.length !== 4) {
-        setError(ERRORS.ERROR_CODE_INPUT);
-        return;
-      }
+    if (!enterCode && !isForVerification) {
       try {
-        await verifyCode(email, code || '', isForVerification);
-        onVerified(email);
+        await forgotPassword(email);
+        setEnterCode(true);
       } catch (err: any) {
         setError(err?.response?.data?.message);
       }
+      return;
+    }
+    if (enterCode && (!code || code.length !== 4)) {
+      setError(ERRORS.ERROR_CODE_INPUT);
+      return;
+    }
+    try {
+      await verifyCode(email, code || '', isForVerification);
+      onVerified(email);
+    } catch (err: any) {
+      setError(err?.response?.data?.message);
     }
   };
+
   return {
     enterCode,
     error,

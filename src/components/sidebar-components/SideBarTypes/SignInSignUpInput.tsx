@@ -46,6 +46,15 @@ export function SignInSignUpInput({
     isForSignUp && hasSubmitted && password !== confirmPassword;
   const isMatchingPassword = !showPasswordError;
 
+  function handleInputChange(
+    setter: React.Dispatch<React.SetStateAction<string>>
+  ) {
+    return (e: React.ChangeEvent<HTMLInputElement>) => {
+      setter(e.target.value);
+      setErrorText('');
+    };
+  }
+
   return (
     <section className={''}>
       <div className={'flex justify-start mb-4 items-center mt-10 '}>
@@ -69,10 +78,7 @@ export function SignInSignUpInput({
               name={'Email'}
               value={email}
               icon={MAIL_ICON}
-              onChange={(e) => {
-                setEmail(e.target.value);
-                setErrorText('');
-              }}
+              onChange={handleInputChange(setEmail)}
             />
           </>
         )}
@@ -84,10 +90,7 @@ export function SignInSignUpInput({
           icon={LOCK_ICON}
           value={password}
           isPassword
-          onChange={(e) => {
-            setPassword(e.target.value);
-            setErrorText('');
-          }}
+          onChange={handleInputChange(setPassword)}
           isMatchingPasswords={!showPasswordError}
         />
 
@@ -98,10 +101,7 @@ export function SignInSignUpInput({
             name={'Confirm Password'}
             icon={LOCK_ICON}
             isPassword
-            onChange={(e) => {
-              setConfirmPassword(e.target.value);
-              setErrorText('');
-            }}
+            onChange={handleInputChange(setConfirmPassword)}
             isMatchingPasswords={!showPasswordError}
           />
         )}
