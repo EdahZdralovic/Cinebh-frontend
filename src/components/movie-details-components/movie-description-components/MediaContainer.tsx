@@ -31,7 +31,7 @@ export function MediaContainer({ videoUrl, mediaPhotos }: MediaContainerProps) {
               src={media}
               key={index}
               className={
-                ' bg-cover  md:mt-0 mt-4 aspect-video md:rounded-none rounded-lg md:h-[100%]  object-cover ' +
+                ' bg-cover aspect-video md:rounded-none rounded-lg md:h-[100%]  object-cover ' +
                 (index === 3 ? ' md:rounded-br-2xl' : ' ') +
                 (index === 1 ? ' md:rounded-tr-2xl' : ' ') +
                 (index > 3 ? 'hidden ' : ' ')
