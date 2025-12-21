@@ -58,7 +58,10 @@ export function MovieDetailsProjectionsFilter({
             onToggle={() => toggleFilter('venue')}
             onApply={handleVenueApply}
             icon={VenueIcon}
-            params={{ cityId: filters.cityId }}
+            params={{
+              cityId: filters.cityId,
+              projectionTime: filters.projectionTimes[0],
+            }}
             singleSelect={true}
           />
         </div>

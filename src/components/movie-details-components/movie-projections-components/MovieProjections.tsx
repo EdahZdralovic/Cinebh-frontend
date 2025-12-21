@@ -25,7 +25,13 @@ export function MovieProjections({ movieId }: { movieId: number }) {
   const selectedTime = filters.projectionTimes?.[0] ?? null;
   const canBuy = venueSelected && !!selectedTime;
   const patchFilters = (patch: Partial<Filters>) => {
-    setFilters((f) => ({ ...f, ...patch }));
+    setFilters((prev) => {
+      const next = { ...prev, ...patch };
+      if (patch.venueId) {
+        next.projectionTimes = [];
+      }
+      return next;
+    });
   };
 
   return (

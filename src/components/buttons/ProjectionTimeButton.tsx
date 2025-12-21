@@ -12,7 +12,7 @@ export function ProjectionTimeButton({
   return (
     <button
       className={
-        ' text-xl border border-gray-200 shadow-sm rounded-xl hover:text-white px-3 py-3 font-semibold ' +
+        ' text-xl border border-gray-200 shadow-sm rounded-xl  hover:bg-gray-200 px-3 py-3 font-semibold ' +
         (isActive
           ? ' bg-[var(--color-secondary)] text-white '
           : ' bg-white text-[var(--color-primary)] ')

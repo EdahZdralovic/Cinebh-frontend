@@ -53,7 +53,7 @@ export function MediaContainer({
                 (index === 1 ? ' md:rounded-tr-2xl' : ' ') +
                 (index === 2 ? ' rounded-bl-2xl md:rounded-none' : ' ') +
                 (index === 3 ? ' rounded-br-2xl ' : ' ') +
-                (index > 3 ? 'hidden ' : ' ')
+                (index > 3 ? ' hidden ' : ' ')
               }
             />
           ))}
