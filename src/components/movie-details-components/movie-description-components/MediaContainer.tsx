@@ -1,5 +1,4 @@
 import { convertToVideo } from '../../../utils/movieFunctions.ts';
-import React from 'react';
 
 interface MediaContainerProps {
   videoUrl: string;

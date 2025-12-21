@@ -13,20 +13,7 @@ export function DaysProjections({}: DaysProjectionsProps) {
     <section>
       <div className={'grid grid-cols-6 gap-4 '}>
         {days.map((day, index) => (
-          <DayDateButton
-            key={index}
-            date={day}
-            /*  isActive={
-          day.toISOString().split('T')[0] === filters.selectedDate
-        }*/
-            /*   onClick={() => {
-          if (onChange) {
-            onChange({
-              selectedDate: day.toISOString().split('T')[0],
-            });
-          }
-        }}*/
-          />
+          <DayDateButton key={index} date={day} />
         ))}
       </div>
     </section>

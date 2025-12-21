@@ -1,5 +1,6 @@
 import GenreButton from '../../buttons/GenreButton.tsx';
 import type { DescriptionContainerProps } from '../../../types/MovieTypes.ts';
+import { SmallDetailsComponent } from './SmallDetailsComponent.tsx';
 
 export function DescriptionContainer({
   pgRating,
@@ -19,17 +20,14 @@ export function DescriptionContainer({
           'flex justify-start text-[var(--color-primary)] md:text-md text-sm md:mt-6 mt-3 '
         }
       >
-        <div className={'flex justify-start w-full'}>
-          <span className="whitespace-nowrap md:pr-2">{pgRating}</span>
-          <span className="h-5 w-px bg-[var(--color-secondary)] mx-2 inline-block align-text-bottom "></span>
-          <span className="md:px-2">{language}</span>
-          <span className="h-5 w-px bg-[var(--color-secondary)] mx-3 inline-block align-text-bottom "></span>
-          <span className=" mx-2 md:w-auto w-[15%] ">{duration} MIN</span>
-          <span className="h-5 md:ml-2 w-px bg-[var(--color-secondary)] inline-block align-text-bottom "></span>
-          <span className={'md:px-4 pl-2 '}>
-            Projection date: {dateStart} - {dateEnd}
-          </span>
-        </div>
+        <SmallDetailsComponent
+          pgRating={pgRating}
+          duration={duration}
+          language={language}
+          showDates={true}
+          dateStart={dateStart}
+          dateEnd={dateEnd}
+        />
       </div>
       <div className={'flex flex-wrap md:gap-4 gap-2 my-4 pr-4'}>
         {genres.map((genre, index) => (

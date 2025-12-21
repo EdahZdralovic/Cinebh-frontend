@@ -3,15 +3,10 @@ import type { Filters } from '../../../types/Filters.ts';
 import { MovieDetailsProjectionsFilter } from './MovieDetailsProjectionsFilter.tsx';
 import { useState } from 'react';
 import { useScrollToTop } from '../../../hooks/useScrollToTop.ts';
-import { useMovieProjections } from '../../../hooks/movie-hooks/useMovieDetailsProjections.ts';
+import { useMovieProjections } from '../../../hooks/movie-hooks/useMovieProjections.ts';
 import { ProjectionTimeButton } from '../../buttons/ProjectionTimeButton.tsx';
 import { SignInButton } from '../../buttons/SignInButton.tsx';
-import { MovieUpcomingProjections } from './MovieUpcomingProjections.tsx';
-
-interface MovieProjectionsProps {
-  filters: Filters;
-  onChange?: (patch: Partial<Filters>) => void;
-}
+import type { Projection } from '../../../types/MovieTypes.ts';
 
 export function MovieProjections({ movieId }: { movieId: number }) {
   useScrollToTop();
@@ -25,15 +20,13 @@ export function MovieProjections({ movieId }: { movieId: number }) {
     projectionTimes: [],
     q: '',
   });
-  const { projections, loading, error } = useMovieProjections(movieId, filters);
-  if (loading) return <MovieUpcomingProjections isSkeleton={true} />;
-
-  const patchFilters = (patch: Partial<Filters>) => {
-    setFilters((f) => ({ ...f, ...patch }));
-  };
+  const { projections = [] } = useMovieProjections(movieId, filters);
   const venueSelected = (filters.venueId?.length ?? 0) > 0;
   const selectedTime = filters.projectionTimes?.[0] ?? null;
   const canBuy = venueSelected && !!selectedTime;
+  const patchFilters = (patch: Partial<Filters>) => {
+    setFilters((f) => ({ ...f, ...patch }));
+  };
 
   return (
     <section
@@ -59,8 +52,9 @@ export function MovieProjections({ movieId }: { movieId: number }) {
             {projections.length === 0 && (
               <div className={'min-h-[54px] '}>No projections found.</div>
             )}
-            {projections.map((projection) => (
+            {projections.map((projection: Projection) => (
               <ProjectionTimeButton
+                key={projection.id}
                 time={projection.name}
                 isActive={projection.name === selectedTime}
                 onClick={() => {

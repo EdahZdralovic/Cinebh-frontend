@@ -10,6 +10,7 @@ import MainCard from '../../components/cards/MainCard.tsx';
 import type { Filters } from '../../types/Filters.ts';
 import { useScrollToTop } from '../../hooks/useScrollToTop.ts';
 import { Link } from 'react-router-dom';
+import { ROUTES } from '../../utils/Constants.ts';
 
 export default function UpcomingMovies() {
   useScrollToTop();
@@ -72,7 +73,7 @@ export default function UpcomingMovies() {
       ) : movies.length > 0 ? (
         <div className="grid lg:grid-cols-4 md:grid-cols-2 justify-center items-center gap-4 pt-8">
           {movies.map((card: MainCardProps) => (
-            <Link to={`/movies/${card.id}`}>
+            <Link to={ROUTES.MOVIE_DETAILS_ROUTE(card.id)}>
               <MainCard
                 coverImageUrl={card.coverImageUrl}
                 title={card.title}

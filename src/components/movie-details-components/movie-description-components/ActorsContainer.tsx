@@ -1,8 +1,4 @@
-import type { CrewMemberProps } from '../../../types/MovieTypes.ts';
-
-interface ActorsContainerProps {
-  actors: CrewMemberProps[];
-}
+import type { ActorsContainerProps } from '../../../types/MovieTypes.ts';
 
 export function ActorsContainer({ actors }: ActorsContainerProps) {
   return (

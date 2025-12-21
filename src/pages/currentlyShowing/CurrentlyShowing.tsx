@@ -16,6 +16,7 @@ import type { Filters } from '../../types/Filters.ts';
 import SearchInput from '../../components/filter-components/search-filter/SearchInput.tsx';
 import { createHandleSearch } from '../../utils/FilterFunctions.ts';
 import { Link } from 'react-router-dom';
+import { ROUTES } from '../../utils/Constants.ts';
 
 export function CurrentlyShowing() {
   useScrollToTop();
@@ -85,7 +86,7 @@ export function CurrentlyShowing() {
           </>
         ) : movies.length > 0 ? (
           movies.map((card, index) => (
-            <Link to={`/movies/${card.id}`}>
+            <Link to={ROUTES.MOVIE_DETAILS_ROUTE(card.id)}>
               <CurrentlyShowingCard
                 key={index}
                 coverImageUrl={card.coverImageUrl}

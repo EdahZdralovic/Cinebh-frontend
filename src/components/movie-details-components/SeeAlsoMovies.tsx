@@ -8,7 +8,7 @@ import { Link } from 'react-router-dom';
 export function SeeAlsoMovies() {
   const [page, setPage] = useState(0);
   const size = 6;
-  const { mainCards, loading, error, totalPages, totalElements } = useMainCards(
+  const { mainCards, loading, totalPages, totalElements } = useMainCards(
     page,
     size,
     ROUTES.CURRENTLY_SHOWING
@@ -29,7 +29,7 @@ export function SeeAlsoMovies() {
               <MiniMovieCard key={i} isSkeleton={true} />
             ))
           : mainCards.map((miniCard, index) => (
-              <Link to={`/movies/${miniCard.id}`}>
+              <Link to={ROUTES.MOVIE_DETAILS_ROUTE(miniCard.id)}>
                 <MiniMovieCard
                   title={miniCard.title}
                   coverImageUrl={miniCard.coverImageUrl}

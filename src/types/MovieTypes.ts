@@ -1,3 +1,6 @@
+import type { MainCardProps } from './Cards.ts';
+import type { ReactNode } from 'react';
+
 export interface CrewMemberProps {
   fullName: string;
   characterName: string | null;
@@ -23,13 +26,42 @@ export interface MovieDetailsProps {
 }
 
 export interface DescriptionContainerProps {
-  pgRating: string;
-  language: string;
-  duration: number;
+  pgRating: string | ReactNode;
+  language: string | ReactNode;
+  duration: number | ReactNode;
   dateStart: string;
   dateEnd: string;
   genres: string[];
   directors: CrewMemberProps[];
   writers: CrewMemberProps[];
   synopsis: string;
+}
+
+export interface Projection {
+  id: number;
+  name: string;
+}
+
+export interface HomeSectionProps {
+  cards: MainCardProps[];
+  sectionName: string;
+  pageNumber: number;
+  onPreviousPage: () => void;
+  onNextPage: () => void;
+  totalPages: number;
+  totalElements: number;
+  isMovie: boolean;
+  seeAllLink: string;
+  sectionForVenues: boolean;
+  loading: boolean;
+}
+
+export interface ActorsContainerProps {
+  actors: CrewMemberProps[];
+}
+
+export interface MovieUpcomingProjectionsProps {
+  title: string;
+  startDate: string;
+  isSkeleton?: boolean;
 }

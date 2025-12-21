@@ -16,6 +16,7 @@ export default function SelectFilterComponent({
   icon,
   isOpen,
   onToggle,
+  singleSelect = false,
 }: FilterTypeProps) {
   const { elements, loading, error } = useFilterData<FilterProps>(
     endpoint,
@@ -39,6 +40,8 @@ export default function SelectFilterComponent({
   useClickOutside(isOpen, () => {
     handleApply();
   });
+
+  const isSingleLocked = singleSelect && selected.length === 1;
 
   const selectedNames = elements
     .filter((el) => selected.includes(el.id))
@@ -96,23 +99,29 @@ export default function SelectFilterComponent({
       {isOpen && (
         <div className="relative mt-1 w-full bg-white border rounded-md shadow-lg max-h-64 overflow-y-auto z-50">
           <ul>
-            {elements.map((el) => (
-              <li
-                key={el.id}
-                onClick={(e) => {
-                  e.stopPropagation();
-                  toggle(el.id);
-                }}
-                className={
-                  'px-3 py-2 text-sm cursor-pointer flex items-center truncate ' +
-                  (selected.includes(el.id)
-                    ? 'bg-[#FDE3E3] font-bold rounded-md'
-                    : '')
-                }
-              >
-                {el.name}
-              </li>
-            ))}
+            {elements.map((el) => {
+              const isSelected = selected.includes(el.id);
+              const isDisabled = isSingleLocked && !isSelected;
+              return (
+                <li
+                  key={el.id}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    if (isDisabled) return; // 🔒 STOP
+                    toggle(el.id);
+                  }}
+                  className={
+                    'px-3 py-2 text-sm flex items-center truncate rounded-md ' +
+                    (isSelected ? 'bg-[#FDE3E3] font-bold' : '') +
+                    (isDisabled
+                      ? ' opacity-50 cursor-not-allowed'
+                      : ' cursor-pointer hover:bg-gray-100')
+                  }
+                >
+                  {el.name}
+                </li>
+              );
+            })}
           </ul>
 
           <div className="flex justify-end p-2 gap-3">

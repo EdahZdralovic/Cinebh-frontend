@@ -1,18 +1,7 @@
 import { SignInButton } from '../../buttons/SignInButton.tsx';
-import { useSignIn } from '../../../context/SignInContext.tsx';
-
-interface MovieUpcomingProjectionsProps {
-  title?: string;
-  startDate?: string;
-  isSkeleton?: boolean;
-}
-function getMonthName(dateString: string): string {
-  const date = new Date(dateString);
-
-  return date.toLocaleString('en-US', {
-    month: 'long',
-  });
-}
+import type { MovieUpcomingProjectionsProps } from '../../../types/MovieTypes.ts';
+import { getMonthName } from '../../../utils/movieFunctions.ts';
+import { useSidebar } from '../../../context/SideBarContext.tsx';
 
 export function MovieUpcomingProjections({
   title,
@@ -21,7 +10,7 @@ export function MovieUpcomingProjections({
 }: MovieUpcomingProjectionsProps) {
   const month = getMonthName(startDate);
   const notifyImageUrl = '/assets/logos/notifyMeLogo.png';
-  const { openSignIn } = useSignIn();
+  const { openAuth } = useSidebar();
 
   return (
     <section
@@ -67,10 +56,7 @@ export function MovieUpcomingProjections({
           <SignInButton text={'Notify Me'} />
           <div className={'flex justify-center  mt-4   '}>
             <p>Only signed up users can be notified. </p>
-            <button
-              className={'underline ml-3 font-bold '}
-              onClick={() => openSignIn('signUp')}
-            >
+            <button className={'underline ml-3 font-bold '} onClick={openAuth}>
               Sign Up
             </button>
           </div>

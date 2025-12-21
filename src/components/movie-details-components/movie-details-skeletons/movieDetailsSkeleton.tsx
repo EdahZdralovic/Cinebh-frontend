@@ -5,10 +5,14 @@ import { MovieUpcomingProjections } from '../movie-projections-components/MovieU
 import { SeeAlsoMovies } from '../SeeAlsoMovies.tsx';
 import { ActorsContainer } from '../movie-description-components/ActorsContainer.tsx';
 import { RiLoader2Fill } from 'react-icons/ri';
+import { LOADING_MESSAGES } from '../../../utils/Constants.ts';
 
 export function MovieDetailsSkeleton() {
-  const genresSkeleton = ['Loading...', 'Loading...'];
-  const loadingText = 'Movie details are loading, please wait. ';
+  const genresSkeletonArray = [
+    LOADING_MESSAGES.JUST_LOADING,
+    LOADING_MESSAGES.JUST_LOADING,
+    LOADING_MESSAGES.JUST_LOADING,
+  ];
   return (
     <section>
       <div
@@ -37,13 +41,21 @@ export function MovieDetailsSkeleton() {
               Loading...
             </h1>
             <DescriptionContainer
-              pgRating={<RiLoader2Fill className={' size-4 ml-1 mr-2 '} />}
-              language={<RiLoader2Fill className={' size-4 ml-0 '} />}
-              duration={<RiLoader2Fill className={' size-4 '} />}
-              dateStart={'Loading'}
-              dateEnd={'Please wait'}
-              genres={genresSkeleton}
-              synopsis={loadingText}
+              pgRating={
+                <RiLoader2Fill className={'size-4 ml-1 mr-2 animate-spin'} />
+              }
+              language={
+                <RiLoader2Fill className={' size-4 ml-0 animate-spin '} />
+              }
+              duration={
+                <RiLoader2Fill
+                  className={'size-4 animate-spin mb-2 inline-flex mr-1 '}
+                />
+              }
+              dateStart={LOADING_MESSAGES.JUST_LOADING}
+              dateEnd={LOADING_MESSAGES.PLEASE_WAIT}
+              genres={genresSkeletonArray}
+              synopsis={LOADING_MESSAGES.LONG_LOADING_TEXT}
               directors={[]}
               writers={[]}
             />
@@ -54,7 +66,11 @@ export function MovieDetailsSkeleton() {
             </div>
           </div>
           <div className={'md:mr-6 md:ml-4 '}>
-            <MovieUpcomingProjections isSkeleton={true} />
+            <MovieUpcomingProjections
+              isSkeleton={true}
+              title={''}
+              startDate={''}
+            />
           </div>
         </div>
         <div className={'md:mt-0 mt-5'}>

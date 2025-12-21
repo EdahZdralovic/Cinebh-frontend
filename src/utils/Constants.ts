@@ -17,6 +17,7 @@ export const ROUTES = {
   REFRESH_TOKEN_ENDPOINT: '/auth/refresh',
   LOGOUT_ENDPOINT: '/auth/logout',
   HOME_ROUTE: '/',
+  MOVIE_DETAILS_ROUTE: (id: number | undefined) => `/movies/${id}`,
 };
 
 export const AUTH_CONST = {
@@ -42,6 +43,13 @@ export const ERRORS = {
     'Your password needs to contain at least 8 characters, 1 uppercase letter and 1 number.',
   ERROR_CODE_INPUT: 'Enter all 4 digits of code',
   AUTH_CONTEXT_ERROR: 'Error: useAuth is misplaced.',
+};
+
+export const LOADING_MESSAGES = {
+  LONG_LOADING_TEXT:
+    'Movie details are loading, please wait. Movie will show up soon, thank you for your patience.',
+  JUST_LOADING: 'Loading...',
+  PLEASE_WAIT: 'Please wait.',
 };
 
 export const KEYBOARD = {

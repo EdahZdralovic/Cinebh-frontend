@@ -22,7 +22,7 @@ export function MovieDetailsProjectionsFilter({
 }: MovieDetailsProjectionsFilterProps) {
   const [openFilter, setOpenFilter] = useState<string | null>(null);
   const toggleFilter = createToggleFilter(setOpenFilter);
-  const handleVenueApply = createHandleVenueApply(onChange);
+  const handleVenueApply = createHandleVenueApply(onChange, true);
   const handleCityApply = createHandleCityApply(onChange);
   const days = generateNext10Days();
   const [dayIndex, setDayIndex] = useState(0);
@@ -59,6 +59,7 @@ export function MovieDetailsProjectionsFilter({
             onApply={handleVenueApply}
             icon={VenueIcon}
             params={{ cityId: filters.cityId }}
+            singleSelect={true}
           />
         </div>
       </div>

@@ -26,7 +26,10 @@ export function MovieDetails() {
     return <MovieDetailsSkeleton />;
   }
 
-  if (error) return <div>Movie not found.</div>;
+  if (error || !movie) {
+    return <div>Movie not found.</div>;
+  }
+
   const dateStart = formatDateSecond(movie.projectionStart);
   const dateEnd = formatDateSecond(movie.projectionEnd);
   const mediaPhotos = movie.mediaPhotoUrls;
@@ -80,7 +83,6 @@ export function MovieDetails() {
             </div>
           </div>
           <div className={'md:mr-6 md:ml-4'}>
-            {/* <MovieProjections movieId={movieId} />*/}
             {TEN_DAYS_FROM_NOW > movie.projectionStart ? (
               <MovieProjections movieId={movieId} />
             ) : (

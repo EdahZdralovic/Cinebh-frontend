@@ -13,3 +13,11 @@ export const formatDate = (date: Date | null) => {
   if (!date) return null;
   return `${date.getFullYear()}/${String(date.getMonth() + 1).padStart(2, '0')}/${String(date.getDate()).padStart(2, '0')}`;
 };
+
+export function getMonthName(dateString: string): string {
+  const date = new Date(dateString);
+
+  return date.toLocaleString('en-US', {
+    month: 'long',
+  });
+}

@@ -1,6 +1,6 @@
 import GenreButton from '../buttons/GenreButton.tsx';
 import { ProjectionTimeButton } from '../buttons/ProjectionTimeButton.tsx';
-import type {CurrentlyShowingCardProps} from "../../types/Cards.ts";
+import type { CurrentlyShowingCardProps } from '../../types/Cards.ts';
 
 export default function CurrentlyShowingCard({
   coverImageUrl,
@@ -14,7 +14,7 @@ export default function CurrentlyShowingCard({
   isSkeleton = false,
 }: CurrentlyShowingCardProps) {
   return (
-    <section className={''}>
+    <section>
       <div
         className={
           ' w-full text-[var(--color-primary)] shadow-lg lg:aspect-[4/1] aspect-auto max-h-fit h-full mt-6 border border-gray-200 rounded-3xl lg:grid lg:grid-cols-9 grid-cols-3'

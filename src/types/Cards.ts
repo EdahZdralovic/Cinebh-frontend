@@ -6,7 +6,7 @@ export interface MainCardResponse {
 }
 
 export interface MainCardProps {
-  id: number;
+  id?: number;
   coverImageUrl: string;
   title: string;
   duration?: number;

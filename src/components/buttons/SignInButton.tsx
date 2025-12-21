@@ -25,7 +25,7 @@ export function SignInButton({
           : ' text-white bg-[var(--color-secondary)] ') +
         'h-12 w-full rounded-lg  ' +
         (disabled
-          ? ' bg-gray-200 text-white border-gray-200 text-gray-200 '
+          ? ' bg-gray-300 font-bold border-gray-300 text-gray-200 '
           : ' ')
       }
     >
