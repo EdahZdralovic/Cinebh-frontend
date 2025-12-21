@@ -27,7 +27,7 @@ export function SmallDetailsComponent({
         <span className=" mx-2 md:w-auto w-[15%]  ">{duration} MIN</span>
         {showDates ? (
           <>
-            <span className="h-5 md:ml-2 w-px bg-[var(--color-secondary)] inline-block align-text-bottom "></span>
+            <span className="h-5 md:ml-2  w-px bg-[var(--color-secondary)] inline-block align-text-bottom "></span>
             <span className={'md:px-4 pl-2 '}>
               Projection date: {dateStart} - {dateEnd}
             </span>
