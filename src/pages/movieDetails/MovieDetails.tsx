@@ -9,8 +9,7 @@ import { MovieUpcomingProjections } from '../../components/movie-details-compone
 import { useScrollToTop } from '../../hooks/useScrollToTop.ts';
 import { formatDateSecond, TEN_DAYS_FROM_NOW } from '../../utils/dateUtils.ts';
 import { MovieProjections } from '../../components/movie-details-components/movie-projections-components/MovieProjections.tsx';
-import { MediaSkeletonContainer } from '../../components/movie-details-components/movie-details-skeletons/mediaSkeletonContainer.tsx';
-import { MovieDetailsSkeleton } from '../../components/movie-details-components/movie-details-skeletons/movieDetailsSkeleton.tsx';
+import { MovieDetailsSkeleton } from '../../components/movie-details-components/movie-details-skeletons/MovieDetailsSkeleton.tsx';
 
 export function MovieDetails() {
   useScrollToTop();
@@ -49,11 +48,7 @@ export function MovieDetails() {
         <div>
           <h2 className={'md:text-3xl text-xl font-bold'}>Movie Details</h2>
         </div>
-        {loading ? (
-          <MediaSkeletonContainer />
-        ) : (
-          <MediaContainer videoUrl={trailer} mediaPhotos={mediaPhotos} />
-        )}
+        <MediaContainer videoUrl={trailer} mediaPhotos={mediaPhotos} />
         <div className={'mt-6 grid md:grid-cols-2 grid-cols-1'}>
           <div className={'flex flex-col md:pr-4'}>
             <h1

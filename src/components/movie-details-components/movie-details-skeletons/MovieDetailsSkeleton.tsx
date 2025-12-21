@@ -1,4 +1,3 @@
-import { MediaSkeletonContainer } from './mediaSkeletonContainer.tsx';
 import { DescriptionContainer } from '../movie-description-components/DescriptionContainer.tsx';
 import { RatingContainer } from '../movie-description-components/RatingContainer.tsx';
 import { MovieUpcomingProjections } from '../movie-projections-components/MovieUpcomingProjections.tsx';
@@ -6,6 +5,7 @@ import { SeeAlsoMovies } from '../SeeAlsoMovies.tsx';
 import { ActorsContainer } from '../movie-description-components/ActorsContainer.tsx';
 import { RiLoader2Fill } from 'react-icons/ri';
 import { LOADING_MESSAGES } from '../../../utils/Constants.ts';
+import { MediaContainer } from '../movie-description-components/MediaContainer.tsx';
 
 export function MovieDetailsSkeleton() {
   const genresSkeletonArray = [
@@ -29,7 +29,7 @@ export function MovieDetailsSkeleton() {
             Movie Details
           </h2>
         </div>
-        <MediaSkeletonContainer />
+        <MediaContainer isSkeleton={true} />
 
         <div className={'mt-6 grid md:grid-cols-2 grid-cols-1'}>
           <div className={'flex flex-col md:pr-4'}>
