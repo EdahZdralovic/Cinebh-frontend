@@ -33,7 +33,7 @@ export function MediaContainer({
                 title="Movie trailer"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                 allowFullScreen
-                className="md:rounded-l-2xl md:rounded-bl-2xl md:rounded-none rounded-xl  w-full aspect-video"
+                className="md:rounded-l-2xl md:rounded-bl-2xl md:rounded-none rounded-t-xl  w-full aspect-video"
               ></iframe>
             )
           )}
@@ -49,9 +49,10 @@ export function MediaContainer({
               }
               key={index}
               className={
-                ' bg-cover aspect-video md:rounded-none rounded-lg md:h-[100%]  object-cover ' +
-                (index === 3 ? ' md:rounded-br-2xl' : ' ') +
+                ' bg-cover aspect-video rounded-none  md:h-[100%]  object-cover ' +
                 (index === 1 ? ' md:rounded-tr-2xl' : ' ') +
+                (index === 2 ? ' rounded-bl-2xl md:rounded-none' : ' ') +
+                (index === 3 ? ' rounded-br-2xl ' : ' ') +
                 (index > 3 ? 'hidden ' : ' ')
               }
             />
