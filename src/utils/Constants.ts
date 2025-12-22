@@ -45,6 +45,12 @@ export const ERRORS = {
   AUTH_CONTEXT_ERROR: 'Error: useAuth is misplaced.',
 };
 
+export const COMPONENTS_TEXT = {
+  ONLY_SIGN_UP_NOTIFY: 'Only signed up users can be notified.',
+  ONLY_SIGN_UP_BUY_AND_RESERVE:
+    'Only signed up users can be buy and reserve tickets.',
+};
+
 export const LOADING_MESSAGES = {
   LONG_LOADING_TEXT:
     'Movie details are loading, please wait. Movie will show up soon, thank you for your patience.',

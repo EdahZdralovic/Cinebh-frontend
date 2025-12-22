@@ -7,6 +7,9 @@ import { useMovieProjections } from '../../../hooks/movie-hooks/useMovieProjecti
 import { ProjectionTimeButton } from '../../buttons/ProjectionTimeButton.tsx';
 import { SignInButton } from '../../buttons/SignInButton.tsx';
 import type { Projection } from '../../../types/MovieTypes.ts';
+import { useAuth } from '../../../context/AuthContext.tsx';
+import { SignUpProjectionsButton } from '../../buttons/SignUpProjectionsButton.tsx';
+import { COMPONENTS_TEXT } from '../../../utils/Constants.ts';
 
 export function MovieProjections({ movieId }: { movieId: number }) {
   useScrollToTop();
@@ -33,6 +36,8 @@ export function MovieProjections({ movieId }: { movieId: number }) {
       return next;
     });
   };
+  const { user } = useAuth();
+  const isLoggedIn = !!user;
 
   return (
     <section
@@ -76,15 +81,28 @@ export function MovieProjections({ movieId }: { movieId: number }) {
         </div>
         <div
           className={
-            ' p-8 border-gray-200 border rounded-b-2xl grid grid-cols-2 gap-6  '
+            ' md:px-8 px-4 border-gray-200 border rounded-b-2xl grid grid-cols-2 gap-x-6  '
           }
         >
-          <SignInButton
-            whiteBackground
-            text={'Reserve Ticket'}
-            disabled={!canBuy}
-          />
-          <SignInButton text={'Buy Ticket'} disabled={!canBuy} />
+          <div className={'mt-5 col-span-1 '}>
+            <SignInButton
+              whiteBackground
+              text={'Reserve Ticket'}
+              disabled={!canBuy || !isLoggedIn}
+            />
+          </div>
+          <div className={'mt-5 col-span-1 '}>
+            <SignInButton
+              text={'Buy Ticket'}
+              disabled={!canBuy || !isLoggedIn}
+            />
+          </div>
+          <div className={'col-span-2 my-3 '}>
+            <SignUpProjectionsButton
+              isLoggedIn={isLoggedIn}
+              textBeforeButton={COMPONENTS_TEXT.ONLY_SIGN_UP_BUY_AND_RESERVE}
+            />
+          </div>
         </div>
       </div>
     </section>

@@ -1,7 +1,10 @@
 import { SignInButton } from '../../buttons/SignInButton.tsx';
 import type { MovieUpcomingProjectionsProps } from '../../../types/MovieTypes.ts';
 import { getMonthName } from '../../../utils/movieFunctions.ts';
-import { useSidebar } from '../../../context/SideBarContext.tsx';
+
+import { SignUpProjectionsButton } from '../../buttons/SignUpProjectionsButton.tsx';
+import { COMPONENTS_TEXT } from '../../../utils/Constants.ts';
+import { useAuth } from '../../../context/AuthContext.tsx';
 
 export function MovieUpcomingProjections({
   title,
@@ -10,7 +13,8 @@ export function MovieUpcomingProjections({
 }: MovieUpcomingProjectionsProps) {
   const month = getMonthName(startDate);
   const notifyImageUrl = '/assets/logos/notifyMeLogo.png';
-  const { openAuth } = useSidebar();
+  const { user } = useAuth();
+  const isLoggedIn = !!user;
 
   return (
     <section
@@ -54,11 +58,11 @@ export function MovieUpcomingProjections({
           }
         >
           <SignInButton text={'Notify Me'} />
-          <div className={'flex justify-center  mt-4   '}>
-            <p>Only signed up users can be notified. </p>
-            <button className={'underline ml-3 font-bold '} onClick={openAuth}>
-              Sign Up
-            </button>
+          <div className={'col-span-2' + isLoggedIn ? ' ' : ' '}>
+            <SignUpProjectionsButton
+              isLoggedIn={false}
+              textBeforeButton={COMPONENTS_TEXT.ONLY_SIGN_UP_NOTIFY}
+            />
           </div>
         </div>
       </div>
