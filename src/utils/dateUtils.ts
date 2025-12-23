@@ -36,3 +36,13 @@ export const formatDate = (date: Date | null) => {
   if (!date) return null;
   return `${date.getFullYear()}/${String(date.getMonth() + 1).padStart(2, '0')}/${String(date.getDate()).padStart(2, '0')}`;
 };
+
+export function formatDatePretty(dateString: string): string {
+  const date = new Date(dateString);
+
+  return new Intl.DateTimeFormat('en-US', {
+    weekday: 'long',
+    month: 'short',
+    day: '2-digit',
+  }).format(date);
+}

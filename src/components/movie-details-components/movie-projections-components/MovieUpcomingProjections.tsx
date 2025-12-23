@@ -54,11 +54,11 @@ export function MovieUpcomingProjections({
         </div>
         <div
           className={
-            ' p-8 border-gray-200 border rounded-b-2xl grid grid-cols-1 items-center '
+            'md:px-8 px-4 mb-5 border-gray-200 border rounded-b-2xl grid grid-cols-1 items-center '
           }
         >
           <SignInButton text={'Notify Me'} />
-          <div className={'col-span-2' + isLoggedIn ? ' ' : ' '}>
+          <div className={'col-span-2 my-3'}>
             <SignUpProjectionsButton
               isLoggedIn={false}
               textBeforeButton={COMPONENTS_TEXT.ONLY_SIGN_UP_NOTIFY}

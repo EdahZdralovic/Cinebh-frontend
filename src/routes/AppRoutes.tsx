@@ -6,6 +6,7 @@ import Tickets from '../pages/tickets/tickets';
 import { CurrentlyShowing } from '../pages/currentlyShowing/CurrentlyShowing.tsx';
 import UpcomingMovies from '../pages/upcomingMovies/UpcomingMovies.tsx';
 import { MovieDetails } from '../pages/movieDetails/MovieDetails.tsx';
+import { BuyReserveTickets } from '../pages/buyReserveTickets/BuyReserveTickets.tsx';
 
 export default function AppRoutes() {
   return (
@@ -16,6 +17,7 @@ export default function AppRoutes() {
       <Route path="/upcoming" element={<UpcomingMovies />} />
       <Route path="/showing" element={<CurrentlyShowing />} />
       <Route path="/movies/:id" element={<MovieDetails />} />
+      <Route path="/buy-ticket/:projectionId" element={<BuyReserveTickets />} />
     </Routes>
   );
 }

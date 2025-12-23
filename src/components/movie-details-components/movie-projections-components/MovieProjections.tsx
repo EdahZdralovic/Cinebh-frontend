@@ -9,10 +9,12 @@ import { SignInButton } from '../../buttons/SignInButton.tsx';
 import type { Projection } from '../../../types/MovieTypes.ts';
 import { useAuth } from '../../../context/AuthContext.tsx';
 import { SignUpProjectionsButton } from '../../buttons/SignUpProjectionsButton.tsx';
-import { COMPONENTS_TEXT } from '../../../utils/Constants.ts';
+import { COMPONENTS_TEXT, ROUTES } from '../../../utils/Constants.ts';
+import { useNavigate } from 'react-router-dom';
 
 export function MovieProjections({ movieId }: { movieId: number }) {
   useScrollToTop();
+  const navigate = useNavigate();
   const [filters, setFilters] = useState<Filters>({
     cityId: [],
     venueId: [],
@@ -72,6 +74,7 @@ export function MovieProjections({ movieId }: { movieId: number }) {
                   patchFilters({
                     projectionTimes:
                       projection.name === selectedTime ? [] : [projection.name],
+                    selectedProjectionId: projection.id,
                   });
                 }}
               />
@@ -95,6 +98,10 @@ export function MovieProjections({ movieId }: { movieId: number }) {
             <SignInButton
               text={'Buy Ticket'}
               disabled={!canBuy || !isLoggedIn}
+              onClick={() => {
+                if (!filters.selectedProjectionId) return;
+                navigate(ROUTES.BUY_TICKET_ROUTE(filters.selectedProjectionId));
+              }}
             />
           </div>
           <div className={'col-span-2 my-3 '}>

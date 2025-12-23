@@ -14,6 +14,7 @@ export type Filters = {
   toDate: string | null;
   selectedDate: string;
   projectionTimes: string[];
+  selectedProjectionId?: number;
   q: string;
 };
 
