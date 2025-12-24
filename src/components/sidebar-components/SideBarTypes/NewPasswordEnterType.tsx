@@ -25,6 +25,14 @@ export function NewPasswordEnterType({
     submit,
   } = useResetPassword({ email, onSuccess });
 
+  function handleConfirmChange(e: React.ChangeEvent<HTMLInputElement>) {
+    setConfirm(e.target.value);
+  }
+
+  function handlePasswordChange(e: React.ChangeEvent<HTMLInputElement>) {
+    setPassword(e.target.value);
+  }
+
   return (
     <section>
       <div className="flex justify-start mb-4 items-center mt-10">
@@ -49,7 +57,7 @@ export function NewPasswordEnterType({
           isPassword
           icon={LOCK_ICON}
           value={password}
-          onChange={(e) => setPassword(e.target.value)}
+          onChange={handlePasswordChange}
           isMatchingPasswords={!showError}
           name=""
         />
@@ -60,7 +68,7 @@ export function NewPasswordEnterType({
           isPassword
           icon={LOCK_ICON}
           value={confirm}
-          onChange={(e) => setConfirm(e.target.value)}
+          onChange={handleConfirmChange}
           isMatchingPasswords={!showError}
           name=""
         />

@@ -23,7 +23,6 @@ export function EmailVerifyType({
 }: EmailVerifyTypeProps) {
   const [email, setEmail] = useState(presetEmail ?? '');
   const [loading, setLoading] = useState(false);
-  const [code, setCode] = useState('');
 
   const title = isForVerification ? 'Verify Email' : 'Password Reset';
   const description = isForVerification
@@ -43,8 +42,7 @@ export function EmailVerifyType({
     setError(null);
   }
 
-  function handleCodeComplete(code: string) {
-    setCode(code);
+  function handleCodeComplete() {
     setError(null);
   }
 
