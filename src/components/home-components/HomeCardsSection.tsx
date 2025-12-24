@@ -1,22 +1,9 @@
 import MainCard from '../cards/MainCard.tsx';
 import ArrowButton, { ArrowDirection } from '../buttons/ArrowButton.tsx';
 import { Link } from 'react-router-dom';
-import type { MainCardProps } from '../../types/Cards.ts';
 import { HomeCardsSkeleton } from './HomeCardsSkeleton.tsx';
-
-export interface HomeSectionProps {
-  cards: MainCardProps[];
-  sectionName: string;
-  pageNumber: number;
-  onPreviousPage: () => void;
-  onNextPage: () => void;
-  totalPages: number;
-  totalElements: number;
-  isMovie: boolean;
-  seeAllLink: string;
-  sectionForVenues: boolean;
-  loading: boolean;
-}
+import type { HomeSectionProps } from '../../types/MovieTypes.ts';
+import { ROUTES } from '../../utils/Constants.ts';
 
 export default function HomeCardsSection({
   cards,
@@ -50,17 +37,22 @@ export default function HomeCardsSection({
             <HomeCardsSkeleton />
           ) : (
             cards.map((card, index) => (
-              <MainCard
-                coverImageUrl={card.coverImageUrl}
-                title={card.title}
-                duration={card.duration}
-                movieGenres={card.movieGenres}
-                isMovie={isMovie}
-                street={card.street}
-                redStrip={false}
-                projectionStart={card.projectionStart}
-                key={index}
-              />
+              <Link
+                to={sectionForVenues ? '' : ROUTES.MOVIE_DETAILS_ROUTE(card.id)}
+              >
+                <MainCard
+                  coverImageUrl={card.coverImageUrl}
+                  title={card.title}
+                  duration={card.duration}
+                  movieGenres={card.movieGenres}
+                  isMovie={isMovie}
+                  street={card.street}
+                  redStrip={false}
+                  projectionStart={card.projectionStart}
+                  key={index}
+                  id={card.id}
+                />
+              </Link>
             ))
           )}
         </div>

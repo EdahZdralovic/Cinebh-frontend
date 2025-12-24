@@ -3,7 +3,6 @@ import { Route, Routes } from 'react-router-dom';
 import Home from '../pages/home/home';
 import About from '../pages/about/about';
 import Tickets from '../pages/tickets/tickets';
-
 import { CurrentlyShowing } from '../pages/currentlyShowing/CurrentlyShowing.tsx';
 import UpcomingMovies from '../pages/upcomingMovies/UpcomingMovies.tsx';
 import { MovieDetails } from '../pages/movieDetails/MovieDetails.tsx';
@@ -16,7 +15,7 @@ export default function AppRoutes() {
       <Route path="/tickets" element={<Tickets />} />
       <Route path="/upcoming" element={<UpcomingMovies />} />
       <Route path="/showing" element={<CurrentlyShowing />} />
-      <Route path="/movie" element={<MovieDetails />} />
+      <Route path="/movies/:id" element={<MovieDetails />} />
     </Routes>
   );
 }

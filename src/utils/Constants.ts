@@ -17,6 +17,8 @@ export const ROUTES = {
   REFRESH_TOKEN_ENDPOINT: '/auth/refresh',
   LOGOUT_ENDPOINT: '/auth/logout',
   HOME_ROUTE: '/',
+  USER_EMAIL_ENDPOINT: '/users/email',
+  MOVIE_DETAILS_ROUTE: (id: number | undefined) => `/movies/${id}`,
 };
 
 export const AUTH_CONST = {
@@ -44,6 +46,25 @@ export const ERRORS = {
   AUTH_CONTEXT_ERROR: 'Error: useAuth is misplaced.',
 };
 
+export const COMPONENTS_TEXT = {
+  ONLY_SIGN_UP_NOTIFY: 'Only signed up users can be notified.',
+  ONLY_SIGN_UP_BUY_AND_RESERVE:
+    'Only signed up users can be buy and reserve tickets.',
+};
+
+export const LOADING_MESSAGES = {
+  LONG_LOADING_TEXT:
+    'Movie details are loading, please wait. Movie will show up soon, thank you for your patience. While you wait here are topics to think about, Who will win Oscar this year, Is it posible to have too much butter on popcorns...',
+  JUST_LOADING: 'Loading...',
+  PLEASE_WAIT: 'Please wait.',
+};
+
 export const KEYBOARD = {
   BACKSPACE: 'Backspace',
+};
+
+export const NUMBERS = {
+  SIX: 6,
+  FOUR: 4,
+  TEN: 10,
 };

@@ -1,3 +1,4 @@
+import { SidebarProvider } from './context/SideBarContext';
 import MainLayout from './layout/MainLayout';
 import AppRoutes from './routes/AppRoutes';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
@@ -8,9 +9,11 @@ const queryClient = new QueryClient();
 export default function App() {
   return (
     <QueryClientProvider client={queryClient}>
-      <MainLayout>
-        <AppRoutes />
-      </MainLayout>
+      <SidebarProvider>
+        <MainLayout>
+          <AppRoutes />
+        </MainLayout>
+      </SidebarProvider>
       <ReactQueryDevtools initialIsOpen={false} />
     </QueryClientProvider>
   );

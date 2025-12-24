@@ -62,6 +62,7 @@ export interface SignInSignUpProps {
   goToSignIn?: () => void;
   goToReset?: () => void;
   isForPasswordReset?: boolean;
+  initialView?: 'signIn' | 'signUp';
 }
 
 export interface SignInSignUpSuccessfulProps {

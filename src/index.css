@@ -46,8 +46,5 @@
 }
 
 .animate-scroll-x {
-    animation: scrollX 20s linear infinite;
-}
-.animate-scroll-x:hover {
-    animation-play-state: paused;
+    animation: scrollX 30s linear infinite;
 }

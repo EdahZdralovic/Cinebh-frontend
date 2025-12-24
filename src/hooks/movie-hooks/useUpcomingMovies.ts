@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
-import { getUpcomingMovies } from '../services/movieService.ts';
+import { getUpcomingMovies } from '../../services/movieService.ts';
 import type { MainCardResponse } from './useMainCards.ts';
 
 export function useUpcomingMovies(

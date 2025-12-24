@@ -1,10 +1,8 @@
 import 'react-datepicker/dist/react-datepicker.css';
 import { CustomDatePicker } from '../filter-components/custom-date-picker/CustomDatePicker.tsx';
 import SelectFilterComponent from '../filter-components/generic-select-filter/SelectFilterComponent.tsx';
-import { HiOutlineOfficeBuilding } from 'react-icons/hi';
-import { BiCameraMovie } from 'react-icons/bi';
+
 import SearchInput from '../filter-components/search-filter/SearchInput.tsx';
-import { SlLocationPin } from 'react-icons/sl';
 import { useState } from 'react';
 import { CiFilter } from 'react-icons/ci';
 import type { UpcomingFilterProps } from '../../types/Filters.ts';
@@ -15,10 +13,7 @@ import {
   createHandleSearch,
   createHandleVenueApply,
 } from '../../utils/FilterFunctions.ts';
-
-const LocationIcon = <SlLocationPin />;
-const VenueIcon = <HiOutlineOfficeBuilding />;
-const GenreIcon = <BiCameraMovie />;
+import { GenreIcon, LocationIcon, VenueIcon } from '../../utils/icons.tsx';
 
 export default function UpcomingFilter({
   filters,

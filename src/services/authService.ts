@@ -69,7 +69,7 @@ export async function logout() {
 }
 
 export async function getCurrentUser() {
-  const res = await axiosInstance.get('/users/email', {
+  const res = await axiosInstance.get(ROUTES.USER_EMAIL_ENDPOINT, {
     withCredentials: true,
   });
   return res.data;

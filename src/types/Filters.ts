@@ -40,6 +40,7 @@ export interface FilterTypeProps {
   valueKey?: string;
   customClassNameHeader?: string;
   customClassNameToggle?: string;
+  singleSelect?: boolean;
   isOpen?: boolean;
   onToggle?: () => void;
 }

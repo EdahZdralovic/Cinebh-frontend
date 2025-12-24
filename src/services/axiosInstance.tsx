@@ -4,6 +4,11 @@ import { ROUTES } from '../utils/Constants.ts';
 
 //..env variables -> VITE_BASE_BACKEND_URL , VITE_PROD_BACKEND_URL
 
+//I left this function "delay" for future skeleton testing
+export function delay(ms: number) {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}
+
 const axiosInstance = axios.create({
   baseURL: import.meta.env.VITE_PROD_BACKEND_URL,
   headers: {
