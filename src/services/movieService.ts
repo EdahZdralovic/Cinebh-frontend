@@ -1,4 +1,4 @@
-import axiosInstance, { delay } from './axiosInstance';
+import axiosInstance from './axiosInstance';
 import { buildMovieParams } from '../utils/buildMovieParams.ts';
 import type { MovieDetailsProps } from '../types/MovieTypes.ts';
 
