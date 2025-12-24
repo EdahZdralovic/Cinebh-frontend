@@ -1,11 +1,28 @@
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
 import { Menu, X } from 'lucide-react';
+import { useAuth } from '../context/AuthContext';
+import { useNavigate } from 'react-router-dom';
+import { SignInNavbarButton } from './buttons/SignInNavbarButton.tsx';
 
-export default function Navbar() {
+interface NavbarProps {
+  onSignInClick: () => void;
+}
+
+export default function Navbar({ onSignInClick }: NavbarProps) {
   const [isOpen, setIsOpen] = useState(false);
+  const { user, logout } = useAuth();
+  const userName = user?.email.split('@')[0];
+  const navigate = useNavigate();
+
+  async function handleLogout() {
+    try {
+      await logout();
+      navigate('/');
+    } catch {}
+  }
   return (
-    <nav className="sticky top-0 left-0 w-full h-[80px] bg-[var(--color-primary)] text-white flex items-center justify-between px-10 z-50">
+    <nav className="sticky top-0 left-0 w-full h-[80px] bg-[var(--color-primary)] text-white flex items-center justify-between px-10 z-50 border-b border-gray-500">
       <Link to="/">
         <div className="flex items-center gap-2 pl-2 md:pl-12 z-100">
           <img
@@ -33,6 +50,13 @@ export default function Navbar() {
             Upcoming Movies
           </Link>
         </div>
+        <div className="hidden md:flex items-center ">
+          <SignInNavbarButton
+            userLabel={userName}
+            onSignInClick={onSignInClick}
+            onLogout={handleLogout}
+          />
+        </div>
         <div className="md:hidden">
           {isOpen ? (
             <X size={28} onClick={() => setIsOpen(false)} />
@@ -58,6 +82,11 @@ export default function Navbar() {
             >
               Upcoming Movies
             </Link>
+            <SignInNavbarButton
+              userLabel={userName}
+              onSignInClick={onSignInClick}
+              onLogout={handleLogout}
+            />
           </nav>
         </div>
       )}

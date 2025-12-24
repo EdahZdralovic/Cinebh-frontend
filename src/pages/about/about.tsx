@@ -28,15 +28,15 @@ export default function AboutUs() {
             timeless classics, our diverse selection of films caters to every
             taste and preference.
             <br />
-            <p>
-              <br />
-              As a hub for community entertainment, we take pride in being more
-              than just a cinema.
-              <br />
-              Join us at Cinebh and discover why we're not just your average
-              movie theater — we're your destination for cinematic excellence
-              and entertainment bliss.
-            </p>
+          </p>
+          <p>
+            <br />
+            As a hub for community entertainment, we take pride in being more
+            than just a cinema.
+            <br />
+            Join us at Cinebh and discover why we're not just your average movie
+            theater — we're your destination for cinematic excellence and
+            entertainment bliss.
           </p>
         </div>
       </div>

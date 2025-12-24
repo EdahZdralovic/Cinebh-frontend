@@ -5,10 +5,12 @@ import { useDebounce } from '../../../hooks/useDebounce.ts';
 type SearchInputProps = {
   value?: string;
   onSearch?: (query: string) => void;
-
 };
 
-export default function SearchInput({ value="", onSearch = () => {}}: SearchInputProps) {
+export default function SearchInput({
+  value = '',
+  onSearch = () => {},
+}: SearchInputProps) {
   const [localValue, setLocalValue] = useState(value);
   const [isOpen, setIsOpen] = useState(false);
   const debounce = useDebounce(localValue, 1000);
@@ -34,7 +36,7 @@ export default function SearchInput({ value="", onSearch = () => {}}: SearchInpu
         onClick={() => {
           setIsOpen(true);
         }}
-        onChange={(e) => setLocalValue(e.target.value)}
+        onChange={(e) => (isOpen ? setLocalValue(e.target.value) : null)}
         className="w-full border-none focus:outline-none pl-2 border-gray-300 placeholder:text-gray-500 placeholder:font-extralight "
       />
     </div>

@@ -49,7 +49,7 @@ export default function HomeCardsSection({
           {loading ? (
             <HomeCardsSkeleton />
           ) : (
-            cards.map((card) => (
+            cards.map((card, index) => (
               <MainCard
                 coverImageUrl={card.coverImageUrl}
                 title={card.title}
@@ -59,6 +59,7 @@ export default function HomeCardsSection({
                 street={card.street}
                 redStrip={false}
                 projectionStart={card.projectionStart}
+                key={index}
               />
             ))
           )}
