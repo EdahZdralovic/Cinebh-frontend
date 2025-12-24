@@ -24,7 +24,7 @@ export function TicketsMovieInfo({ movieId }: TicketsMovieInfoProps) {
             loading ? '/assets/images/loading_gray.png' : movie.coverImageUrl
           }
           alt={loading ? 'Loading ' : movie.title}
-          className="relative w-5/6   aspect-[100/94] insert-0  col-span-2 rounded-2xl object-cover"
+          className="relative w-5/6 aspect-[100/94] insert-0  col-span-2 rounded-2xl object-cover"
         />
         <div className={'flex flex-col col-span-4 '}>
           <h2 className={'text-xl font-bold mb-4 '}>

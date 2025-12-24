@@ -1,4 +1,4 @@
-import { SignInButton } from '../../buttons/SignInButton.tsx';
+import { LongRedWhiteButton } from '../../buttons/LongRedWhiteButton.tsx';
 import type { MovieUpcomingProjectionsProps } from '../../../types/MovieTypes.ts';
 import { getMonthName } from '../../../utils/movieFunctions.ts';
 
@@ -57,7 +57,7 @@ export function MovieUpcomingProjections({
             'md:px-8 px-4 mb-5 border-gray-200 border rounded-b-2xl grid grid-cols-1 items-center '
           }
         >
-          <SignInButton text={'Notify Me'} />
+          <LongRedWhiteButton text={'Notify Me'} />
           <div className={'col-span-2 my-3'}>
             <SignUpProjectionsButton
               isLoggedIn={false}

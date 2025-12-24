@@ -8,7 +8,7 @@ interface SignInButtonProps {
   whiteBackground?: boolean;
 }
 
-export function SignInButton({
+export function LongRedWhiteButton({
   onClick,
   disabled,
   isLoading,

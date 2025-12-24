@@ -11,7 +11,7 @@ import { useEmailVerificationFlow } from '../../../hooks/auth-hooks/useEmailVeri
 import { EnterCodeInput } from '../EnterCodeInput.tsx';
 import { InputField } from '../InputField.tsx';
 import { LogInSideBarArrowButton } from '../../buttons/LogInSideBarArrowButton.tsx';
-import { SignInButton } from '../../buttons/SignInButton.tsx';
+import { LongRedWhiteButton } from '../../buttons/LongRedWhiteButton.tsx';
 import { ResendButton } from '../../buttons/ResendButton.tsx';
 import { MAIL_ICON } from '../../../utils/icons.tsx';
 
@@ -112,7 +112,7 @@ export function EmailVerifyType({
         </div>
       )}
       <div className={'mb-8'}></div>
-      <SignInButton
+      <LongRedWhiteButton
         onClick={safeHandleContinue}
         disabled={loading}
         isLoading={loading}

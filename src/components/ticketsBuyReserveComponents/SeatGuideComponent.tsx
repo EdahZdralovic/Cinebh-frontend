@@ -10,10 +10,6 @@ export function SeatGuideComponent() {
     type: 'REGULAR',
     availability: 'RESERVED',
   };
-  const PAID_SEAT: SeatStatus = {
-    type: 'REGULAR',
-    availability: 'SOLD',
-  };
   const REGULAR_SEAT: SeatStatus = {
     type: 'REGULAR',
     availability: 'FREE',
@@ -30,31 +26,41 @@ export function SeatGuideComponent() {
   return (
     <section className={'border-b border-gray-200 pb-8'}>
       <div className={'flex justify-center text-[var(--color-primary)] '}>
-        <h4 className={'font-thin text-lg mb-4'}> Seat Guide</h4>
+        <h4 className={'font-thin text-lg mb-6'}> Seat Guide</h4>
       </div>
-      <div className={'grid grid-cols-2'}>
+      <div className={'grid grid-cols-2  md:mx-0 mx-[6%]'}>
         <div className={'grid grid-cols-1 gap-4'}>
           <div className={'inline-flex items-center gap-2'}>
-            <SeatButton info={AVAILABLE_SEAT} /> <span>Available</span>
+            <SeatButton info={AVAILABLE_SEAT} isSelected={false} />{' '}
+            <span>Available</span>
           </div>
           <div className={'inline-flex items-center gap-2'}>
-            <SeatButton info={RESERVED_SEAT} /> <span>Reserved</span>
+            <SeatButton info={RESERVED_SEAT} isSelected={false} />{' '}
+            <span>Reserved</span>
           </div>
           <div className={'inline-flex items-center gap-2'}>
-            <SeatButton info={PAID_SEAT} />
+            <SeatButton
+              info={AVAILABLE_SEAT}
+              isSelectedForSeatGuide={true}
+              isSelected={false}
+              onClick={function (): void {
+                throw new Error('Function not implemented.');
+              }}
+            />
             <span>Selected</span>
           </div>
         </div>
         <div className={'grid grid-cols-1 gap-3 '}>
           <div className={'inline-flex items-center gap-2'}>
-            <SeatButton info={REGULAR_SEAT} />{' '}
+            <SeatButton info={REGULAR_SEAT} isSelected={false} />{' '}
             <span>Regular Seats (7 BAM)</span>
           </div>
           <div className={'inline-flex items-center gap-2'}>
-            <SeatButton info={VIP_SEAT} /> <span>VIP Seats (10 BAM)</span>
+            <SeatButton info={VIP_SEAT} isSelected={false} />{' '}
+            <span>VIP Seats (10 BAM)</span>
           </div>
           <div className={'inline-flex items-center gap-2'}>
-            <SeatButton info={LOVE_SEAT} />
+            <SeatButton info={LOVE_SEAT} isSelected={false} />
             <span>Love Seats (24 BAM)</span>
           </div>
         </div>

@@ -1,4 +1,4 @@
-import { SignInButton } from '../../buttons/SignInButton.tsx';
+import { LongRedWhiteButton } from '../../buttons/LongRedWhiteButton.tsx';
 import { FaApple, FaGoogle } from 'react-icons/fa';
 import { InputField } from '../InputField.tsx';
 import { useEffect, useState } from 'react';
@@ -136,7 +136,7 @@ export function SignInSignUpInput({
           </div>
           <button onClick={goToReset}>Forgot password?</button>
         </div>
-        <SignInButton
+        <LongRedWhiteButton
           disabled={!isMatchingPassword && isForSignUp}
           onClick={isForSignUp ? registerSubmit : loginSubmit}
           isLoading={loading}

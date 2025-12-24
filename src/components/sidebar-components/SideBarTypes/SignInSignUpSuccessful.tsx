@@ -1,5 +1,5 @@
 import { LogInSideBarArrowButton } from '../../buttons/LogInSideBarArrowButton.tsx';
-import { SignInButton } from '../../buttons/SignInButton.tsx';
+import { LongRedWhiteButton } from '../../buttons/LongRedWhiteButton.tsx';
 import type { SignInSignUpSuccessfulProps } from '../../../types/AuthTypes.ts';
 
 export function SignInSingUpSuccessful({
@@ -41,7 +41,11 @@ export function SignInSingUpSuccessful({
         />
       </div>
       <div className={'mb-10'}></div>
-      {isForSignUp ? <SignInButton onClick={onClose} text="See Movies" /> : ' '}
+      {isForSignUp ? (
+        <LongRedWhiteButton onClick={onClose} text="See Movies" />
+      ) : (
+        ' '
+      )}
     </section>
   );
 }

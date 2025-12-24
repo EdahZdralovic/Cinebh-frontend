@@ -16,7 +16,7 @@ export default function AppRoutes() {
       <Route path="/tickets" element={<Tickets />} />
       <Route path="/upcoming" element={<UpcomingMovies />} />
       <Route path="/showing" element={<CurrentlyShowing />} />
-      <Route path="/movies/:id" element={<MovieDetails />} />
+      <Route path="/movies/details/:id" element={<MovieDetails />} />
       <Route path="/buy-ticket/:projectionId" element={<BuyReserveTickets />} />
     </Routes>
   );

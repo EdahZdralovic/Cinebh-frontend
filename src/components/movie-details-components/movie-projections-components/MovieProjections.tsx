@@ -5,7 +5,7 @@ import { useState } from 'react';
 import { useScrollToTop } from '../../../hooks/useScrollToTop.ts';
 import { useMovieProjections } from '../../../hooks/movie-hooks/useMovieProjections.ts';
 import { ProjectionTimeButton } from '../../buttons/ProjectionTimeButton.tsx';
-import { SignInButton } from '../../buttons/SignInButton.tsx';
+import { LongRedWhiteButton } from '../../buttons/LongRedWhiteButton.tsx';
 import type { Projection } from '../../../types/MovieTypes.ts';
 import { useAuth } from '../../../context/AuthContext.tsx';
 import { SignUpProjectionsButton } from '../../buttons/SignUpProjectionsButton.tsx';
@@ -88,14 +88,14 @@ export function MovieProjections({ movieId }: { movieId: number }) {
           }
         >
           <div className={'mt-5 col-span-1 '}>
-            <SignInButton
+            <LongRedWhiteButton
               whiteBackground
               text={'Reserve Ticket'}
               disabled={!canBuy || !isLoggedIn}
             />
           </div>
           <div className={'mt-5 col-span-1 '}>
-            <SignInButton
+            <LongRedWhiteButton
               text={'Buy Ticket'}
               disabled={!canBuy || !isLoggedIn}
               onClick={() => {

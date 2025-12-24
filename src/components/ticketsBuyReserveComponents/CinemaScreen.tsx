@@ -6,7 +6,7 @@ export function CinemaScreen() {
         <img
           src={'/assets/images/cinema_screen_image.png'}
           alt={'cinema screen'}
-          className={'w-4/6 '}
+          className={'md:w-3/6 lg:4/6 w-5/6'}
         />
       </div>
     </section>

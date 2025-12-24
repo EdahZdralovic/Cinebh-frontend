@@ -24,7 +24,7 @@ export function SmallDetailsComponent({
         <span className="h-5 w-px bg-[var(--color-secondary)] mx-2 inline-block align-text-bottom "></span>
         <span className="md:px-2">{language}</span>
         <span className="h-5 w-px bg-[var(--color-secondary)] mx-3 inline-block align-text-bottom "></span>
-        <span className=" mx-2 md:w-auto w-[15%]  ">{duration} MIN</span>
+        <span className=" mx-2 md:w-auto w-[24%]  ">{duration} MIN</span>
         {showDates ? (
           <>
             <span className="h-5 md:ml-2  w-px bg-[var(--color-secondary)] inline-block align-text-bottom "></span>
