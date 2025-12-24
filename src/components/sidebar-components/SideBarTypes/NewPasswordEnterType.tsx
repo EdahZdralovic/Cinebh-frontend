@@ -14,11 +14,23 @@ export function NewPasswordEnterType({
   onBack,
   onSuccess,
 }: NewPasswordEnterTypeProps) {
-  const { password, confirm, setConfirm, showError, Error, loading, submit } =
-    useResetPassword({ email, onSuccess });
+  const {
+    password,
+    confirm,
+    setPassword,
+    setConfirm,
+    showError,
+    Error,
+    loading,
+    submit,
+  } = useResetPassword({ email, onSuccess });
 
   function handleConfirmChange(e: React.ChangeEvent<HTMLInputElement>) {
     setConfirm(e.target.value);
+  }
+
+  function handlePasswordChange(e: React.ChangeEvent<HTMLInputElement>) {
+    setPassword(e.target.value);
   }
 
   return (
@@ -45,7 +57,7 @@ export function NewPasswordEnterType({
           isPassword
           icon={LOCK_ICON}
           value={password}
-          onChange={handleConfirmChange}
+          onChange={handlePasswordChange}
           isMatchingPasswords={!showError}
           name=""
         />
