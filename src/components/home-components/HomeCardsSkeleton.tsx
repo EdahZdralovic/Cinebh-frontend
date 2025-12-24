@@ -13,7 +13,6 @@ export function HomeCardsSkeleton() {
           isMovie={false}
           street="Loading..."
           redStrip={false}
-          id={0}
         />
       ))}
     </>

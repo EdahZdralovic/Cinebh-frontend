@@ -17,6 +17,7 @@ export const ROUTES = {
   REFRESH_TOKEN_ENDPOINT: '/auth/refresh',
   LOGOUT_ENDPOINT: '/auth/logout',
   HOME_ROUTE: '/',
+  USER_EMAIL_ENDPOINT: '/users/email',
   MOVIE_DETAILS_ROUTE: (id: number | undefined) => `/movies/${id}`,
 };
 
@@ -60,4 +61,10 @@ export const LOADING_MESSAGES = {
 
 export const KEYBOARD = {
   BACKSPACE: 'Backspace',
+};
+
+export const NUMBERS = {
+  SIX: 6,
+  FOUR: 4,
+  TEN: 10,
 };

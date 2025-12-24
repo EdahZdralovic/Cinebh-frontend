@@ -17,7 +17,7 @@ export function RatingBox({ rating = null, name }: RatingBoxProps) {
         </div>
         <div className={'grid grid-cols-1 col-span-6 ml-2'}>
           <h5 className={'text-lg font-semibold self-center'}>
-            {rating ? rating : 'No rating'}
+            {rating ?? 'No rating'}
           </h5>
           <p className={'text-gray-500 text-sm'}> {name}</p>
         </div>

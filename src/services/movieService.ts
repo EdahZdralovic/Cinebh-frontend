@@ -1,4 +1,4 @@
-import axiosInstance, { delay } from './axiosInstance';
+import axiosInstance from './axiosInstance';
 import { buildMovieParams } from '../utils/buildMovieParams.ts';
 import type { MovieDetailsProps } from '../types/MovieTypes.ts';
 
@@ -46,7 +46,6 @@ export const getCurrentlyShowingMovies = async (
 };
 
 export async function getMovieDetails(id: number): Promise<MovieDetailsProps> {
-  await delay(1000);
   const res = await axiosInstance.get(`/movies/details/${id}`);
   return res.data;
 }

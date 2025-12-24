@@ -45,7 +45,9 @@ export function MediaContainer({
               src={
                 isSkeleton
                   ? '/assets/images/gray_photo_loading.avif'
-                  : mediaPhotos![index]
+                  : mediaPhotos
+                    ? mediaPhotos[index]
+                    : ''
               }
               key={index}
               className={

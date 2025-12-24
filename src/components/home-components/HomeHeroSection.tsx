@@ -8,7 +8,7 @@ import { HomeCardsErrorMessage } from './HomeCardsErrorMessage.tsx';
 import { HomeHeroSkeleton } from './HomeHeroSkeleton.tsx';
 import { ROUTES } from '../../utils/Constants.ts';
 import { HomeHeroVariants } from '../../utils/animations.ts';
-import { Link } from 'react-router-dom';
+import { HeroBuyTicketButton } from '../buttons/HeroBuyTicketButton.tsx';
 
 function HomeHeroSection() {
   const COUNT = 3;
@@ -52,16 +52,16 @@ function HomeHeroSection() {
           style={{ backgroundImage: `url(${movie.coverImageUrl})` }}
         >
           <div className="absolute bottom-0 left-0 right-0 h-[60%] bg-gradient-to-t from-black/55  to-transparent pointer-events-none" />
-          <Link to={ROUTES.MOVIE_DETAILS_ROUTE(movie.id)}>
-            <div className="relative pl-[6%] pb-[10%] flex flex-col text-white  items-start justify-end font-bold">
-              <GenreButton name={genre} />
-              <h1 className="mt-3 sm:text-5xl text-xl">{movie.title}</h1>
-              <p className="sm:text-xl text-sm pt-4 leading-relaxed font-semibold sm:max-w-[50%] max-w-[70%]">
-                {' '}
-                {movie.synopsis}
-              </p>
-            </div>
-          </Link>
+
+          <div className="relative pl-[6%] pb-[6%] flex flex-col text-white  items-start justify-end font-bold">
+            <GenreButton name={genre} />
+            <h1 className="mt-3 sm:text-5xl text-xl">{movie.title}</h1>
+            <p className="sm:text-xl text-sm pt-4 leading-relaxed font-semibold sm:max-w-[50%] max-w-[70%]">
+              {' '}
+              {movie.synopsis}
+            </p>
+            <HeroBuyTicketButton movieId={movie.id} />
+          </div>
           <div className="relative  pb-6 left-1/2-translate-x-1/2 flex justify-center gap-6 ">
             {Array.from({ length: COUNT }).map((_, i) => (
               <HeroButton

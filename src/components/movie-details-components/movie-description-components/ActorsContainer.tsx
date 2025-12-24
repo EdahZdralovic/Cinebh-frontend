@@ -3,8 +3,8 @@ import type { ActorsContainerProps } from '../../../types/MovieTypes.ts';
 export function ActorsContainer({ actors }: ActorsContainerProps) {
   return (
     <section>
-      <span className="h-9 w-[2px] bg-[var(--color-secondary)] mr-4  inline-block   text-gray-500 text-3xl font-bold ">
-        &nbsp;&nbsp;Cast
+      <span className="h-9 w-[2px]  bg-[var(--color-secondary)] mr-4  inline-block   text-gray-500 text-3xl font-bold ">
+        <span className={'pl-4'}>Cast</span>
       </span>
       <div className={'mt-3 text-lg grid grid-cols-3  '}>
         {actors.map((actor, index) => (
