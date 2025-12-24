@@ -54,7 +54,7 @@ export const COMPONENTS_TEXT = {
 
 export const LOADING_MESSAGES = {
   LONG_LOADING_TEXT:
-    'Movie details are loading, please wait. Movie will show up soon, thank you for your patience.',
+    'Movie details are loading, please wait. Movie will show up soon, thank you for your patience. While you wait here are topics to think about, Who will win Oscar this year, Is it posible to have too much butter on popcorns...',
   JUST_LOADING: 'Loading...',
   PLEASE_WAIT: 'Please wait.',
 };

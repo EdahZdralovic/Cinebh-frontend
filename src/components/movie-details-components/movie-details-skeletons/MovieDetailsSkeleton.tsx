@@ -7,6 +7,59 @@ import { RiLoader2Fill } from 'react-icons/ri';
 import { LOADING_MESSAGES } from '../../../utils/Constants.ts';
 import { MediaContainer } from '../movie-description-components/MediaContainer.tsx';
 
+export interface CrewMemberProps {
+  fullName: string;
+  characterName: string | null;
+  role: string;
+}
+
+const ACTORS_FOR_SKELETON: CrewMemberProps[] = [
+  {
+    fullName: 'Maybe Brad Pit?',
+    characterName: 'Loading...',
+    role: 'ACTOR',
+  },
+  {
+    fullName: 'Hmm, De Niro ?',
+    characterName: 'Loading...',
+    role: 'ACTOR',
+  },
+  {
+    fullName: 'Is it Jennifer Aniston ?',
+    characterName: 'Loading...',
+    role: 'ACTOR',
+  },
+  {
+    fullName: 'Is that Morgan Freeman?',
+    characterName: 'Loading...',
+    role: 'ACTOR',
+  },
+];
+const DIRECORS_FOR_SKELETON: CrewMemberProps[] = [
+  {
+    fullName: 'Quentin Tarantino ? ',
+    characterName: '',
+    role: 'DIRECTOR',
+  },
+  {
+    fullName: 'Oh, Martin Scorsese ?',
+    characterName: '',
+    role: 'DIRECTOR',
+  },
+];
+const WRITERS_FOR_SKELETON: CrewMemberProps[] = [
+  {
+    fullName: 'Writers who ? ',
+    characterName: '',
+    role: 'WRITERS',
+  },
+  {
+    fullName: 'Nope, no fun here?',
+    characterName: '',
+    role: 'WRITERS',
+  },
+];
+
 export function MovieDetailsSkeleton() {
   const genresSkeletonArray = [
     LOADING_MESSAGES.JUST_LOADING,
@@ -56,12 +109,12 @@ export function MovieDetailsSkeleton() {
               dateEnd={LOADING_MESSAGES.PLEASE_WAIT}
               genres={genresSkeletonArray}
               synopsis={LOADING_MESSAGES.LONG_LOADING_TEXT}
-              directors={[]}
-              writers={[]}
+              directors={DIRECORS_FOR_SKELETON}
+              writers={WRITERS_FOR_SKELETON}
             />
 
             <div className={'md:mt-8 mt-2 flex flex-col '}>
-              <ActorsContainer actors={[]} />
+              <ActorsContainer actors={ACTORS_FOR_SKELETON} />
               <RatingContainer rottenTomatoesRating={0.0} imdbRating={0.0} />
             </div>
           </div>
