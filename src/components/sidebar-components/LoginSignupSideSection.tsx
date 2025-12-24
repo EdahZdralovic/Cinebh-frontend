@@ -16,7 +16,25 @@ export default function LoginSignupSideSection({
   const [resetEmail, setResetEmail] = useState<string | null>(null);
 
   function sideBarChange(sideBarType: SideBarView) {
-    return () => setView(sideBarType);
+    setView(sideBarType);
+  }
+  function goToSignIn() {
+    sideBarChange(SideBarView.SIGN_IN);
+  }
+
+  function goToSignUp() {
+    sideBarChange(SideBarView.SIGN_UP);
+  }
+
+  function goToReset() {
+    sideBarChange(SideBarView.RESET);
+  }
+
+  function handleLoginSuccess() {
+    sideBarChange(SideBarView.SUCCESS_LOG_IN);
+  }
+  function handleSignupSuccess() {
+    sideBarChange(SideBarView.SUCCESS_SIGN_UP);
   }
 
   function handleEmailAndChangeView(
@@ -25,14 +43,14 @@ export default function LoginSignupSideSection({
   ) {
     return (email: string) => {
       setEmail(email);
-      setView(nextView);
+      sideBarChange(nextView);
     };
   }
 
   useEffect(() => {
     if (view === SideBarView.SUCCESS_LOG_IN) {
       const timer = setTimeout(onClose, 1500);
-      return () => clearTimeout(timer);
+      return clearTimeout(timer);
     }
   }, [view]);
 
@@ -47,9 +65,9 @@ export default function LoginSignupSideSection({
           {view === SideBarView.SIGN_IN && (
             <SignInSignUpInput
               isForSignUp={false}
-              onLoginSuccess={sideBarChange(SideBarView.SUCCESS_LOG_IN)}
-              goToSignUp={sideBarChange(SideBarView.SIGN_UP)}
-              goToReset={sideBarChange(SideBarView.RESET)}
+              onLoginSuccess={handleLoginSuccess}
+              goToSignUp={goToSignUp}
+              goToReset={goToReset}
               onRegisterSuccess={handleEmailAndChangeView(
                 setSignupEmail,
                 SideBarView.VERIFY_CODE
@@ -65,8 +83,8 @@ export default function LoginSignupSideSection({
                 setSignupEmail,
                 SideBarView.VERIFY_CODE
               )}
-              goToSignUp={sideBarChange(SideBarView.SIGN_UP)}
-              goToReset={sideBarChange(SideBarView.RESET)}
+              goToSignUp={goToSignUp}
+              goToReset={goToReset}
               onClose={onClose}
             />
           )}
@@ -75,15 +93,15 @@ export default function LoginSignupSideSection({
             <EmailVerifyType
               isForVerification
               presetEmail={signupEmail}
-              onBack={sideBarChange(SideBarView.SIGN_UP)}
-              onVerified={sideBarChange(SideBarView.SUCCESS_SIGN_UP)}
+              onBack={goToSignUp}
+              onVerified={handleSignupSuccess}
             />
           )}
 
           {view === SideBarView.RESET && (
             <EmailVerifyType
               isForVerification={false}
-              onBack={() => setView(SideBarView.SIGN_IN)}
+              onBack={goToSignIn}
               presetEmail={signupEmail}
               onVerified={handleEmailAndChangeView(
                 setResetEmail,
@@ -103,8 +121,8 @@ export default function LoginSignupSideSection({
           {view === 'newPassword' && (
             <NewPasswordEnterType
               email={resetEmail}
-              onBack={sideBarChange(SideBarView.RESET)}
-              onSuccess={sideBarChange(SideBarView.SUCCESS_SIGN_UP)}
+              onBack={goToReset}
+              onSuccess={handleSignupSuccess}
             />
           )}
         </div>
