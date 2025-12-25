@@ -42,13 +42,17 @@ export function MovieDetails() {
     <section>
       <div
         className={
-          'flex flex-col lg:mx-[6%] mx-4 md:mt-8 mt-3 text-[var(--color-primary)] '
+          'flex flex-col lg:mx-[6%] mx-4 md:mt-8 mt-3 text-[var(--color-primary)]  '
         }
       >
         <div>
           <h2 className={'md:text-3xl text-xl font-bold'}>Movie Details</h2>
         </div>
-        <MediaContainer videoUrl={trailer} mediaPhotos={mediaPhotos} />
+        {loading ? (
+          <MediaContainer isSkeleton={true} />
+        ) : (
+          <MediaContainer videoUrl={trailer} mediaPhotos={mediaPhotos} />
+        )}
         <div className={'mt-6 grid md:grid-cols-2 grid-cols-1'}>
           <div className={'flex flex-col md:pr-4'}>
             <h1
@@ -56,7 +60,7 @@ export function MovieDetails() {
                 'font-bold md:text-3xl text-xl text-[var(--color-primary)]'
               }
             >
-              {movie.title}
+              {loading ? 'Loading...' : movie.title}
             </h1>
             <DescriptionContainer
               pgRating={movie.pgRating}

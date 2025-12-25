@@ -69,9 +69,7 @@ export function MovieDetailsSkeleton() {
   return (
     <section>
       <div
-        className={
-          'flex flex-col lg:mx-[6%] mx-4 md:mt-8 mt-3 text-gray-500 animate-pulse'
-        }
+        className={'flex flex-col lg:mx-[6%] mx-4 md:mt-8 mt-3 text-gray-500 '}
       >
         <div>
           <h2
@@ -82,43 +80,45 @@ export function MovieDetailsSkeleton() {
             Movie Details
           </h2>
         </div>
-        <MediaContainer isSkeleton={true} />
-
+        <div className={'animate-pulse'}>
+          <MediaContainer isSkeleton={true} />
+        </div>
         <div className={'mt-6 grid md:grid-cols-2 grid-cols-1'}>
           <div className={'flex flex-col md:pr-4'}>
             <h1
               className={
-                'font-bold md:text-3xl text-xl text-[var(--color-primary)]'
+                'font-bold md:text-3xl text-xl text-[var(--color-primary)] animate-pulse'
               }
             >
               Loading...
             </h1>
-            <DescriptionContainer
-              pgRating={
-                <RiLoader2Fill className={'size-4 ml-1 mr-2 animate-spin'} />
-              }
-              language={
-                <RiLoader2Fill className={' size-4 ml-0 animate-spin '} />
-              }
-              duration={
-                <RiLoader2Fill
-                  className={'size-4 animate-spin mb-2 inline-flex mr-1 '}
-                />
-              }
-              dateStart={LOADING_MESSAGES.JUST_LOADING}
-              dateEnd={LOADING_MESSAGES.PLEASE_WAIT}
-              genres={genresSkeletonArray}
-              synopsis={LOADING_MESSAGES.LONG_LOADING_TEXT}
-              directors={DIRECORS_FOR_SKELETON}
-              writers={WRITERS_FOR_SKELETON}
-            />
-
-            <div className={'md:mt-8 mt-2 flex flex-col '}>
+            <div className={'animate-pulse'}>
+              <DescriptionContainer
+                pgRating={
+                  <RiLoader2Fill className={'size-4 ml-1 mr-2 animate-spin'} />
+                }
+                language={
+                  <RiLoader2Fill className={' size-4 ml-0 animate-spin '} />
+                }
+                duration={
+                  <RiLoader2Fill
+                    className={'size-4 animate-spin mb-2 inline-flex mr-1 '}
+                  />
+                }
+                dateStart={LOADING_MESSAGES.JUST_LOADING}
+                dateEnd={LOADING_MESSAGES.PLEASE_WAIT}
+                genres={genresSkeletonArray}
+                synopsis={LOADING_MESSAGES.LONG_LOADING_TEXT}
+                directors={DIRECORS_FOR_SKELETON}
+                writers={WRITERS_FOR_SKELETON}
+              />
+            </div>
+            <div className={'md:mt-8 mt-2 flex flex-col animate-pulse '}>
               <ActorsContainer actors={ACTORS_FOR_SKELETON} />
               <RatingContainer rottenTomatoesRating={0.0} imdbRating={0.0} />
             </div>
           </div>
-          <div className={'md:mr-6 md:ml-4 '}>
+          <div className={'md:mr-6 md:ml-4 animate-pulse'}>
             <MovieUpcomingProjections
               isSkeleton={true}
               title={''}
@@ -126,7 +126,7 @@ export function MovieDetailsSkeleton() {
             />
           </div>
         </div>
-        <div className={'md:mt-0 mt-5'}>
+        <div className={'md:mt-0 mt-5 '}>
           <SeeAlsoMovies />
         </div>
       </div>
