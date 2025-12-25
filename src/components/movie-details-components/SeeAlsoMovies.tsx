@@ -1,5 +1,5 @@
 import { useMainCards } from '../../hooks/movie-hooks/useMainCards.ts';
-import { NUMBERS, ROUTES } from '../../utils/Constants.ts';
+import { IMAGE_ROUTES, NUMBERS, ROUTES } from '../../utils/Constants.ts';
 import { MiniMovieCard } from '../cards/MiniMovieCard.tsx';
 import ArrowButton, { ArrowDirection } from '../buttons/ArrowButton.tsx';
 import { useState } from 'react';
@@ -25,7 +25,11 @@ export function SeeAlsoMovies() {
       <div className={' grid md:grid-cols-6 grid-cols-2  md:gap-4 gap-2 my-4'}>
         {loading
           ? Array.from({ length: NUMBERS.SIX }).map((_, i) => (
-              <MiniMovieCard key={i} isSkeleton={true} />
+              <MiniMovieCard
+                key={i}
+                coverImageUrl={IMAGE_ROUTES.GRAY_PHOTO}
+                isSkeleton={true}
+              />
             ))
           : mainCards.map((miniCard, index) => (
               <Link to={ROUTES.MOVIE_DETAILS_ROUTE(miniCard.id)}>
@@ -33,7 +37,7 @@ export function SeeAlsoMovies() {
                   title={miniCard.title}
                   coverImageUrl={miniCard.coverImageUrl}
                   key={index}
-                  isSkeleton={loading}
+                  isSkeleton={false}
                 />
               </Link>
             ))}

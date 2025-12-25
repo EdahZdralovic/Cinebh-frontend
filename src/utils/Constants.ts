@@ -79,3 +79,7 @@ export const NUMBERS = {
   FOUR: 4,
   TEN: 10,
 };
+
+export const IMAGE_ROUTES = {
+  GRAY_PHOTO: '/assets/images/gray_photo_loading.avif',
+};

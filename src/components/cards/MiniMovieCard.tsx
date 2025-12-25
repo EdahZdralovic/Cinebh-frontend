@@ -1,3 +1,5 @@
+import { IMAGE_ROUTES } from '../../utils/Constants.ts';
+
 interface MiniMovieCardProps {
   title?: string;
   coverImageUrl?: string;
@@ -11,14 +13,12 @@ export function MiniMovieCard({
 }: MiniMovieCardProps) {
   return (
     <section>
-      <div className="justify-center z-0 shadow-lg border border-gray-200 w-full relative  grid  items-center grid-col-1 rounded-3xl">
-        <div className="relative m-3  min-w-[90%]  min-h-[86%] aspect-[6/5] ">
-          <img
-            src={isSkeleton ? '/assets/images/loading_gray.png' : coverImageUrl}
-            alt={isSkeleton ? 'Loading ' : title}
-            className="relative h-full  min-w-[98%] min-h-full aspect-[94/100] insert-0 w-full  rounded-2xl object-cover"
-          />
-        </div>
+      <div className="justify-center z-0 shadow-lg border min-h-[100%] border-gray-200 min-w-full relative  grid  items-center grid-col-1 rounded-3xl">
+        <img
+          src={isSkeleton ? IMAGE_ROUTES.GRAY_PHOTO : coverImageUrl}
+          alt={isSkeleton ? 'Loading ' : title}
+          className="relative min-h-max min-w-full p-3 aspect-[100/80]   rounded-3xl object-cover"
+        />
         <div className=" pl-4 truncate font-bold text-sm pb-4 ">
           {isSkeleton ? ' Loading...' : title}
         </div>
