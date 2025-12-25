@@ -80,6 +80,12 @@ export const NUMBERS = {
   TEN: 10,
 };
 
+export const KEY_WORDS = {
+  ACTOR: 'ACTOR',
+  DIRECTOR: 'DIRECTOR',
+  WRITER: 'WRITER',
+};
+
 export const IMAGE_ROUTES = {
   GRAY_PHOTO: '/assets/images/gray_photo_loading.avif',
 };
