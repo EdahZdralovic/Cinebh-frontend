@@ -10,23 +10,28 @@ import { useScrollToTop } from '../../hooks/useScrollToTop.ts';
 import { formatDateSecond, TEN_DAYS_FROM_NOW } from '../../utils/dateUtils.ts';
 import { MovieProjections } from '../../components/movie-details-components/movie-projections-components/MovieProjections.tsx';
 import { MovieDetailsSkeleton } from '../../components/movie-details-components/movie-details-skeletons/MovieDetailsSkeleton.tsx';
+import { MovieNotFoundComponent } from '../../components/movie-details-components/movie-details-skeletons/MovieNotFoundComponent.tsx';
 
 export function MovieDetails() {
   useScrollToTop();
   const { id } = useParams<{ id: string }>();
   const movieId = Number(id);
 
-  if (!id) {
-    return <div>Invalid movie id.</div>;
-  }
   const { movie, loading, error } = useMovieDetails(movieId);
 
   if (loading) {
     return <MovieDetailsSkeleton />;
   }
-
-  if (error || !movie) {
-    return <div>Movie not found.</div>;
+  if (!id || !movie) {
+    return <MovieNotFoundComponent />;
+  }
+  if (error?.response?.status === 404) {
+    return <MovieNotFoundComponent />;
+  }
+  if (error) {
+    return (
+      <MovieNotFoundComponent Not404Error={true} errorMessage={error.message} />
+    );
   }
 
   const dateStart = formatDateSecond(movie.projectionStart);
