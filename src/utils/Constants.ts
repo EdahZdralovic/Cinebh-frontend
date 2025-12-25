@@ -16,9 +16,14 @@ export const ROUTES = {
   REGISTER_ENDPOINT: '/auth/register',
   REFRESH_TOKEN_ENDPOINT: '/auth/refresh',
   LOGOUT_ENDPOINT: '/auth/logout',
-  HOME_ROUTE: '/',
   USER_EMAIL_ENDPOINT: '/users/email',
-  MOVIE_DETAILS_ROUTE: (id: number | undefined) => `/movies/${id}`,
+  HOME_ROUTE: '/',
+  MOVIE_DETAILS_ROUTE: (id: number | undefined) => `/movies/details/${id}`,
+
+  BUY_TICKET_ROUTE: (projectionId: number | string) =>
+    `/buy-ticket/${projectionId}`,
+  PROJECTION_SEATS: (projectionId: number) =>
+    `/projections/${projectionId}/seats`,
 };
 
 export const AUTH_CONST = {
@@ -33,6 +38,12 @@ export const AUTH_CONST = {
   EMAIL_KEY_WORD: 'email',
   EMAIL_REGEX: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
   PASSWORD_REGEX: /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,}$/,
+};
+
+export const KEY_WORDS = {
+  AUTHOR_KEY_WORD: 'AUTHOR',
+  DIRECTOR_KEY_WORD: 'DIRECTOR',
+  WRITER_KEY_WORD: 'WRITER',
 };
 
 export const ERRORS = {

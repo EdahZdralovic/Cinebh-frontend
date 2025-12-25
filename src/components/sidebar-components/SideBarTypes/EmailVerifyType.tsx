@@ -49,7 +49,7 @@ export function EmailVerifyType({
   }
 
   const safeHandleContinue = () =>
-    withLoading(loading, setLoading, () => handleContinue());
+    withLoading(loading, setLoading, () => handleContinue(code));
 
   const onResendClick = () =>
     handleResendVerification(email, isForVerification, reset, setError);

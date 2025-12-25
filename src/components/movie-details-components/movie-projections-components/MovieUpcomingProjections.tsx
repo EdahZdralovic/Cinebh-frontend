@@ -1,10 +1,10 @@
-import { LongRedWhiteButton } from '../../buttons/LongRedWhiteButton.tsx';
 import type { MovieUpcomingProjectionsProps } from '../../../types/MovieTypes.ts';
 import { getMonthName } from '../../../utils/movieFunctions.ts';
 
 import { SignUpProjectionsButton } from '../../buttons/SignUpProjectionsButton.tsx';
 import { COMPONENTS_TEXT } from '../../../utils/Constants.ts';
 import { useAuth } from '../../../context/AuthContext.tsx';
+import { LongRedWhiteButton } from '../../buttons/LongRedWhiteButton.tsx';
 
 export function MovieUpcomingProjections({
   title,
@@ -54,11 +54,11 @@ export function MovieUpcomingProjections({
         </div>
         <div
           className={
-            'md:px-8 px-4 mb-5 border-gray-200 border rounded-b-2xl grid grid-cols-1 items-center '
+            ' p-8 border-gray-200 border rounded-b-2xl grid grid-cols-1 items-center '
           }
         >
           <LongRedWhiteButton text={'Notify Me'} />
-          <div className={'col-span-2 my-3'}>
+          <div className={'col-span-2' + isLoggedIn ? ' ' : ' '}>
             <SignUpProjectionsButton
               isLoggedIn={false}
               textBeforeButton={COMPONENTS_TEXT.ONLY_SIGN_UP_NOTIFY}
