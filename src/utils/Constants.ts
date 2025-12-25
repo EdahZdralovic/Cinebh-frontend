@@ -18,7 +18,7 @@ export const ROUTES = {
   LOGOUT_ENDPOINT: '/auth/logout',
   USER_EMAIL_ENDPOINT: '/users/email',
   HOME_ROUTE: '/',
-  MOVIE_DETAILS_ROUTE: (id: number | undefined) => `/movies/details/${id}`,
+  MOVIE_DETAILS_ROUTE: (id: number | undefined) => `/movies/${id}`,
 
   BUY_TICKET_ROUTE: (projectionId: number | string) =>
     `/buy-ticket/${projectionId}`,

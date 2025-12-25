@@ -7,7 +7,7 @@ import { SeatGuideComponent } from '../../components/ticketsBuyReserveComponents
 import { ChosenSeatsComponent } from '../../components/ticketsBuyReserveComponents/ChosenSeatsComponent.tsx';
 import { SeatsComponent } from '../../components/ticketsBuyReserveComponents/SeatsComponent.tsx';
 import { CinemaScreen } from '../../components/ticketsBuyReserveComponents/CinemaScreen.tsx';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import type { SeatStatus } from '../../types/ProjectionSeatLayout.ts';
 
 export function BuyReserveTickets() {
