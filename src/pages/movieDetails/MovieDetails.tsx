@@ -11,6 +11,7 @@ import { formatDateSecond, TEN_DAYS_FROM_NOW } from '../../utils/dateUtils.ts';
 import { MovieProjections } from '../../components/movie-details-components/movie-projections-components/MovieProjections.tsx';
 import { MovieDetailsSkeleton } from '../../components/movie-details-components/movie-details-skeletons/MovieDetailsSkeleton.tsx';
 import { MovieNotFoundComponent } from '../../components/movie-details-components/movie-details-skeletons/MovieNotFoundComponent.tsx';
+import { KEY_WORDS } from '../../utils/Constants.ts';
 
 export function MovieDetails() {
   useScrollToTop();
@@ -40,9 +41,9 @@ export function MovieDetails() {
   const trailer = movie.mediaVideoUrl;
   const genres = movie.genres;
   const members = movie.crew;
-  const actors = members.filter((m) => m.role === 'ACTOR');
-  const directors = members.filter((m) => m.role === 'DIRECTOR');
-  const writers = members.filter((m) => m.role === 'WRITER');
+  const actors = members.filter((m) => m.role === KEY_WORDS.ACTOR);
+  const directors = members.filter((m) => m.role === KEY_WORDS.DIRECTOR);
+  const writers = members.filter((m) => m.role === KEY_WORDS.WRITER);
   return (
     <section>
       <div
