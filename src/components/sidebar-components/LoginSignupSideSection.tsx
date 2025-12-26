@@ -49,10 +49,12 @@ export default function LoginSignupSideSection({
 
   useEffect(() => {
     if (view === SideBarView.SUCCESS_LOG_IN) {
-      const timer = setTimeout(onClose, 1500);
-      return clearTimeout(timer);
+      const timer = setTimeout(() => {
+        onClose();
+      }, 1500);
+      return () => clearTimeout(timer);
     }
-  }, [view]);
+  }, [view, onClose]);
 
   return (
     <section>

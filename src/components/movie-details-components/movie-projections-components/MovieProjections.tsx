@@ -9,7 +9,7 @@ import { SignInButton } from '../../buttons/SignInButton.tsx';
 import type { Projection } from '../../../types/MovieTypes.ts';
 import { useAuth } from '../../../context/AuthContext.tsx';
 import { SignUpProjectionsButton } from '../../buttons/SignUpProjectionsButton.tsx';
-import { COMPONENTS_TEXT } from '../../../utils/Constants.ts';
+import { COMPONENTS_TEXT, ERRORS } from '../../../utils/Constants.ts';
 
 export function MovieProjections({ movieId }: { movieId: number }) {
   useScrollToTop();
@@ -24,20 +24,37 @@ export function MovieProjections({ movieId }: { movieId: number }) {
     q: '',
   });
   const { projections = [] } = useMovieProjections(movieId, filters);
+  const [errorMessage, setErrorMessage] = useState<string>('');
   const venueSelected = (filters.venueId?.length ?? 0) > 0;
   const selectedTime = filters.projectionTimes?.[0] ?? null;
   const canBuy = venueSelected && !!selectedTime;
+
   const patchFilters = (patch: Partial<Filters>) => {
     setFilters((prev) => {
       const next = { ...prev, ...patch };
       if (patch.venueId) {
         next.projectionTimes = [];
+        setErrorMessage('');
       }
       return next;
     });
   };
   const { user } = useAuth();
   const isLoggedIn = !!user;
+
+  const handleProjectionTimeClick = (projectionName: string) => {
+    if (!venueSelected) {
+      setErrorMessage(ERRORS.NO_CINEMA_SELECTED);
+      return;
+    } else if (!isLoggedIn) {
+      setErrorMessage(COMPONENTS_TEXT.ONLY_SIGN_UP_BUY_AND_RESERVE);
+      return;
+    }
+    setErrorMessage('');
+    patchFilters({
+      projectionTimes: projectionName === selectedTime ? [] : [projectionName],
+    });
+  };
 
   return (
     <section
@@ -59,6 +76,9 @@ export function MovieProjections({ movieId }: { movieId: number }) {
           <div>
             <h4 className={'text-2xl font-bold'}>Standard</h4>
           </div>
+          {errorMessage && (
+            <div className="text-[var(--color-secondary)]">{errorMessage}</div>
+          )}
           <div className={'flex flex-wrap gap-4 mt-4 pb-14 '}>
             {projections.length === 0 && (
               <div className={'min-h-[54px] '}>No projections found.</div>
@@ -68,12 +88,7 @@ export function MovieProjections({ movieId }: { movieId: number }) {
                 key={projection.id}
                 time={projection.name}
                 isActive={projection.name === selectedTime}
-                onClick={() => {
-                  patchFilters({
-                    projectionTimes:
-                      projection.name === selectedTime ? [] : [projection.name],
-                  });
-                }}
+                onClick={() => handleProjectionTimeClick(projection.name)}
               />
             ))}
           </div>

@@ -44,12 +44,13 @@ export const ERRORS = {
     'Your password needs to contain at least 8 characters, 1 uppercase letter and 1 number.',
   ERROR_CODE_INPUT: 'Enter all 4 digits of code',
   AUTH_CONTEXT_ERROR: 'Error: useAuth is misplaced.',
+  NO_CINEMA_SELECTED: 'Please select Cinema before projection time.',
 };
 
 export const COMPONENTS_TEXT = {
   ONLY_SIGN_UP_NOTIFY: 'Only signed up users can be notified.',
   ONLY_SIGN_UP_BUY_AND_RESERVE:
-    'Only signed up users can be buy and reserve tickets.',
+    'Only signed up users can buy and reserve tickets.',
 };
 
 export const LOADING_MESSAGES = {

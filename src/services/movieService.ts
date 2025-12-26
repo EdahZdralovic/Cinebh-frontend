@@ -1,4 +1,4 @@
-import axiosInstance, { delay } from './axiosInstance';
+import axiosInstance from './axiosInstance';
 import { buildMovieParams } from '../utils/buildMovieParams.ts';
 import type { MovieDetailsProps } from '../types/MovieTypes.ts';
 
@@ -7,7 +7,6 @@ export const getCards = async (type: string, page: number, size: number) => {
   const params = { page, size };
 
   try {
-    await delay(2000);
     const { data } = await axiosInstance.get(url, { params });
     return data;
   } catch (error) {
@@ -39,7 +38,6 @@ export const getCurrentlyShowingMovies = async (
   const params = buildMovieParams(filters, page, size);
 
   try {
-    await delay(2000);
     const { data } = await axiosInstance.get(url, { params });
     return data;
   } catch (error) {
@@ -48,7 +46,6 @@ export const getCurrentlyShowingMovies = async (
 };
 
 export async function getMovieDetails(id: number): Promise<MovieDetailsProps> {
-  await delay(2000);
   const res = await axiosInstance.get(`/movies/details/${id}`);
   return res.data;
 }
