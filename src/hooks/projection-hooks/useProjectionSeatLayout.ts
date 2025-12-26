@@ -1,11 +1,28 @@
 import { useQuery } from '@tanstack/react-query';
-import type { ProjectionSeatLayout } from '../../types/ProjectionSeatLayout.ts';
-import { getProjectionSeatLayout } from '../../services/projectionService.ts';
+import type { ProjectionSeatLayout } from '../../types/ProjectionSeatLayout';
+import { getProjectionSeatLayout } from '../../services/projectionService';
+import { AxiosError } from 'axios';
 
 export const useProjectionSeatLayout = (projectionId?: number) => {
-  return useQuery<ProjectionSeatLayout>({
-    queryKey: ['projection-seat-layout', projectionId],
-    queryFn: () => getProjectionSeatLayout(projectionId!),
-    enabled: !!projectionId,
-  });
+  const { data, isLoading, error } = useQuery<ProjectionSeatLayout, AxiosError>(
+    {
+      queryKey: ['projection-seat-layout', projectionId],
+      queryFn: () => getProjectionSeatLayout(projectionId!),
+      enabled: !!projectionId,
+
+      retry: (failureCount, error) => {
+        if (error?.response?.status === 404) return false;
+        return failureCount < 2;
+      },
+      staleTime: 1000 * 60 * 5,
+    }
+  );
+
+  return {
+    projectionData: data,
+    loading: isLoading,
+    error,
+    isNotFound: error?.response?.status === 404,
+    isError: !!error,
+  };
 };

@@ -44,6 +44,9 @@ export const KEY_WORDS = {
   AUTHOR_KEY_WORD: 'AUTHOR',
   DIRECTOR_KEY_WORD: 'DIRECTOR',
   WRITER_KEY_WORD: 'WRITER',
+  ACTOR: 'ACTOR',
+  DIRECTOR: 'DIRECTOR',
+  WRITER: 'WRITER',
 };
 
 export const ERRORS = {
@@ -75,15 +78,11 @@ export const KEYBOARD = {
 };
 
 export const NUMBERS = {
-  SIX: 6,
   FOUR: 4,
+  SIX: 6,
+  EIGHT: 8,
+  NINE: 9,
   TEN: 10,
-};
-
-export const KEY_WORDS = {
-  ACTOR: 'ACTOR',
-  DIRECTOR: 'DIRECTOR',
-  WRITER: 'WRITER',
 };
 
 export const IMAGE_ROUTES = {

@@ -5,7 +5,7 @@ import {
 
 export function shouldInsertAisle(index: number, rowSeats: SeatStatus[]) {
   if (rowSeats.length === 0) return false;
-  const isLoveRow = rowSeats[0].type === 'LOVEBOX';
+  const isLoveRow = rowSeats[0].type === SeatHallType.LOVE_BOX;
   const totalPlaces = isLoveRow ? rowSeats.length * 2 : rowSeats.length;
   const middle = totalPlaces / 2;
   const aisleAfterIndex = isLoveRow ? middle / 2 : middle;
@@ -21,4 +21,31 @@ export function FromSeatToPrice(seat: SeatStatus) {
 
 export function formatSeatLabels(seats: SeatStatus[]): string {
   return seats.map((s) => `${s.row}${s.column}`).join(', ');
+}
+
+const SESSION_KEY = 'seat-session-end';
+const SESSION_DURATION_MS = 40 * 1000;
+
+export function getOrCreateSeatSessionEnd(): number {
+  const existing = sessionStorage.getItem(SESSION_KEY);
+
+  if (existing) {
+    return Number(existing);
+  }
+
+  const end = Date.now() + SESSION_DURATION_MS;
+  sessionStorage.setItem(SESSION_KEY, String(end));
+  return end;
+}
+
+export function clearSeatSession() {
+  sessionStorage.removeItem(SESSION_KEY);
+}
+
+export function formatMs(ms: number) {
+  const totalSeconds = Math.max(0, Math.floor(ms / 1000));
+  const minutes = Math.floor(totalSeconds / 60);
+  const seconds = totalSeconds % 60;
+
+  return `${minutes}:${seconds.toString().padStart(2, '0')}`;
 }

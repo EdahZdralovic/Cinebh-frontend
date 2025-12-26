@@ -5,6 +5,7 @@ import {
   type SeatStatus,
   type SeatType,
 } from '../../../types/ProjectionSeatLayout.ts';
+import { RiLoader2Fill } from 'react-icons/ri';
 import { FaRegStar } from 'react-icons/fa';
 
 interface SeatButtonProps {
@@ -12,6 +13,7 @@ interface SeatButtonProps {
   isSelected: boolean;
   onClick?: () => void;
   isSelectedForSeatGuide?: boolean;
+  isSkeleton: boolean;
 }
 
 export function SeatButton({
@@ -21,6 +23,7 @@ export function SeatButton({
     return;
   },
   isSelectedForSeatGuide = false,
+  isSkeleton = false,
 }: SeatButtonProps) {
   const type = info.type;
   const row = info.row || 'X';
@@ -41,9 +44,15 @@ export function SeatButton({
         buttonSize
       }
     >
-      {seatTypeLook(type)}
-      {row}
-      {column}
+      {isSkeleton ? (
+        <RiLoader2Fill className={'size-5 mt-0  animate-ping  inline-flex  '} />
+      ) : (
+        <>
+          {seatTypeLook(type)}
+          {row}
+          {column}
+        </>
+      )}
     </button>
   );
 }
@@ -60,8 +69,8 @@ function seatTypeLook(type: SeatType) {
 
 function isLovebox(type: SeatType) {
   if (type === SeatHallType.LOVE_BOX) {
-    return ' md:w-[108px] w-[84px] ';
-  } else return ' md:w-[50px] w-[40px]';
+    return ' md:w-[108px] w-[76px] ';
+  } else return ' md:w-[50px] w-[36px]';
 }
 
 function seatAvailabilityStyle(availability: SeatAvailability) {

@@ -1,5 +1,5 @@
-import { SeatButton } from '../buttons/seatButtons/SeatButton.tsx';
-import type { SeatStatus } from '../../types/ProjectionSeatLayout.ts';
+import { SeatButton } from '../../buttons/seatButtons/SeatButton.tsx';
+import type { SeatStatus } from '../../../types/ProjectionSeatLayout.ts';
 
 export function SeatGuideComponent() {
   const AVAILABLE_SEAT: SeatStatus = {
@@ -43,9 +43,6 @@ export function SeatGuideComponent() {
               info={AVAILABLE_SEAT}
               isSelectedForSeatGuide={true}
               isSelected={false}
-              onClick={function (): void {
-                throw new Error('Function not implemented.');
-              }}
             />
             <span>Selected</span>
           </div>
