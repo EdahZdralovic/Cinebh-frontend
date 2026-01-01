@@ -13,7 +13,8 @@ interface SeatButtonProps {
   isSelected: boolean;
   onClick?: () => void;
   isSelectedForSeatGuide?: boolean;
-  isSkeleton: boolean;
+  isSkeleton?: boolean;
+  isDisabled?: boolean;
 }
 
 export function SeatButton({
@@ -24,6 +25,7 @@ export function SeatButton({
   },
   isSelectedForSeatGuide = false,
   isSkeleton = false,
+  isDisabled = false,
 }: SeatButtonProps) {
   const type = info.type;
   const row = info.row || 'X';
@@ -35,10 +37,11 @@ export function SeatButton({
   return (
     <button
       onClick={onClick}
+      disabled={isDisabled}
       className={
-        'py-2 h-10 flex justify-center rounded-lg border font-thin ' +
+        'py-2 h-10 flex justify-center rounded-lg border text-md font-thin ' +
         (isSelected || isSelectedForSeatGuide
-          ? ' bg-[var(--color-secondary)] text-white md:text-md text-sm border-[var(--color-secondary)] '
+          ? ' bg-[var(--color-secondary)] text-white border-[var(--color-secondary)] '
           : '') +
         bgColor +
         buttonSize
@@ -61,7 +64,7 @@ function seatTypeLook(type: SeatType) {
   if (type === SeatHallType.REGULAR) {
     return;
   } else if (type === SeatHallType.VIP) {
-    return <FaRegStar size={20} />;
+    return <FaRegStar className={'self-center mr-[2px] md:size-4 size-3 '} />;
   } else if (type === SeatHallType.LOVE_BOX) {
     return;
   }
@@ -69,8 +72,8 @@ function seatTypeLook(type: SeatType) {
 
 function isLovebox(type: SeatType) {
   if (type === SeatHallType.LOVE_BOX) {
-    return ' md:w-[108px] w-[76px] ';
-  } else return ' md:w-[50px] w-[36px]';
+    return ' md:w-[108px]  w-[76px] ';
+  } else return ' md:w-[50px]  w-[36px]';
 }
 
 function seatAvailabilityStyle(availability: SeatAvailability) {

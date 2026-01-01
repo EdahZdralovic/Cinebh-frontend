@@ -1,10 +1,9 @@
-import type { ReactNode } from 'react';
 import { RiLoader2Fill } from 'react-icons/ri';
 
 interface SmallDetailsComponentProps {
-  pgRating: string | ReactNode;
-  language: string | ReactNode;
-  duration: number | ReactNode;
+  pgRating: string;
+  language: string;
+  duration: number;
   dateStart?: string;
   dateEnd?: string;
   showDates?: boolean;
@@ -39,7 +38,7 @@ export function SmallDetailsComponent({
           )}
         </span>
         <span className="h-5 w-px bg-[var(--color-secondary)] mx-3 inline-block align-text-bottom "></span>
-        <span className=" mx-2 md:w-auto w-[24%]  ">
+        <span className=" mx-1 md:w-auto w-[13%]  ">
           {isSkeleton ? (
             <RiLoader2Fill className={'size-4 ml-1 mr-2 animate-spin'} />
           ) : (
@@ -52,14 +51,12 @@ export function SmallDetailsComponent({
             <span className={'md:px-4 pl-2 '}>
               {isSkeleton ? (
                 <>
-                  {' '}
-                  Loading ...{' '}
+                  Loading ...
                   <RiLoader2Fill className={'size-4 ml-1 mr-2 animate-spin'} />
                 </>
               ) : (
                 <>
-                  {' '}
-                  Projection date: {dateStart} - {dateEnd}{' '}
+                  Projection date: {dateStart} - {dateEnd}
                 </>
               )}
             </span>

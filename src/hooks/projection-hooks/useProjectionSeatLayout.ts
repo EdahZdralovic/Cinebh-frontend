@@ -15,6 +15,7 @@ export const useProjectionSeatLayout = (projectionId?: number) => {
         return failureCount < 2;
       },
       staleTime: 1000 * 60 * 5,
+      refetchOnMount: true,
     }
   );
 
@@ -22,7 +23,5 @@ export const useProjectionSeatLayout = (projectionId?: number) => {
     projectionData: data,
     loading: isLoading,
     error,
-    isNotFound: error?.response?.status === 404,
-    isError: !!error,
   };
 };

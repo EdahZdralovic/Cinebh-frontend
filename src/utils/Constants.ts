@@ -18,12 +18,24 @@ export const ROUTES = {
   LOGOUT_ENDPOINT: '/auth/logout',
   USER_EMAIL_ENDPOINT: '/users/email',
   HOME_ROUTE: '/',
-  MOVIE_DETAILS_ROUTE: (id: number | undefined) => `/movies/${id}`,
 
+  MOVIE_DETAILS_ROUTE: (id: number | undefined) => `/movies/${id}`,
   BUY_TICKET_ROUTE: (projectionId: number | string) =>
     `/buy-ticket/${projectionId}`,
   PROJECTION_SEATS: (projectionId: number) =>
     `/projections/${projectionId}/seats`,
+  RESERVE_TICKET_ROUTE: (projectionId: number | string) =>
+    `/reserve-ticket/${projectionId}`,
+  PAYMENT_TICKET_ROUTE: (bookingId: number) => `/payment-ticket/${bookingId}`,
+
+  RESERVE_SEATS_POST: (projectionId: number) =>
+    `/projections/${projectionId}/seats/reserve`,
+
+  CREATE_PAYMENT_INTENT_POST: (bookingId: number) =>
+    `/payments/create-intent/${bookingId}`,
+
+  GET_SAVED_CARDS: () => `/payments/cards`,
+  GET_PAYMENT_PAGE: (bookingId: number) => `/bookings/${bookingId}/payment`,
 };
 
 export const AUTH_CONST = {
@@ -86,6 +98,17 @@ export const NUMBERS = {
   TEN: 10,
 };
 
+export const SESSION_CONSTS = {
+  SESSION_KEY: 'seat-session-end',
+  SESSION_DURATION_IN_MS: 5 * 60 * 1000,
+};
+
 export const IMAGE_ROUTES = {
   GRAY_PHOTO: '/assets/images/gray_photo_loading.avif',
 };
+
+export enum BRANDS_OF_BANK_CARDS {
+  VISA = 'VISA',
+  MASTERCARD = 'MASTER',
+  OTHER = 'OTHER',
+}

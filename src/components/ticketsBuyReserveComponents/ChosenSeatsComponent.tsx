@@ -8,9 +8,19 @@ import { useEffect, useState } from 'react';
 
 interface ChosenSeatsProps {
   seats: SeatStatus[];
+  isForReservation?: boolean;
+  handleReservation?: () => void;
+  handlePayment?: () => void;
+  processingReservation?: boolean;
 }
 
-export function ChosenSeatsComponent({ seats }: ChosenSeatsProps) {
+export function ChosenSeatsComponent({
+  seats,
+  isForReservation = false,
+  handleReservation,
+  handlePayment,
+  processingReservation = false,
+}: ChosenSeatsProps) {
   const [disabledPayment, setDisabledPayment] = useState(true);
   useEffect(() => {
     setDisabledPayment(seats.length === 0);
@@ -39,11 +49,21 @@ export function ChosenSeatsComponent({ seats }: ChosenSeatsProps) {
         </span>
         <span>{totalPrice} KM</span>
       </div>
-      <div className={'mt-[14%]'}>
-        <LongRedWhiteButton
-          text={'Continue to Payment'}
-          disabled={disabledPayment}
-        />
+      <div className={'mt-[18%] md:mb-0 mb-6'}>
+        {isForReservation ? (
+          <LongRedWhiteButton
+            text={'Make Reservation'}
+            disabled={disabledPayment}
+            onClick={handleReservation}
+            isLoading={processingReservation}
+          />
+        ) : (
+          <LongRedWhiteButton
+            text={'Continue to Payment'}
+            disabled={disabledPayment}
+            onClick={handlePayment}
+          />
+        )}
       </div>
     </section>
   );

@@ -47,3 +47,29 @@ export enum SeatPaidType {
   RESERVED = 'RESERVED',
   PAID = 'PAID',
 }
+
+export interface BuyTicketDto {
+  movie: {
+    id: number;
+    title: string;
+    date: string;
+  };
+  projection: {
+    id: number;
+    startTime: string;
+    price: number;
+  };
+  hall: {
+    id: number;
+    name: string;
+    regularSeats: number;
+    vipSeats: number;
+    loveBoxSeats: number;
+  };
+  seats: {
+    seatId: number;
+    row: string;
+    number: number;
+    status: 'FREE' | 'RESERVED' | 'PAID';
+  }[];
+}

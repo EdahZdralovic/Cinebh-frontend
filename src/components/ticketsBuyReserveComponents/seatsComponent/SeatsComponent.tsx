@@ -1,4 +1,8 @@
-import type { SeatStatus } from '../../../types/ProjectionSeatLayout.ts';
+import {
+  SeatHallType,
+  SeatPaidType,
+  type SeatStatus,
+} from '../../../types/ProjectionSeatLayout.ts';
 import { SeatButton } from '../../buttons/seatButtons/SeatButton.tsx';
 import { shouldInsertAisle } from '../../../utils/ProjectionFunctions.ts';
 import { NUMBERS } from '../../../utils/Constants.ts';
@@ -17,8 +21,8 @@ export function SeatsComponent({
   isSkeleton = false,
 }: SeatsComponentProps) {
   const FAKE_SEAT: SeatStatus = {
-    type: 'REGULAR',
-    availability: 'PAID',
+    type: SeatHallType.REGULAR,
+    availability: SeatPaidType.RESERVED,
   };
   if (isSkeleton) {
     return (
@@ -37,6 +41,7 @@ export function SeatsComponent({
                   isSelectedForSeatGuide={false}
                   isSelected={false}
                   isSkeleton={true}
+                  isDisabled={true}
                 />
               </div>
             ))}
@@ -69,8 +74,10 @@ export function SeatsComponent({
               >
                 <SeatButton
                   info={seat}
+                  isDisabled={seat.availability === 'RESERVED'}
                   isSelected={selectedSeats.some((s) => s.id === seat.id)}
                   onClick={() => onSeatToggle(seat)}
+                  isSkeleton={false}
                 />
               </div>
             ))}

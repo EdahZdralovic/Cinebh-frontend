@@ -9,7 +9,7 @@ import { LongRedWhiteButton } from '../../buttons/LongRedWhiteButton.tsx';
 import type { Projection } from '../../../types/MovieTypes.ts';
 import { useAuth } from '../../../context/AuthContext.tsx';
 import { SignUpProjectionsButton } from '../../buttons/SignUpProjectionsButton.tsx';
-import { COMPONENTS_TEXT, ROUTES, ERRORS } from '../../../utils/Constants.ts';
+import { COMPONENTS_TEXT, ERRORS, ROUTES } from '../../../utils/Constants.ts';
 import { useNavigate } from 'react-router-dom';
 
 export function MovieProjections({ movieId }: { movieId: number }) {
@@ -34,7 +34,6 @@ export function MovieProjections({ movieId }: { movieId: number }) {
     setFilters((prev) => {
       const next = { ...prev, ...patch };
       if (patch.venueId) {
-        next.projectionTimes = [];
         setErrorMessage('');
       }
       return next;
@@ -54,8 +53,18 @@ export function MovieProjections({ movieId }: { movieId: number }) {
     setErrorMessage('');
     patchFilters({
       projectionTimes: projectionName === selectedTime ? [] : [projectionName],
+      selectedProjectionId: projections[0].id,
     });
   };
+
+  function goToReserveTicket() {
+    if (!filters.selectedProjectionId) return;
+    navigate(ROUTES.RESERVE_TICKET_ROUTE(filters.selectedProjectionId));
+  }
+  function goToBuyTicket() {
+    if (!filters.selectedProjectionId) return;
+    navigate(ROUTES.BUY_TICKET_ROUTE(filters.selectedProjectionId));
+  }
 
   return (
     <section
@@ -105,16 +114,14 @@ export function MovieProjections({ movieId }: { movieId: number }) {
               whiteBackground
               text={'Reserve Ticket'}
               disabled={!canBuy || !isLoggedIn}
+              onClick={goToReserveTicket}
             />
           </div>
           <div className={'mt-5 col-span-1 '}>
             <LongRedWhiteButton
               text={'Buy Ticket'}
               disabled={!canBuy || !isLoggedIn}
-              onClick={() => {
-                if (!filters.selectedProjectionId) return;
-                navigate(ROUTES.BUY_TICKET_ROUTE(filters.selectedProjectionId));
-              }}
+              onClick={goToBuyTicket}
             />
           </div>
           <div className={'col-span-2 my-3 '}>

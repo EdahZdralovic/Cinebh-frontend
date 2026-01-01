@@ -1,5 +1,3 @@
-import { useNavigate } from 'react-router-dom';
-
 interface SessionExpiredPopUpProps {
   open: boolean;
   onConfirmFirst: () => void;
@@ -22,7 +20,6 @@ export function SessionBuyTicketPopUp({
   onConfirmSecond,
 }: SessionExpiredPopUpProps) {
   if (!open) return null;
-  const navigate = useNavigate();
 
   return (
     <div className="fixed inset-0 z-50 flex items-start justify-center">
@@ -30,11 +27,11 @@ export function SessionBuyTicketPopUp({
       <div className="relative  bg-white rounded-xl mt-[10%] p-6 w-[90%] max-w-md text-start ">
         <h2 className="text-xl font-bold mb-3">{headerText}</h2>
         <p className="text-gray-600 mb-6">{descriptionText}</p>
-        <div className={'flex justify-end'}>
+        <div className={'flex justify-end '}>
           {secondButton ? (
             <button
               onClick={onConfirmSecond}
-              className=" items-center  border border-[var(--color-secondary)] bg-white text-[var(--color-secondary)] px-6 py-2 rounded-xl "
+              className=" items-center  border border-[var(--color-secondary)] mr-4 bg-white text-[var(--color-secondary)] px-4 py-2 rounded-lg "
             >
               {secondButtonText}
             </button>
@@ -43,7 +40,7 @@ export function SessionBuyTicketPopUp({
           )}
           <button
             onClick={onConfirmFirst}
-            className=" items-center  bg-[var(--color-secondary)] text-white px-6 py-2 rounded-xl "
+            className=" items-center  bg-[var(--color-secondary)] text-white px-4 py-2 rounded-lg "
           >
             {buttonText}
           </button>

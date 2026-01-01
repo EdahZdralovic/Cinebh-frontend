@@ -23,7 +23,7 @@ export function TicketsMovieInfo({
 
   return (
     <section>
-      <div className={'grid grid-cols-6 text-[var(--color-primary)]'}>
+      <div className={'grid grid-cols-6 '}>
         <img
           src={
             loading || isSkeleton
