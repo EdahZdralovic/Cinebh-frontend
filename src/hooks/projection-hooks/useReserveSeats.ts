@@ -1,29 +1,42 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { ROUTES } from '../../utils/Constants';
 import axiosInstance from '../../services/axiosInstance.tsx';
+import { ROUTES } from '../../utils/Constants.ts';
+
+type ReservationMode = 'HOLD' | 'PAYMENT';
 
 interface ReserveSeatsPayload {
   projectionId: number;
   seatIds: number[];
+  mode: ReservationMode;
+  sessionId?: string; // NEW
 }
 
 export function useReserveSeats() {
   const queryClient = useQueryClient();
 
   const mutation = useMutation({
-    mutationFn: async ({ projectionId, seatIds }: ReserveSeatsPayload) => {
+    mutationFn: async ({
+      projectionId,
+      seatIds,
+      mode,
+      sessionId,
+    }: ReserveSeatsPayload) => {
+      const body: any = { seatIds, mode };
+
+      if (mode === 'PAYMENT') {
+        body.sessionId = sessionId;
+      }
+
       const { data } = await axiosInstance.post(
         ROUTES.RESERVE_SEATS_POST(projectionId),
-        seatIds
+        body
       );
-      return data as number; // bookingId
+
+      return data as number;
     },
 
     onSuccess: (_bookingId, variables) => {
       queryClient.invalidateQueries({
-        queryKey: ['projection-seat-layout', variables.projectionId],
-      });
-      queryClient.refetchQueries({
         queryKey: ['projection-seat-layout', variables.projectionId],
       });
     },

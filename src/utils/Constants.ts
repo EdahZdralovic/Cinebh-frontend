@@ -36,6 +36,7 @@ export const ROUTES = {
 
   GET_SAVED_CARDS: () => `/payments/cards`,
   GET_PAYMENT_PAGE: (bookingId: number) => `/bookings/${bookingId}/payment`,
+  POST_PAYMENT_INTENT: (bookingId: number) => `/payments/intent/${bookingId}`,
 };
 
 export const AUTH_CONST = {

@@ -7,6 +7,8 @@ import {
 } from '@stripe/react-stripe-js';
 import { LongRedWhiteButton } from '../buttons/LongRedWhiteButton.tsx';
 import axiosInstance from '../../services/axiosInstance.tsx';
+import { ROUTES } from '../../utils/Constants.ts';
+import { useState } from 'react';
 
 const stripeInputOptions = {
   style: {
@@ -28,13 +30,18 @@ const stripeInputOptions = {
 interface AddNewCardComponentProps {
   bookingId: number;
   totalPrice?: number;
+  setPaymentSuccess: React.Dispatch<React.SetStateAction<boolean>>;
 }
 export function AddNewCardComponent({
   bookingId,
   totalPrice = 0,
+  setPaymentSuccess,
 }: AddNewCardComponentProps) {
   const elements = useElements();
   const stripe = useStripe();
+  const [waitingStripeProcessPayment, setWaitingStripeProcessPayment] =
+    useState(false);
+  const [stripeErrorText, setStripeErrorText] = useState('');
 
   async function handlePayment() {
     if (!stripe || !elements) {
@@ -43,34 +50,37 @@ export function AddNewCardComponent({
     }
 
     try {
+      setWaitingStripeProcessPayment(true);
       const response = await axiosInstance.post(
-        `/payments/intent/${bookingId}`
+        ROUTES.POST_PAYMENT_INTENT(bookingId)
       );
 
       const clientSecret = response.data.clientSecret;
       const cardElement = elements.getElement(CardNumberElement);
 
       if (!cardElement) {
-        throw new Error('Card element not found');
+        setStripeErrorText('Card element not found');
+        return;
       }
+
       const result = await stripe.confirmCardPayment(clientSecret, {
         payment_method: {
           card: cardElement,
         },
       });
 
-      if (result.error) {
-        console.error('Payment failed:', result.error.message);
-        // ui eror treba
+      if (result.error?.message) {
+        setStripeErrorText(result.error.message);
         return;
       }
 
       if (result.paymentIntent?.status === 'succeeded') {
-        console.log('Payment succeeded 🎉');
-        //redirect neki
+        setPaymentSuccess(true);
       }
     } catch (err) {
-      console.error('Payment error:', err);
+      setStripeErrorText('Payment error: ' + err);
+    } finally {
+      setWaitingStripeProcessPayment(false);
     }
   }
 
@@ -101,7 +111,7 @@ export function AddNewCardComponent({
       </div>
 
       <div className="flex flex-col w-full">
-        <span className="text-lg">CVV</span>
+        <span className="text-lg">CVC</span>
         <div className="h-12 w-full rounded-lg px-4 border border-gray-300 flex items-center focus-within:outline-none focus-within:ring-2 focus-within:ring-[var(--color-primary)]">
           <div className="w-full">
             <CardCvcElement options={stripeInputOptions} />
@@ -113,7 +123,11 @@ export function AddNewCardComponent({
         <LongRedWhiteButton
           text={'Make Payment - ' + totalPrice + ' KM'}
           onClick={handlePayment}
+          isLoading={waitingStripeProcessPayment}
         />
+      </div>
+      <div className={'w-full text-[var(--color-secondary)] '}>
+        <span>{stripeErrorText}</span>
       </div>
     </section>
   );

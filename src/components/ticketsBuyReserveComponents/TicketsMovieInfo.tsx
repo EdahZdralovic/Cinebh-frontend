@@ -20,6 +20,9 @@ export function TicketsMovieInfo({
         errorCode={error.name}
       />
     );
+  if (!movie) {
+    return <TicketsMovieInfo isSkeleton={true} movieId={0} />;
+  }
 
   return (
     <section>

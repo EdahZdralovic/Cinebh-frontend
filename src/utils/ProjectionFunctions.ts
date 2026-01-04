@@ -2,7 +2,6 @@ import {
   SeatHallType,
   type SeatStatus,
 } from '../types/ProjectionSeatLayout.ts';
-import { SESSION_CONSTS } from './Constants.ts';
 
 export function shouldInsertAisle(index: number, rowSeats: SeatStatus[]) {
   if (rowSeats.length === 0) return false;
@@ -24,26 +23,9 @@ export function formatSeatLabels(seats: SeatStatus[]): string {
   return seats.map((s) => `${s.row}${s.column}`).join(', ');
 }
 
-export function getOrCreateSeatSessionEnd(): number {
-  const existing = sessionStorage.getItem(SESSION_CONSTS.SESSION_KEY);
-
-  if (existing) {
-    return Number(existing);
-  }
-
-  const end = Date.now() + SESSION_CONSTS.SESSION_DURATION_IN_MS;
-  sessionStorage.setItem(SESSION_CONSTS.SESSION_KEY, String(end));
-  return end;
-}
-
-export function clearSeatSession() {
-  sessionStorage.removeItem(SESSION_CONSTS.SESSION_KEY);
-}
-
 export function formatMs(ms: number) {
   const totalSeconds = Math.max(0, Math.floor(ms / 1000));
   const minutes = Math.floor(totalSeconds / 60);
   const seconds = totalSeconds % 60;
-
   return `${minutes}:${seconds.toString().padStart(2, '0')}`;
 }

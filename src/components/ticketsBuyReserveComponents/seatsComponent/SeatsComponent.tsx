@@ -21,6 +21,9 @@ export function SeatsComponent({
   isSkeleton = false,
 }: SeatsComponentProps) {
   const FAKE_SEAT: SeatStatus = {
+    column: 0,
+    id: 0,
+    row: '',
     type: SeatHallType.REGULAR,
     availability: SeatPaidType.RESERVED,
   };

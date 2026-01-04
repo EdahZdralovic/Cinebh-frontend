@@ -33,13 +33,14 @@ axiosInstance.interceptors.response.use(
   (response) => response,
   async (error) => {
     const original = error.config;
+    const status = error.response?.status;
 
     if (original?.url?.includes(ROUTES.REFRESH_TOKEN_ENDPOINT)) {
       return Promise.reject(error);
     }
 
     if (
-      error.response?.status !== 401 ||
+      (status !== 401 && status !== 403) ||
       original._alreadyRefreshed ||
       isRefreshing
     ) {
@@ -58,4 +59,5 @@ axiosInstance.interceptors.response.use(
     }
   }
 );
+
 export default axiosInstance;

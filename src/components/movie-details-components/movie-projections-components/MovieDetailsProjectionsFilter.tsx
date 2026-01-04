@@ -60,7 +60,7 @@ export function MovieDetailsProjectionsFilter({
             icon={VenueIcon}
             params={{
               cityId: filters.cityId,
-              projectionTime: filters.projectionTimes[0],
+              projectionTime: filters.projectionTimes?.[0],
             }}
             singleSelect={true}
           />

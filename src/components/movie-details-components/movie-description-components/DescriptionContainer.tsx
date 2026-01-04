@@ -5,7 +5,7 @@ import { SmallDetailsComponent } from './SmallDetailsComponent.tsx';
 export function DescriptionContainer({
   pgRating,
   language,
-  duration,
+  duration = 0,
   directors,
   dateEnd,
   dateStart,

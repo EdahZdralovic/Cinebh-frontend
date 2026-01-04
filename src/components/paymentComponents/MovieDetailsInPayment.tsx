@@ -3,30 +3,47 @@ import type { SeatStatus } from '../../types/ProjectionSeatLayout.ts';
 import { formatDatePretty } from '../../utils/dateUtils.ts';
 import { useProjectionSeatLayout } from '../../hooks/projection-hooks/useProjectionSeatLayout.ts';
 import { formatSeatLabels } from '../../utils/ProjectionFunctions.ts';
+import { MovieNotFoundComponent } from '../movie-details-components/movie-details-skeletons/MovieNotFoundComponent.tsx';
 
 interface MovieDetailsInPaymentProps {
   movieId: number;
-  loading: boolean;
   seatsReserved: SeatStatus[];
   price: number;
   projectionId: number;
+  isSkeleton?: boolean;
 }
 export function MovieDetailsInPayment({
   movieId,
   seatsReserved,
   price = 0,
   projectionId,
+  isSkeleton = false,
 }: MovieDetailsInPaymentProps) {
   const { projectionData, loading, error } =
     useProjectionSeatLayout(projectionId);
 
-  if (loading) return <div>baba</div>;
-  const prettyDate = formatDatePretty(projectionData.projectionDate);
-  const projectionTime = projectionData.projectionTime.slice(0, 5);
-  const VenueStreet = projectionData.venue.street;
-  const hallName = projectionData.hall.name;
-  const venueName = projectionData.venue.name;
-  const venueCity = projectionData.venue.city;
+  if (loading || !projectionData)
+    return (
+      <MovieDetailsInPayment
+        movieId={0}
+        seatsReserved={[]}
+        price={0}
+        projectionId={0}
+        isSkeleton={true}
+      />
+    );
+  if (error) return <MovieNotFoundComponent />;
+
+  const prettyDate = isSkeleton
+    ? '--/-- '
+    : formatDatePretty(projectionData.projectionDate);
+  const projectionTime = isSkeleton
+    ? '--/-- '
+    : projectionData.projectionTime.slice(0, 5);
+  const VenueStreet = isSkeleton ? 'Loading... ' : projectionData.venue.street;
+  const hallName = isSkeleton ? 'Please wait...' : projectionData.hall.name;
+  const venueName = isSkeleton ? 'Movie is loading' : projectionData.venue.name;
+  const venueCity = isSkeleton ? '...' : projectionData.venue.city;
 
   return (
     <section className={'md:m-4  my-4'}>

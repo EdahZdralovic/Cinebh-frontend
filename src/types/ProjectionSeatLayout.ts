@@ -49,6 +49,10 @@ export enum SeatPaidType {
 }
 
 export interface BuyTicketDto {
+  id: number;
+  sessionId: string;
+  sessionExpiresAt?: number;
+
   movie: {
     id: number;
     title: string;
@@ -66,10 +70,5 @@ export interface BuyTicketDto {
     vipSeats: number;
     loveBoxSeats: number;
   };
-  seats: {
-    seatId: number;
-    row: string;
-    number: number;
-    status: 'FREE' | 'RESERVED' | 'PAID';
-  }[];
+  seats: SeatStatus[];
 }

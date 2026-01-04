@@ -7,16 +7,19 @@ import { SeatGuideComponent } from '../../components/ticketsBuyReserveComponents
 import { ChosenSeatsComponent } from '../../components/ticketsBuyReserveComponents/ChosenSeatsComponent.tsx';
 import { SeatsComponent } from '../../components/ticketsBuyReserveComponents/seatsComponent/SeatsComponent.tsx';
 import { CinemaScreen } from '../../components/ticketsBuyReserveComponents/seatsComponent/CinemaScreen.tsx';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import type { SeatStatus } from '../../types/ProjectionSeatLayout.ts';
 import { MovieNotFoundComponent } from '../../components/movie-details-components/movie-details-skeletons/MovieNotFoundComponent.tsx';
 import { BuyReserveTicketsSkeleton } from '../../components/ticketsBuyReserveComponents/BuyReserveTicketsSkeleton.tsx';
 import { SessionTimer } from '../../components/ticketsBuyReserveComponents/sessionComponents/SessionTimer.tsx';
-import { useBuyTicketSessionTimer } from '../../hooks/projection-hooks/useBuyTicketSessionTimer.ts';
-import { clearSeatSession } from '../../utils/ProjectionFunctions.ts';
 import { SessionBuyTicketPopUp } from '../../components/ticketsBuyReserveComponents/sessionComponents/SessionBuyTicketPopUp.tsx';
-import { ROUTES } from '../../utils/Constants.ts';
 import { useReserveSeats } from '../../hooks/projection-hooks/useReserveSeats.ts';
+import {
+  expireSeatSession,
+  type SeatSessionDto,
+  startSeatSession,
+} from '../../services/seatSessionService.ts';
+import { useSeatSessionCountdown } from '../../hooks/projection-hooks/useSeatSessionCountdown.ts';
 
 interface BuyReserveTicketsProps {
   isForReservation?: boolean;
@@ -25,22 +28,43 @@ export function BuyReserveTickets({
   isForReservation = false,
 }: BuyReserveTicketsProps) {
   useScrollToTop();
-
   const navigate = useNavigate();
   const { projectionId } = useParams<{ projectionId: string }>();
   const { reserveSeats } = useReserveSeats();
   const [selectedSeats, setSelectedSeats] = useState<SeatStatus[]>([]);
+  const [sessionExpired, setSessionExpired] = useState(false);
+  const [popUpReservation, setPopUpReservation] = useState(false);
   const { projectionData, loading, error } = useProjectionSeatLayout(
     Number(projectionId)
   );
-  const { remainingMs, isExpired } = useBuyTicketSessionTimer();
-  const [sessionExpired, setSessionExpired] = useState(false);
-  const [popUpReservation, setPopUpReservation] = useState(false);
+  const [session, setSession] = useState<SeatSessionDto | null>(null);
+  const projectionIdNum = Number(projectionId);
+  const startedRef = useRef<number | null>(null);
+
   useEffect(() => {
-    if (isExpired) {
+    if (!projectionIdNum) return;
+
+    if (startedRef.current === projectionIdNum) return;
+    startedRef.current = projectionIdNum;
+
+    void startSeatSession(projectionIdNum)
+      .then(setSession)
+      .catch(console.error);
+  }, [projectionIdNum]);
+
+  const { remainingMs, isExpired } = useSeatSessionCountdown(
+    session?.expiresAt
+  );
+  useEffect(() => {
+    if (!isExpired || !session) return;
+
+    (async () => {
+      try {
+        await expireSeatSession(session.sessionId);
+      } catch {}
       setSessionExpired(true);
-    }
-  }, [isExpired]);
+    })();
+  }, [isExpired, session]);
 
   if (loading) return <BuyReserveTicketsSkeleton />;
   if (error?.response?.status === 404 || !projectionData)
@@ -51,6 +75,7 @@ export function BuyReserveTickets({
   const seats = projectionData.seats;
   const projectionDate = projectionData.projectionDate;
   const projectionTime = projectionData.projectionTime;
+  const seatIds = selectedSeats.map((s) => s.id);
 
   function toggleSeat(seat: SeatStatus) {
     setSelectedSeats((prev) => {
@@ -63,45 +88,43 @@ export function BuyReserveTickets({
     });
   }
 
-  function NavigateBackToPreviousPage() {
-    clearSeatSession();
+  async function NavigateBackToPreviousPage() {
+    if (session) await expireSeatSession(session.sessionId);
     navigate(-1);
   }
 
-  function NavigateBackToHome() {
-    clearSeatSession();
+  async function NavigateBackToHome() {
+    if (session) await expireSeatSession(session.sessionId);
     navigate('/');
   }
 
   async function handleReservation() {
     try {
-      const seatIds = selectedSeats.map((seat) => seat.id);
-      const bookingId = await reserveSeats({
+      await reserveSeats({
         projectionId: Number(projectionId),
         seatIds,
+        mode: 'HOLD',
       });
       setPopUpReservation(true);
-      clearSeatSession();
-
-      console.log('Reservation successful, bookingId:', bookingId);
-    } catch (error) {
-      console.error('Reservation failed', error);
-    }
+    } catch (error) {}
   }
+
   async function handlePayment() {
-    try {
-      const seatIds = selectedSeats.map((seat) => seat.id);
-
-      const bookingId = await reserveSeats({
-        projectionId: Number(projectionId),
-        seatIds,
-      });
-
-      navigate(ROUTES.PAYMENT_TICKET_ROUTE(bookingId));
-    } catch (e) {
-      console.error('Failed to start payment', e);
+    if (!session || isExpired) {
+      setSessionExpired(true);
+      return;
     }
+    if (seatIds.length === 0) return;
+    const bookingId = await reserveSeats({
+      projectionId: Number(projectionId),
+      seatIds,
+      mode: 'PAYMENT',
+      sessionId: session.sessionId,
+    });
+
+    navigate(`/payment-ticket/${bookingId}`);
   }
+
   return (
     <section className={'grid grid-cols-1 text-[var(--color-primary)] mt-8'}>
       <div className={'flex justify-between md:mx-[6%] mx-3 items-center'}>

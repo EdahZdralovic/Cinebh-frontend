@@ -9,7 +9,9 @@ import { Toaster } from 'sonner';
 import { loadStripe } from '@stripe/stripe-js';
 import { Elements } from '@stripe/react-stripe-js';
 
-const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY);
+const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY, {
+  locale: 'en',
+});
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>

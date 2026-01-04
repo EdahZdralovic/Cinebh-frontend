@@ -1,11 +1,11 @@
 import { useQuery } from '@tanstack/react-query';
 import axiosInstance from '../../services/axiosInstance';
-import { ROUTES } from '../../utils/Constants';
+import { BRANDS_OF_BANK_CARDS, ROUTES } from '../../utils/Constants';
 
 export interface CardDto {
   id: string;
   maskedNumber: string;
-  brand: string;
+  brand: BRANDS_OF_BANK_CARDS;
   expMonth: number;
   expYear: number;
 }

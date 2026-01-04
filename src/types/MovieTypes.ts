@@ -8,21 +8,21 @@ export interface CrewMemberProps {
 }
 
 export interface MovieDetailsProps {
-  id?: number;
-  title?: string;
-  language?: string;
-  synopsis?: string;
-  duration?: number;
-  coverImageUrl?: string;
-  pgRating?: string;
-  imdbRating?: number;
-  rottenTomatoesRating?: number;
-  genres?: string[];
-  mediaPhotoUrls?: string[];
-  mediaVideoUrl?: string;
-  crew?: CrewMemberProps[];
-  projectionStart?: string;
-  projectionEnd?: string;
+  id: number;
+  title: string;
+  language: string;
+  synopsis: string;
+  duration: number;
+  coverImageUrl: string;
+  pgRating: string;
+  imdbRating: number;
+  rottenTomatoesRating: number;
+  genres: string[];
+  mediaPhotoUrls: string[];
+  mediaVideoUrl: string;
+  crew: CrewMemberProps[];
+  projectionStart: string;
+  projectionEnd: string;
 }
 
 export interface DescriptionContainerProps {

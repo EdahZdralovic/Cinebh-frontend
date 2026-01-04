@@ -1,9 +1,10 @@
 import { RiLoader2Fill } from 'react-icons/ri';
+import type { ReactNode } from 'react';
 
 interface SmallDetailsComponentProps {
-  pgRating: string;
-  language: string;
-  duration: number;
+  pgRating: string | ReactNode;
+  language: string | ReactNode;
+  duration: number | ReactNode;
   dateStart?: string;
   dateEnd?: string;
   showDates?: boolean;
@@ -13,7 +14,7 @@ interface SmallDetailsComponentProps {
 export function SmallDetailsComponent({
   pgRating,
   duration,
-  language,
+  language = 'EN',
   showDates = true,
   dateStart,
   dateEnd,

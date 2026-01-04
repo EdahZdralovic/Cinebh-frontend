@@ -25,10 +25,10 @@ export function MovieProjections({ movieId }: { movieId: number }) {
     projectionTimes: [],
     q: '',
   });
-  const { projections = [] } = useMovieProjections(movieId, filters);
+  const { projections, loading, error } = useMovieProjections(movieId, filters);
   const [errorMessage, setErrorMessage] = useState<string>('');
   const venueSelected = (filters.venueId?.length ?? 0) > 0;
-  const selectedTime = filters.projectionTimes?.[0] ?? null;
+  const selectedTime = filters.projectionTimes?.[0];
   const canBuy = venueSelected && !!selectedTime;
   const patchFilters = (patch: Partial<Filters>) => {
     setFilters((prev) => {
@@ -90,8 +90,16 @@ export function MovieProjections({ movieId }: { movieId: number }) {
             <div className="text-[var(--color-secondary)]">{errorMessage}</div>
           )}
           <div className={'flex flex-wrap gap-4 mt-4 pb-14 '}>
-            {projections.length === 0 && (
+            {projections.length === 0 && !loading && (
               <div className={'min-h-[54px] '}>No projections found.</div>
+            )}
+            {loading && (
+              <span className="min-h-[54px] text-gray-500">Loading...</span>
+            )}
+            {error && (
+              <span className=" min-h-[54px] color-[var(--color-secondary)] ">
+                Error occurred while getting projections.
+              </span>
             )}
             {projections.map((projection: Projection) => (
               <ProjectionTimeButton

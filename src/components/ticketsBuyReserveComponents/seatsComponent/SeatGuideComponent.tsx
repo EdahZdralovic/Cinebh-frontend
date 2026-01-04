@@ -3,22 +3,37 @@ import type { SeatStatus } from '../../../types/ProjectionSeatLayout.ts';
 
 export function SeatGuideComponent() {
   const AVAILABLE_SEAT: SeatStatus = {
+    column: 0,
+    id: 0,
+    row: '',
     type: 'REGULAR',
     availability: 'FREE',
   };
   const RESERVED_SEAT: SeatStatus = {
+    column: 0,
+    id: 0,
+    row: '',
     type: 'REGULAR',
     availability: 'RESERVED',
   };
   const REGULAR_SEAT: SeatStatus = {
+    column: 0,
+    id: 0,
+    row: '',
     type: 'REGULAR',
     availability: 'FREE',
   };
   const VIP_SEAT: SeatStatus = {
+    column: 0,
+    id: 0,
+    row: '',
     type: 'VIP',
     availability: 'FREE',
   };
   const LOVE_SEAT: SeatStatus = {
+    column: 0,
+    id: 0,
+    row: '',
     type: 'LOVEBOX',
     availability: 'FREE',
   };

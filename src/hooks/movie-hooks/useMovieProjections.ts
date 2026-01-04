@@ -11,7 +11,7 @@ export function useMovieProjections(movieId: number, filters: Filters) {
   });
 
   return {
-    projections: data,
+    projections: Array.isArray(data) ? data : (data?.content ?? []),
     loading: isLoading,
     error: isError ? error : null,
   };

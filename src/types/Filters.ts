@@ -12,8 +12,8 @@ export type Filters = {
   genreIds: number[];
   fromDate: string | null;
   toDate: string | null;
-  selectedDate: string;
-  projectionTimes: string[];
+  selectedDate: string | null;
+  projectionTimes: string[] | null;
   selectedProjectionId?: number;
   q: string;
 };

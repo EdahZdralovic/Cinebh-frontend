@@ -3,7 +3,7 @@ import { FaCcMastercard, FaCcVisa } from 'react-icons/fa';
 import { RiBankCardFill, RiLoader2Fill } from 'react-icons/ri';
 
 interface SavedCardNumberComponentProps {
-  brandOfCard?: BRANDS_OF_BANK_CARDS;
+  brandOfCard: BRANDS_OF_BANK_CARDS;
   lastFourCardNumbers?: string;
   isSkeleton?: boolean;
   noCardAdded?: boolean;
@@ -37,7 +37,9 @@ export function SavedCardNumberComponent({
       <div className={'flex flex-row justify-between p-6 items-center '}>
         <div className={'flex flex-row items-center align-middle gap-14 '}>
           <div>
-            {isSkeleton ? CardBrandIcon('OTHER') : CardBrandIcon(brandOfCard)}
+            {isSkeleton
+              ? CardBrandIcon(brandOfCard)
+              : CardBrandIcon(brandOfCard)}
           </div>
           <div
             className={

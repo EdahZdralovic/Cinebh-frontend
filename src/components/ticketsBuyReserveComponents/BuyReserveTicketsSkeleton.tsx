@@ -5,7 +5,7 @@ import { SeatGuideComponent } from './seatsComponent/SeatGuideComponent.tsx';
 import { ChosenSeatsComponent } from '../../components/ticketsBuyReserveComponents/ChosenSeatsComponent.tsx';
 import { SeatsComponent } from './seatsComponent/SeatsComponent.tsx';
 import { CinemaScreen } from './seatsComponent/CinemaScreen.tsx';
-import type { SeatStatus } from '../../types/ProjectionSeatLayout.ts';
+
 import { SessionTimer } from './sessionComponents/SessionTimer.tsx';
 
 export function BuyReserveTicketsSkeleton() {
@@ -42,7 +42,7 @@ export function BuyReserveTicketsSkeleton() {
               isSkeleton={true}
               seats={[]}
               selectedSeats={[]}
-              onSeatToggle={function (seat: SeatStatus): void {
+              onSeatToggle={function (): void {
                 throw new Error('Function not implemented.');
               }}
             />
