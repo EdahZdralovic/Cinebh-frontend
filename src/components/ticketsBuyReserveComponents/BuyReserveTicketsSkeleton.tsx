@@ -3,7 +3,6 @@ import { TicketsMovieInfo } from '../../components/ticketsBuyReserveComponents/T
 import { BookingDetailsComponent } from '../../components/ticketsBuyReserveComponents/BookingDetailsComponent.tsx';
 import { SeatGuideComponent } from './seatsComponent/SeatGuideComponent.tsx';
 import { ChosenSeatsComponent } from '../../components/ticketsBuyReserveComponents/ChosenSeatsComponent.tsx';
-import { SeatsComponent } from './seatsComponent/SeatsComponent.tsx';
 import { CinemaScreen } from './seatsComponent/CinemaScreen.tsx';
 
 import { SessionTimer } from './sessionComponents/SessionTimer.tsx';
