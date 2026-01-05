@@ -4,6 +4,7 @@ import { formatDatePretty } from '../../utils/dateUtils.ts';
 import { useProjectionSeatLayout } from '../../hooks/projection-hooks/useProjectionSeatLayout.ts';
 import { formatSeatLabels } from '../../utils/ProjectionFunctions.ts';
 import { MovieNotFoundComponent } from '../movie-details-components/movie-details-skeletons/MovieNotFoundComponent.tsx';
+import { MovieDetailsInPaymentSkeleton } from './MovieDetailsInPaymentSkeleton.tsx';
 
 interface MovieDetailsInPaymentProps {
   movieId: number;
@@ -22,17 +23,12 @@ export function MovieDetailsInPayment({
   const { projectionData, loading, error } =
     useProjectionSeatLayout(projectionId);
 
-  if (loading || !projectionData)
-    return (
-      <MovieDetailsInPayment
-        movieId={0}
-        seatsReserved={[]}
-        price={0}
-        projectionId={0}
-        isSkeleton={true}
-      />
-    );
-  if (error) return <MovieNotFoundComponent />;
+  if (loading) {
+    return <MovieDetailsInPaymentSkeleton />;
+  }
+  if (error || !projectionData) {
+    return <MovieNotFoundComponent />;
+  }
 
   const prettyDate = isSkeleton
     ? '--/-- '
