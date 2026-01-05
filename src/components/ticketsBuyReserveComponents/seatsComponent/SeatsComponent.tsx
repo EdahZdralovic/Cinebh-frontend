@@ -3,6 +3,7 @@ import { SeatButton } from '../../buttons/seatButtons/SeatButton.tsx';
 import { shouldInsertAisle } from '../../../utils/ProjectionFunctions.ts';
 
 import { SeatsSkeletonComponent } from './SeatsSkeletonComponent.tsx';
+import { useMemo } from 'react';
 
 interface SeatsComponentProps {
   seats: SeatStatus[];
@@ -18,14 +19,16 @@ export function SeatsComponent({
   isSkeleton = false,
 }: SeatsComponentProps) {
   if (isSkeleton) {
-    <SeatsSkeletonComponent />;
+    return <SeatsSkeletonComponent />;
   }
 
-  const seatsByRow = seats.reduce<Record<string, SeatStatus[]>>((acc, seat) => {
-    if (!acc[seat.row]) acc[seat.row] = [];
-    acc[seat.row].push(seat);
-    return acc;
-  }, {});
+  const seatsByRow = useMemo(() => {
+    return seats.reduce<Record<string, SeatStatus[]>>((acc, seat) => {
+      if (!acc[seat.row]) acc[seat.row] = [];
+      acc[seat.row].push(seat);
+      return acc;
+    }, {});
+  }, [seats]);
 
   return (
     <section className="flex flex-col md:gap-2 gap-2">

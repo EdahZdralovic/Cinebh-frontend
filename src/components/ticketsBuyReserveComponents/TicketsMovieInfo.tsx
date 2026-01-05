@@ -13,11 +13,11 @@ export function TicketsMovieInfo({
   isSkeleton,
 }: TicketsMovieInfoProps) {
   if (isSkeleton) {
-    <TicketsMovieInfoSkeleton />;
+    return <TicketsMovieInfoSkeleton />;
   }
   const { movie, loading, error } = useMovieDetails(movieId);
   if (loading) {
-    <TicketsMovieInfoSkeleton />;
+    return <TicketsMovieInfoSkeleton />;
   }
   if (error) {
     return (
