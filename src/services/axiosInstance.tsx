@@ -27,35 +27,46 @@ axiosInstance.interceptors.request.use(
   (error) => Promise.reject(error)
 );
 
-let isRefreshing = false;
-
 axiosInstance.interceptors.response.use(
   (response) => response,
   async (error) => {
     const original = error.config;
     const status = error.response?.status;
 
-    if (original?.url?.includes(ROUTES.REFRESH_TOKEN_ENDPOINT)) {
+    if (!original || !status) {
       return Promise.reject(error);
     }
 
     if (
-      (status !== 401 && status !== 403) ||
-      original._alreadyRefreshed ||
-      isRefreshing
+      original.url?.includes('/auth/login') ||
+      original.url?.includes('/auth/refresh')
     ) {
       return Promise.reject(error);
     }
+
+    if (status !== 401 && status !== 403) {
+      return Promise.reject(error);
+    }
+
+    if (original._alreadyRefreshed) {
+      return Promise.reject(error);
+    }
+
+    if (
+      original.url?.includes('/reserve') ||
+      original.url?.includes('/seat-session') ||
+      original.url?.includes('/booking')
+    ) {
+      return Promise.reject(error);
+    }
+
     original._alreadyRefreshed = true;
-    isRefreshing = true;
 
     try {
       await axiosInstance.post(ROUTES.REFRESH_TOKEN_ENDPOINT);
-      isRefreshing = false;
       return axiosInstance(original);
-    } catch (err) {
-      isRefreshing = false;
-      return Promise.reject(err);
+    } catch {
+      return Promise.reject(error);
     }
   }
 );
