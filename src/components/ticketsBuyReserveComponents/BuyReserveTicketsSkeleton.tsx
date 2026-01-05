@@ -7,6 +7,7 @@ import { SeatsComponent } from './seatsComponent/SeatsComponent.tsx';
 import { CinemaScreen } from './seatsComponent/CinemaScreen.tsx';
 
 import { SessionTimer } from './sessionComponents/SessionTimer.tsx';
+import { SeatsSkeletonComponent } from './seatsComponent/SeatsSkeletonComponent.tsx';
 
 export function BuyReserveTicketsSkeleton() {
   useScrollToTop();
@@ -38,14 +39,7 @@ export function BuyReserveTicketsSkeleton() {
         <div className={'cols-span-1 mb-14 grid grid-cols-1'}>
           <CinemaScreen />
           <div className={'mt-6 animate-pulse'}>
-            <SeatsComponent
-              isSkeleton={true}
-              seats={[]}
-              selectedSeats={[]}
-              onSeatToggle={function (): void {
-                throw new Error('Function not implemented.');
-              }}
-            />
+            <SeatsSkeletonComponent />
           </div>
         </div>
         <div className={'md:mt-4 md:mr-[12%] pb-2 '}>
