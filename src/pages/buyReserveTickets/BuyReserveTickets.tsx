@@ -72,7 +72,9 @@ export function BuyReserveTickets({
     })();
   }, [isExpired, session]);
 
-  if (loading) return <BuyReserveTicketsSkeleton />;
+  if (loading || !projectionData) {
+    return <BuyReserveTicketsSkeleton />;
+  }
   if (error?.response?.status === 404 || !projectionData)
     return <MovieNotFoundComponent />;
 
