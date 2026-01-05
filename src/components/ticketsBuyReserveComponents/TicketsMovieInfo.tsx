@@ -1,7 +1,7 @@
 import { useMovieDetails } from '../../hooks/movie-hooks/useMovieDetails.ts';
 import { SmallDetailsComponent } from '../movie-details-components/movie-description-components/SmallDetailsComponent.tsx';
 import { HomeCardsErrorMessage } from '../home-components/HomeCardsErrorMessage.tsx';
-import { IMAGE_ROUTES } from '../../utils/Constants.ts';
+import { TicketsMovieInfoSkeleton } from './TicketsMovieInfoSkeleton.tsx';
 
 interface TicketsMovieInfoProps {
   movieId: number;
@@ -12,30 +12,19 @@ export function TicketsMovieInfo({
   movieId,
   isSkeleton,
 }: TicketsMovieInfoProps) {
+  if (isSkeleton) {
+    <TicketsMovieInfoSkeleton />;
+  }
   const { movie, loading, error } = useMovieDetails(movieId);
-
+  if (loading) {
+    <TicketsMovieInfoSkeleton />;
+  }
   if (error) {
     return (
       <HomeCardsErrorMessage
         errorMessage={error.message}
         errorCode={error.name}
       />
-    );
-  }
-
-  if (loading || isSkeleton) {
-    return (
-      <section>
-        <div className="grid grid-cols-6">
-          <img
-            src={IMAGE_ROUTES.GRAY_PHOTO}
-            className="w-5/6 col-span-2 rounded-2xl"
-          />
-          <div className="col-span-4">
-            <h2 className="text-xl font-bold mb-4">Loading…</h2>
-          </div>
-        </div>
-      </section>
     );
   }
 
