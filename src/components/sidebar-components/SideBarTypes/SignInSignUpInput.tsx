@@ -151,12 +151,12 @@ export function SignInSignUpInput({
               </button>
             </>
           ) : (
-            <>
+            <div className={'flex flex-col justify-center'}>
               <span className={'mr-1'}> Don’t have an account yet?</span>
-              <button onClick={goToSignUp} className={'underline'}>
+              <button onClick={goToSignUp} className={'underline '}>
                 Sign Up
               </button>
-            </>
+            </div>
           )}
         </div>
         <div className="flex items-center w-full my-5">
@@ -166,10 +166,10 @@ export function SignInSignUpInput({
         </div>
 
         <div
-          className={'flex flex-col columns-2 justify-center  items-center '}
+          className={'flex flex-col columns-2 justify-center  items-center  '}
         >
-          <span className={'col-span-2 mb-5'}>Login with </span>
-          <div className={'flex items-center gap-4 mb-6'}>
+          <span className={'col-span-2 mb-5 hidden '}>Login with </span>
+          <div className={'flex items-center gap-4 mb-6 hidden'}>
             <FaGoogle className={'col-span-1 '} size={30} />{' '}
             <FaApple className={'col-span-1 '} size={30} />
           </div>

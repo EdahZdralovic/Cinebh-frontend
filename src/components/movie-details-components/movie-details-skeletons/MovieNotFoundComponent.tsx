@@ -35,7 +35,7 @@ export function MovieNotFoundComponent({
           </h1>
         )}
         <h2 className={'text-[var(--color-primary)] text-2xl p-10 '}>
-          Maybe you CAN FIND something down below.
+          Maybe you can find something down below.
         </h2>
 
         <div className={'mt-14'}>

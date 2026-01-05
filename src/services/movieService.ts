@@ -49,5 +49,3 @@ export async function getMovieDetails(id: number): Promise<MovieDetailsProps> {
   const res = await axiosInstance.get(`/movies/details/${id}`);
   return res.data;
 }
-
-

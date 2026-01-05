@@ -72,7 +72,7 @@ export function BuyReserveTickets({
     })();
   }, [isExpired, session]);
 
-  if (loading || !projectionData) {
+  if (loading) {
     return <BuyReserveTicketsSkeleton />;
   }
   if (error?.response?.status === 404 || !projectionData)

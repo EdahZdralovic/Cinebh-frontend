@@ -30,7 +30,7 @@ export function SignInNavbarButton({
   return (
     <div className="relative flex flex-row ">
       {isLoggedIn && (
-        <button className="transition p-2 md:border border-[var(--color-disabled-primary)] mx-4 px-3 rounded-lg">
+        <button className="transition hidden p-2 md:border border-[var(--color-disabled-primary)] mx-4 px-3 rounded-lg">
           <FaRegBell size={20} />
         </button>
       )}
