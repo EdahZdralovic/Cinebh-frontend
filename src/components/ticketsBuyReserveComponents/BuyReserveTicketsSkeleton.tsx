@@ -27,7 +27,7 @@ export function BuyReserveTicketsSkeleton() {
         <div
           className={' mx-[6%]  mb-6 flex md:flex-row flex-col animate-pulse'}
         >
-          <div className={' md:w-5/12 w-full md:mb-0 mb-4  '}>
+          <div className={' md:w-5/12 w-full md:mb-0 mb-4 p-0'}>
             <TicketsMovieInfo isSkeleton={true} movieId={0} />
           </div>
           <BookingDetailsComponent isSkeleton={true} />
