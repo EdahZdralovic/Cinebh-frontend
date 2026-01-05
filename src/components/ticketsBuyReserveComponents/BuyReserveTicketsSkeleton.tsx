@@ -1,12 +1,11 @@
 import { useScrollToTop } from '../../hooks/useScrollToTop.ts';
-import { TicketsMovieInfo } from '../../components/ticketsBuyReserveComponents/TicketsMovieInfo.tsx';
 import { BookingDetailsComponent } from '../../components/ticketsBuyReserveComponents/BookingDetailsComponent.tsx';
 import { SeatGuideComponent } from './seatsComponent/SeatGuideComponent.tsx';
 import { ChosenSeatsComponent } from '../../components/ticketsBuyReserveComponents/ChosenSeatsComponent.tsx';
 import { CinemaScreen } from './seatsComponent/CinemaScreen.tsx';
-
 import { SessionTimer } from './sessionComponents/SessionTimer.tsx';
 import { SeatsSkeletonComponent } from './seatsComponent/SeatsSkeletonComponent.tsx';
+import { TicketsMovieInfoSkeleton } from './TicketsMovieInfoSkeleton.tsx';
 
 export function BuyReserveTicketsSkeleton() {
   useScrollToTop();
@@ -28,7 +27,7 @@ export function BuyReserveTicketsSkeleton() {
           className={' mx-[6%]  mb-6 flex md:flex-row flex-col animate-pulse'}
         >
           <div className={' md:w-5/12 w-full md:mb-0 mb-4 p-0'}>
-            <TicketsMovieInfo isSkeleton={true} movieId={0} />
+            <TicketsMovieInfoSkeleton />
           </div>
           <BookingDetailsComponent isSkeleton={true} />
         </div>
