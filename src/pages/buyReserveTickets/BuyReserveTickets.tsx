@@ -55,8 +55,13 @@ export function BuyReserveTickets({
   const { remainingMs, isExpired } = useSeatSessionCountdown(
     session?.expiresAt
   );
+  const expiredHandledRef = useRef(false);
+
   useEffect(() => {
     if (!isExpired || !session) return;
+    if (expiredHandledRef.current) return;
+
+    expiredHandledRef.current = true;
 
     (async () => {
       try {

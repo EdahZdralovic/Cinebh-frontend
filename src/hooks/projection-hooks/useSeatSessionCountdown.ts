@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 
-export function useSeatSessionCountdown(expiresAt?: number) {
+export function useSeatSessionCountdown(expiresAt?: string | number) {
   const [remainingMs, setRemainingMs] = useState<number>(0);
   const [isExpired, setIsExpired] = useState(false);
 
@@ -10,9 +10,13 @@ export function useSeatSessionCountdown(expiresAt?: number) {
       setIsExpired(false);
       return;
     }
+    const expiresMs =
+      typeof expiresAt === 'string' ? new Date(expiresAt).getTime() : expiresAt;
+
+    if (Number.isNaN(expiresMs)) return;
 
     const tick = () => {
-      const ms = expiresAt - Date.now();
+      const ms = expiresMs - Date.now();
       setRemainingMs(ms);
       if (ms <= 0) setIsExpired(true);
     };

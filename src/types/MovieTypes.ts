@@ -18,8 +18,8 @@ export interface MovieDetailsProps {
   imdbRating: number;
   rottenTomatoesRating: number;
   genres: string[];
-  mediaPhotoUrls: string[];
-  mediaVideoUrl: string;
+  mediaPhotoUrls?: string[];
+  mediaVideoUrl?: string;
   crew: CrewMemberProps[];
   projectionStart: string;
   projectionEnd: string;

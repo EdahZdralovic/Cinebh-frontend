@@ -8,7 +8,7 @@ interface ReserveSeatsPayload {
   projectionId: number;
   seatIds: number[];
   mode: ReservationMode;
-  sessionId?: string; // NEW
+  sessionId?: string;
 }
 
 export function useReserveSeats() {
