@@ -10,7 +10,6 @@ import { CinemaScreen } from '../../components/ticketsBuyReserveComponents/seats
 import { useEffect, useRef, useState } from 'react';
 import type { SeatStatus } from '../../types/ProjectionSeatLayout.ts';
 import { MovieNotFoundComponent } from '../../components/movie-details-components/movie-details-skeletons/MovieNotFoundComponent.tsx';
-import { BuyReserveTicketsSkeleton } from '../../components/ticketsBuyReserveComponents/BuyReserveTicketsSkeleton.tsx';
 import { SessionTimer } from '../../components/ticketsBuyReserveComponents/sessionComponents/SessionTimer.tsx';
 import { SessionBuyTicketPopUp } from '../../components/ticketsBuyReserveComponents/sessionComponents/SessionBuyTicketPopUp.tsx';
 import { useReserveSeats } from '../../hooks/projection-hooks/useReserveSeats.ts';
@@ -71,7 +70,7 @@ export function BuyReserveTickets({
     })();
   }, [isExpired, session]);
 
-  if (loading) return <BuyReserveTicketsSkeleton />;
+  if (loading) return <div>loading..</div>;
   if (error?.response?.status === 404 || !projectionData)
     return <MovieNotFoundComponent />;
 
