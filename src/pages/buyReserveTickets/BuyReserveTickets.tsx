@@ -10,6 +10,7 @@ import { CinemaScreen } from '../../components/ticketsBuyReserveComponents/seats
 import { useEffect, useRef, useState } from 'react';
 import type { SeatStatus } from '../../types/ProjectionSeatLayout.ts';
 import { MovieNotFoundComponent } from '../../components/movie-details-components/movie-details-skeletons/MovieNotFoundComponent.tsx';
+import { BuyReserveTicketsSkeleton } from '../../components/ticketsBuyReserveComponents/BuyReserveTicketsSkeleton.tsx';
 import { SessionTimer } from '../../components/ticketsBuyReserveComponents/sessionComponents/SessionTimer.tsx';
 import { SessionBuyTicketPopUp } from '../../components/ticketsBuyReserveComponents/sessionComponents/SessionBuyTicketPopUp.tsx';
 import { useReserveSeats } from '../../hooks/projection-hooks/useReserveSeats.ts';
@@ -41,6 +42,7 @@ export function BuyReserveTickets({
   const startedRef = useRef<number | null>(null);
 
   useEffect(() => {
+    if (loading) return;
     if (!projectionIdNum) return;
 
     if (startedRef.current === projectionIdNum) return;
@@ -49,7 +51,7 @@ export function BuyReserveTickets({
     void startSeatSession(projectionIdNum)
       .then(setSession)
       .catch(console.error);
-  }, [projectionIdNum]);
+  }, [loading, projectionIdNum]);
 
   const { remainingMs, isExpired } = useSeatSessionCountdown(
     session?.expiresAt
@@ -70,7 +72,7 @@ export function BuyReserveTickets({
     })();
   }, [isExpired, session]);
 
-  if (loading) return <div>loading..</div>;
+  if (loading) return <BuyReserveTicketsSkeleton />;
   if (error?.response?.status === 404 || !projectionData)
     return <MovieNotFoundComponent />;
 
