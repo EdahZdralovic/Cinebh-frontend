@@ -3,7 +3,6 @@ import { BookingDetailsComponent } from '../../components/ticketsBuyReserveCompo
 import { SeatGuideComponent } from './seatsComponent/SeatGuideComponent.tsx';
 import { ChosenSeatsComponent } from '../../components/ticketsBuyReserveComponents/ChosenSeatsComponent.tsx';
 import { CinemaScreen } from './seatsComponent/CinemaScreen.tsx';
-import { SessionTimer } from './sessionComponents/SessionTimer.tsx';
 import { SeatsSkeletonComponent } from './seatsComponent/SeatsSkeletonComponent.tsx';
 import { TicketsMovieInfoSkeleton } from './TicketsMovieInfoSkeleton.tsx';
 
@@ -14,7 +13,6 @@ export function BuyReserveTicketsSkeleton() {
     <section className={'grid grid-cols-1 text-[var(--color-primary)] mt-8 '}>
       <div className={'flex justify-between mx-[6%]'}>
         <h1 className={' text-2xl font-bold '}> Seat Options</h1>
-        <SessionTimer remainingMs={1000 * 60 * 5} />
       </div>
       <div className={' flex justify-between mt-1 mb-6'}>
         <div
