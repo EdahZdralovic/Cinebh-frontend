@@ -70,14 +70,6 @@ export function PaymentTickets() {
     })();
   }, [isExpired, booking]);
 
-  useEffect(() => {
-    return () => {
-      if (!booking?.id) return;
-      if (paymentSuccessRef.current) return;
-      expireBooking(booking.id).catch(() => {});
-    };
-  }, [booking?.id, successfulPayment]);
-
   const totalPrice = useMemo(() => {
     if (!booking?.seats?.length) return 0;
     return booking.seats.reduce((sum, seat) => sum + FromSeatToPrice(seat), 0);
@@ -187,13 +179,10 @@ export function PaymentTickets() {
 
       <SessionBuyTicketPopUp
         open={successfulPayment}
-        descriptionText="The receipt and ticket have been sent to your email. You may download them immediately, or retrieve them later from your User Profile."
+        descriptionText="The receipt and ticket have been sent to your email."
         headerText={'Payment Successful!'}
-        onConfirmFirst={handleDownloadTicket}
-        onConfirmSecond={handleBackHome}
-        secondButton={true}
-        secondButtonText={'Back To Home'}
-        buttonText={'Download'}
+        onConfirmFirst={handleBackHome}
+        buttonText={'Back To Home'}
       />
     </section>
   );
