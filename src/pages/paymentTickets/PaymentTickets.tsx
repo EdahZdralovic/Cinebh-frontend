@@ -9,10 +9,7 @@ import { useBookingForPayment } from '../../hooks/projection-hooks/useBookingFor
 import { useSavedCards } from '../../hooks/projection-hooks/useSavedCards.ts';
 import { AddNewCardComponent } from '../../components/paymentComponents/AddNewCardComponent.tsx';
 import { FromSeatToPrice } from '../../utils/ProjectionFunctions.ts';
-import {
-  downloadTicketPdf,
-  expireBooking,
-} from '../../services/ticketService.ts';
+import { expireBooking } from '../../services/ticketService.ts';
 import { expireSeatSession } from '../../services/seatSessionService.ts';
 import { useSeatSessionCountdown } from '../../hooks/projection-hooks/useSeatSessionCountdown.ts';
 import { BRANDS_OF_BANK_CARDS } from '../../utils/Constants.ts';
@@ -93,11 +90,6 @@ export function PaymentTickets() {
       console.warn('expireBooking failed', e);
     }
     navigate('/');
-  }
-
-  function handleDownloadTicket() {
-    if (!isValidBookingId) return;
-    void downloadTicketPdf(bookingIdNum);
   }
 
   if (!isValidBookingId) return <div>Invalid booking id</div>;
