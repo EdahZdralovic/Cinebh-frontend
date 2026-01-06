@@ -33,31 +33,27 @@ export function BuyReserveTickets({
   const { projectionId } = useParams<{ projectionId: string }>();
   const { reserveSeats } = useReserveSeats();
 
+  const projectionIdNum = projectionId ? Number(projectionId) : undefined;
+
   const [selectedSeats, setSelectedSeats] = useState<SeatStatus[]>([]);
   const [sessionExpired, setSessionExpired] = useState(false);
   const [popUpReservation, setPopUpReservation] = useState(false);
   const [session, setSession] = useState<SeatSessionDto | null>(null);
 
-  const projectionIdNum = useMemo(() => {
-    const id = Number(projectionId);
-    return isNaN(id) ? null : id;
-  }, [projectionId]);
-
-  const { projectionData, loading, error } = useProjectionSeatLayout(
-    projectionIdNum ?? 0
-  );
+  const { projectionData, loading, error } =
+    useProjectionSeatLayout(projectionIdNum);
 
   const sessionStartedRef = useRef(false);
 
-  // Start session only once
   useEffect(() => {
-    if (!projectionIdNum) return;
+    const id = projectionId ? Number(projectionId) : null;
+    if (!id || isNaN(id)) return;
     if (sessionStartedRef.current) return;
 
     sessionStartedRef.current = true;
 
-    startSeatSession(projectionIdNum).then(setSession).catch(console.error);
-  }, [projectionIdNum]);
+    startSeatSession(id).then(setSession).catch(console.error);
+  }, [projectionId]); // Use projectionId string directly as dependency
 
   const { remainingMs, isExpired } = useSeatSessionCountdown(
     session?.expiresAt
