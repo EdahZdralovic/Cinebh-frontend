@@ -39,19 +39,16 @@ export function BuyReserveTickets({
   );
   const [session, setSession] = useState<SeatSessionDto | null>(null);
   const projectionIdNum = Number(projectionId);
-  const startedRef = useRef<number | null>(null);
+  const sessionStartedRef = useRef(false);
 
   useEffect(() => {
-    if (loading) return;
     if (!projectionIdNum) return;
+    if (sessionStartedRef.current) return;
 
-    if (startedRef.current === projectionIdNum) return;
-    startedRef.current = projectionIdNum;
+    sessionStartedRef.current = true;
 
-    void startSeatSession(projectionIdNum)
-      .then(setSession)
-      .catch(console.error);
-  }, [loading, projectionIdNum]);
+    startSeatSession(projectionIdNum).then(setSession).catch(console.error);
+  }, [projectionIdNum]);
 
   const { remainingMs, isExpired } = useSeatSessionCountdown(
     session?.expiresAt
