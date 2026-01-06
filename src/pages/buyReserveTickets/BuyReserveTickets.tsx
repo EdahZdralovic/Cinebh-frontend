@@ -29,11 +29,15 @@ export function BuyReserveTickets({
   isForReservation = false,
 }: BuyReserveTicketsProps) {
   useScrollToTop();
+  console.log('🎬 BuyReserveTickets RENDER');
   const navigate = useNavigate();
   const { projectionId } = useParams<{ projectionId: string }>();
+  console.log('📍 projectionId:', projectionId);
+
   const { reserveSeats } = useReserveSeats();
 
   const projectionIdNum = projectionId ? Number(projectionId) : undefined;
+  console.log('🔢 projectionIdNum:', projectionIdNum);
 
   const [selectedSeats, setSelectedSeats] = useState<SeatStatus[]>([]);
   const [sessionExpired, setSessionExpired] = useState(false);
@@ -42,7 +46,12 @@ export function BuyReserveTickets({
 
   const { projectionData, loading, error } =
     useProjectionSeatLayout(projectionIdNum);
-
+  console.log(
+    '📊 projectionData:',
+    projectionData ? 'exists' : 'null',
+    'loading:',
+    loading
+  );
   const sessionStartedRef = useRef(false);
 
   useEffect(() => {
