@@ -21,7 +21,7 @@ export default function AppRoutes() {
       <Route path="/buy-ticket/:projectionId" element={<BuyReserveTickets />} />
       <Route
         path="/reserve-ticket/:projectionId"
-        element={<BuyReserveTickets isForReservation={true} />}
+        element={<BuyReserveTickets />}
       />
       <Route path="/payment-ticket/:bookingId" element={<PaymentTickets />} />
     </Routes>
