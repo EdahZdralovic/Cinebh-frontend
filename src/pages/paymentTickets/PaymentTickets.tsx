@@ -9,7 +9,10 @@ import { useBookingForPayment } from '../../hooks/projection-hooks/useBookingFor
 import { useSavedCards } from '../../hooks/projection-hooks/useSavedCards.ts';
 import { AddNewCardComponent } from '../../components/paymentComponents/AddNewCardComponent.tsx';
 import { FromSeatToPrice } from '../../utils/ProjectionFunctions.ts';
-import { expireBooking } from '../../services/ticketService.ts';
+import {
+  downloadTicketPdf,
+  expireBooking,
+} from '../../services/ticketService.ts';
 import { expireSeatSession } from '../../services/seatSessionService.ts';
 import { useSeatSessionCountdown } from '../../hooks/projection-hooks/useSeatSessionCountdown.ts';
 import { BRANDS_OF_BANK_CARDS } from '../../utils/Constants.ts';
@@ -92,6 +95,11 @@ export function PaymentTickets() {
     navigate('/');
   }
 
+  function handleDownloadTicket() {
+    if (!isValidBookingId) return;
+    void downloadTicketPdf(bookingIdNum);
+  }
+
   if (!isValidBookingId) return <div>Invalid booking id</div>;
   if (loading) return <div>Loading...</div>;
   if (error) return <div>Error: {error.message}</div>;
@@ -171,7 +179,7 @@ export function PaymentTickets() {
 
       <SessionBuyTicketPopUp
         open={successfulPayment}
-        descriptionText="The receipt and ticket have been sent to your email."
+        descriptionText="The receipt and ticket have been sent to your email. You may download them immediately, or retrieve them later from your User Profile."
         headerText={'Payment Successful!'}
         onConfirmFirst={handleBackHome}
         buttonText={'Back To Home'}

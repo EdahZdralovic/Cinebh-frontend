@@ -9,13 +9,13 @@ export const useProjectionSeatLayout = (projectionId?: number) => {
       queryKey: ['projection-seat-layout', projectionId],
       queryFn: () => getProjectionSeatLayout(projectionId!),
       enabled: !!projectionId,
+
       retry: (failureCount, error) => {
         if (error?.response?.status === 404) return false;
         return failureCount < 2;
       },
       staleTime: 1000 * 60 * 5,
-      refetchOnMount: false,
-      refetchOnWindowFocus: false,
+      refetchOnMount: true,
     }
   );
 

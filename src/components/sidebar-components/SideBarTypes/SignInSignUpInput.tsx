@@ -151,12 +151,12 @@ export function SignInSignUpInput({
               </button>
             </>
           ) : (
-            <div className={'flex flex-col justify-center'}>
+            <>
               <span className={'mr-1'}> Don’t have an account yet?</span>
               <button onClick={goToSignUp} className={'underline '}>
                 Sign Up
               </button>
-            </div>
+            </>
           )}
         </div>
         <div className="flex items-center w-full my-5">

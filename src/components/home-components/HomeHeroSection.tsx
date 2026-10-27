@@ -11,7 +11,6 @@ import { HomeHeroVariants } from '../../utils/animations.ts';
 import { HeroBuyTicketButton } from '../buttons/HeroBuyTicketButton.tsx';
 
 function HomeHeroSection() {
-  const COUNT = 3;
   const { mainCards, loading, error } = useMainCards(
     0,
     3,
@@ -19,12 +18,17 @@ function HomeHeroSection() {
   );
   const [movieNumber, setMovieNumber] = useState(0);
   const movies = mainCards;
+  const movieCount = movies.length;
+  const activeMovieNumber = movieCount > 0 ? movieNumber % movieCount : 0;
+
   useEffect(() => {
+    if (loading || error || movieCount <= 1) return;
+
     const interval = setInterval(() => {
-      setMovieNumber((prev) => (prev + 1) % 3);
+      setMovieNumber((prev) => (prev + 1) % movieCount);
     }, 7000);
     return () => clearInterval(interval);
-  }, [movieNumber]);
+  }, [loading, error, movieCount]);
 
   if (loading) return <HomeHeroSkeleton />;
   if (error)
@@ -36,14 +40,14 @@ function HomeHeroSection() {
     );
   if (!movies || movies.length === 0) return <HomeHeroSkeleton />;
 
-  const movie = movies[movieNumber];
+  const movie = movies[activeMovieNumber];
   const genre = movie.movieGenres?.[0];
 
   return (
     <section>
       <AnimatePresence mode="wait">
         <motion.div
-          key={movieNumber}
+          key={activeMovieNumber}
           variants={HomeHeroVariants}
           initial="enter"
           animate="center"
@@ -63,9 +67,9 @@ function HomeHeroSection() {
             <HeroBuyTicketButton movieId={movie.id} />
           </div>
           <div className="relative  pb-6 left-1/2-translate-x-1/2 flex justify-center gap-6 ">
-            {Array.from({ length: COUNT }).map((_, i) => (
+            {movies.map((_, i) => (
               <HeroButton
-                isActive={movieNumber === i}
+                isActive={activeMovieNumber === i}
                 onClick={() => setMovieNumber(i)}
                 key={i}
               />

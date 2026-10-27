@@ -57,7 +57,7 @@ export function MovieUpcomingProjections({
             ' p-8 border-gray-200 border rounded-b-2xl grid grid-cols-1 items-center '
           }
         >
-          <LongRedWhiteButton text={'Notify Me'} />
+          <LongRedWhiteButton text={'Notify Me'} disabled={true} />
           <div className={'col-span-2' + isLoggedIn ? ' ' : ' '}>
             <SignUpProjectionsButton
               isLoggedIn={false}
